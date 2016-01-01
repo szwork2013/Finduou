@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh" ng-app="FinduouApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Finduou</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="index,follow" />
+	<meta name="mobile-agent" content="format=html5">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content=“telephone=no” name=“format-detection” />
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<script src="http://cdn.bootcss.com/angular.js/1.4.6/angular.js"></script>
+	<script src="http://cdn.bootcss.com/angular.js/1.4.6/angular-route.min.js"></script>
+	<script type="text/javascript" src="js/global.js"></script>
+	<script type="text/javascript" src="js/base64code.js"></script>
+	<script type="text/javascript" src="js/dest/index.min.js"></script>
+   	<!--[if lt IE 9]>
+    	<script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src=" http://html5shiv.googlecode.com/svn/trunk/html5.js "></script >
+	<script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]--> 
+	
+</head>
+<body>
+	<article id="page">	
+		<header>
+			<div id="logo-box">
+				<img src="img/index/heard_logo.png">
+			</div>
+		</header>
+		<section id="main">
+			<div id="main-center" class="clear">
+				<div id="page-left" class="fl">
+					<img src="img/index/t_d_code.jpg">
+					<p>扫描二维码下载手机客户端</p>
+				</div>
+				<div id="page-right" class="fl" ng-view>
+					
+				</div>
+			</div>
+		</section>
+	</article>
+</body>
+</html>

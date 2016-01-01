@@ -1,0 +1,29 @@
+<div id="reset-wrap" ng-controller="reset">
+	<div class="wrap-title">
+		<h3>修改密码</h3>
+	</div>
+	<form id="reset-form">
+		<p>
+			<label class="email-label">邮箱</label>
+			<input id="user-email" type="text" autocomplete= "off" ng-model="resetEmail"/>
+		</p>
+		<p>
+			<label class="code-label">验证码</label>
+			<input id="id-code" type="text" autocomplete= "off" ng-model="idCode"/>
+			<button id="send-code" type="button" ng-bind="wait" ng-disabled="onoff" ng-click="sending()"></button>
+		</p>
+		<p>
+			<label>输入密码</label>
+			<input id="reset-pwd" type="password" autocomplete= "off" ng-model="newPwd" />
+		</p>
+		<p>
+			<label>确认密码</label>
+			<input id="resure-pwd" type="password" autocomplete= "off" ng-model="resurePwd"/>
+		</p>
+		<p>
+
+			<button id="reset-btn" type="button" ng-click="resetOperate()">重置</button>
+		</p>
+
+	</form>
+</div>

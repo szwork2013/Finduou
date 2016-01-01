@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>Finduou</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="index,follow" />
+	<meta name="mobile-agent" content="format=html5">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content=“telephone=no” name=“format-detection” />
+	<link rel="stylesheet" type="text/css" href="css/aStyle.css">
+	<link rel="stylesheet" type="text/css" href="css/bStyle.css">
+	<script type="text/javascript" src="js/global.js"></script>
+	<script type="text/javascript" src="framework/jQuery/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="js/base64code.js"></script>
+	<script type="text/javascript" src="js/modify/WdatePicker.js"></script>
+	<script type="text/javascript" src="js/dest/mActivity.min.js"></script>
+	
+   	<!--[if lt IE 9]>
+    	<script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src=" http://html5shiv.googlecode.com/svn/trunk/html5.js "></script >
+	<script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]--> 
+	<style type="text/css">
+
+	</style>
+</head>
+<body>
+	<header>
+		<div id="header-box" class="clear">
+			<div id="header-left" class="fl">
+				<img src="img/list/logo.png">
+				<strong>活动管理</strong>
+			</div>
+			<nav id="header-right" class="fr">
+				<a href="activeList.html"><span></span></a>
+				<a href="#"><span></span></a>
+				<a href="#"><span></span></a>
+				<ul id="nav-list">
+					<a href="javaScript:;" class="not-float"><li>修改密码</li></a>
+					<a href="javaScript:;" class="not-float"><li>登出</li></a>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<article id="main">
+		<div id="container">
+			<div class="main-content" ng-controller='addItem'>
+				<section class="main-title clear">
+					<h2 class="fl">
+						<strong>当前位置：</strong>
+						<a href="activeList.html">活动列表>></a>
+						<a href="addActivity.html">添加活动</a>
+					</h2>
+					<h2 class="fr">
+					<a id="return" href="activeList.html">返回</a>
+					</h2>
+				</section>
+				<section id="content-body" class="clear">
+					<div class="content-left fl">
+						<div class="fill-wrap clear">
+							<label>活动标题：</label>
+							<input id="title-input-write" type="text" placeholder="(必填)（1-30字）" />
+							<p class="left-tip fr">请输入活动标题</p>
+						</div>
+						<div class="fill-wrap">
+							<label>活动时间：</label>
+							<input  id="d422" class="Wdate" type="text" onfocus="WdatePicker({minDate:'%y-%M-#{%d}'})" placeholder="(必填)"/>
+							<input type="text" id="d242" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'H:mm'})" class="Wdate" placeholder="(必填)"/>
+							<input type="text" id="d243" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'H:mm'})" class="Wdate" placeholder="(必填)"/>
+							<p class="left-tip fr">请输入活动时间</p>
+						</div>
+						<div class="city-box clear">
+							<label class="fl">选择城市：</label>
+							<span class="fr">(必选)</span>
+							<div class="city-wrap fr">
+								<span class="select-result" onselectstart="return false">请选择</span>
+								<a class="small-icon" href="javaScript:;"></a>
+								<ul id="city-select" class="drop-list">
+								<li>纽约</li>
+								<li>洛杉矶</li>
+								<li>芝加哥</li>
+								</ul>
+							</div>
+							
+							
+						</div>
+						<div id="map-area">
+							<div class="address-wrap">
+								<label>活动地点：</label>
+								<input id="address-input-write" type="text" placeholder="(必填)"/>
+								<p class="left-tip fr">请输入活动地点</p>
+							</div>
+							<div id="map">
+
+							</div>
+						</div>
+					</div>
+					<div class="content-right fl">
+						<div class="clear">
+							<div class="select-wrap fl">
+								<label class="fl">活动类型：</label>
+								<div class="wrap">
+									<span class="select-result" onselectstart="return false">请选择</span>
+									<a href="javaScript:;" class="small-icon"></a>
+								</div>
+								<ul id="active-type-select" class="drop-list">
+									<li>生活娱乐</li>
+									<li>职业发展</li>
+								</ul>
+							</div>
+							<div class="select-wrap fl">
+								<label class="fl">活动状态：</label>
+								<div class="wrap">
+									<span class="select-result s1" onselectstart="return false">请选择</span>
+									<a class="small-icon" href="javaScript:;"></a>
+								</div>
+								<ul id="active-status-select">
+									<li>已启用</li>
+									<li>未启用</li>
+								</ul>
+							</div>
+						</div>
+						<div class="upload-wrap clear">
+							<label class="fl">上传海报：</label>
+							<div class="core fl">
+								<div class="main-control">
+									<a id="upbtn" href="javaScrpit:;"></a>
+									<span>上传海报(必传)</span>
+									<span>900*500</span>
+									<input id="upload" type="file" />
+								</div>
+								<div class="photoframe">
+									
+								</div>
+							</div>
+							<p id="poster-tip" class="right-tip fr">请上传活动海报&nbsp&nbsp</p>
+						</div>
+						<div class="intro-wrap clear">
+							<label class="fl">活动介绍：</label>
+							<textarea id="activity-intro" class="fl" placeholder="(必填)(10-300字)"></textarea>
+							<p class="right-tip fr">请正确填写活动介绍</p>
+						</div>
+						<div class="fill-wrap">
+							<label>报名问题：</label>
+							<input id="question" type="text" placeholder="(选填)" />
+						</div>
+						
+					</div>
+
+				</section>
+				<div id="submit-group">
+							<button id="save">保存</button>
+							<button id="cancel">删除</button>
+				</div>
+			</div>
+		</div>
+	</article>
+
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAslXLzbetaH41cOt6sBGsG4rW5W1FEb94&libraries=places&callback=initMap"async defer></script> -->
+</body>
+</body>
+</html>

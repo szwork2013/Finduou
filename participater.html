@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh" ng-app="FinduouApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Finduou</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="index,follow" />
+	<meta name="mobile-agent" content="format=html5">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content=“telephone=no” name=“format-detection” />
+	<link rel="stylesheet" type="text/css" href="css/participater.css">
+   	<!--[if lt IE 9]>
+    	<script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src=" http://html5shiv.googlecode.com/svn/trunk/html5.js "></script >
+	<script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]--> 
+	<script type="text/javascript" src="js/base64code.js"></script>
+	<script type="text/javascript" src="framework/angular/angular-1.4.6.js"></script>
+	<script type="text/javascript" src="js/participater/tm.pagination.js"></script>
+	<script type="text/javascript" src="js/global.js"></script>
+	<script type="text/javascript" src="js/participater/factory.js"></script>
+	<script type="text/javascript" src="js/participater/directive.js"></script>
+	<script type="text/javascript" src='js/participater/participater.js'></script>
+</head>
+<body>
+	<header>
+		<div id="header-box" class="clear">
+			<div id="header-left" class="fl">
+				<img src="img/participater/logo.png">
+				<strong>活动管理</strong>
+			</div>
+			<top-nav></top-nav>
+		</div>
+	</header>
+	<article id="main" ng-controller='c1'>
+		<div id="container">
+				<section class="main-title clear">
+					<h2 class="fl">
+						<strong>当前位置：</strong>
+						<a href="#">活动列表>></a>
+						<a href="#">活动参与人员</a>
+					</h2>
+					<div id="output" class="fl">
+						<a id="output-btn" href="javaScript:;" ng-click="download()">导出Excel</a>
+					</div>
+					<h2 class="fr">
+						<a id="return" href="activeList.html">返回</a>
+					</h2>
+				</section>
+				<section id="table-box">
+					<div id="table-wrap">
+						<div class="radius">
+							<table id="main-table">
+								<thead>
+									<tr>
+										<td>昵称</td>
+										<td>姓名</td>
+										<td>性别</td>
+										<td>报名时间</td>
+										<td>账号情况</td>
+										<td>学校</td>
+										<td>手机号</td>
+										<td>报名问题</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="val in results.Head">
+										<td><p ng-bind="val.join_nickname|base"></p></td>
+										<td ng-bind="val.join_name|base"></td>
+										<!-- <td ng-bind="val.join_name"></td> -->
+										<td ng-bind="val.join_sex|base"></td>
+										<td ng-bind="val.join_time|base"></td>
+										<td></td>
+										<td ng-bind="val.university_simple_name|base"></td>
+										<td ng-bind="val.join_mobile|base"></td>
+										<td ng-bind="val.answer|base"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</section>
+				<section id="paging-box" class="pagination clear" onselectstart="return false">
+					<tm-pagination conf="paginationConf"></tm-pagination>
+
+				</section>
+		</div>
+	</article>
+</body>
+</html>

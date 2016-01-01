@@ -1,0 +1,17 @@
+<div id="login-wrap" ng-controller="login">
+	<div class="wrap-title">
+		<h3>Finduou后台管理系统</h3>
+	</div>
+	<form id="login-form" name='loginForm'>
+		<h3>
+			<input id="p-username" type="text" name='email' autocomplete= "off" placeholder="请输入邮箱"  ng-model="userEmail" ng-keyup="keyLogin($event)"/>
+		</h3>
+		<h3>
+			<input id="p-pass" type="password" placeholder="请输入密码" ng-model="userPwd" ng-keyup="keyLogin($event)"  />
+		</h3>
+		<h3>
+			<input type="button" value="登录" class="login-btn" ng-click="loginOperate()" />
+		</h3>
+		<p><a href="" id="forget" ng-click="$location.path('resetPwd')">忘记密码</a></p>
+	</form>
+</div>

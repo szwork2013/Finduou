@@ -1,0 +1,56 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*reset*/
+body,h1,h2,h3,h4,h5,p,dl,dd,ul,ol,form,input,textarea,th,td,select,figure { margin:0; padding:0; }
+article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block};
+em { font-style:normal; }
+li { list-style:none; }
+a{ text-decoration:none; outline:none; }
+img { border:none; vertical-align:top; }
+body { font-size:16px; font-family:"微软雅黑",sans-serif; background:#e9eaee;}
+
+.clear{zoom:1;}
+.clear:after{content:'';display:block;; clear:both;}
+.fl{ float:left;}
+.fr{ float:right;}
+input{ -webkit-appearance:none; }
+input:focus{ box-shadow:0px 0px 4px #357bff; }
+/*reset end*/
+/*header*/
+header{ background: #fffffb; margin-bottom: 10px; }
+
+#header-box{ width: 1200px; height: 40px; margin: 0 auto; }
+#header-left img{ margin-top: 8px; margin-right: 30px; }
+#header-left strong{ font-size: 14px; line-height: 40px; color: #333333; font-family:"微软雅黑",sans-serif; font-weight: normal; }
+
+#header-right{ margin-right: 10px; position: relative;}
+#header-right a:not(.not-float){ float: left; margin-top: 10px; margin-left: 36px; }
+#header-right span{  width: 22px; height: 22px; float: left;}
+#header-right a:nth-of-type(1) span{ background: url(../img/apply/header_icon.png) no-repeat; }
+#header-right a:nth-of-type(2) span{ background: url(../img/apply/header_icon.png) no-repeat -58px 0; }
+#header-right a:nth-of-type(3) span{ background: url(../img/apply/header_icon.png) no-repeat -109px 0; }
+#nav-list{ position: absolute; left: 36px; top: 40px; border: 1px solid #333;  border-bottom: none; display: none; }
+#nav-list li{ width: 130px; height: 40px; text-align: center; line-height: 40px; border-bottom: 1px solid #333; color: #f00;}
+#nav-list li:hover{ background: #333; }
+
+/*container*/
+#container{ width: 1200px; margin: 0 auto; background: #fbfbfb; border-radius: 5px; border: 1px solid #d4d4d4; }
+/*main*/
+
+.main-title{ height: 49px; border-bottom: 1px solid #d4d4d4; color: #333333;}
+.main-title h2:nth-of-type(1) a{ font-size: 14px; color: #333333; font-family:"微软雅黑",sans-serif; font-weight: normal; line-height: 49px; margin-left: -4px; }
+.main-title strong{ font-size: 14px; color: #333333; font-family:"微软雅黑",sans-serif; font-weight: normal;  margin-left: 16px;}
+
+.main-title h2:nth-of-type(2){}
+#return{ width: 94px; height: 33px;font-size: 14px; color: #fff; font-family:"微软雅黑",sans-serif;font-weight: normal; margin-right: 14px; background: #5890ff; display: inline-block; border-radius: 5px; line-height: 33px;text-align: center; margin-top: 8px;}
+
+
+/*operate*/
+#operate-group{  padding: 54px 0; padding-bottom: 100px;}
+.fill-wrap{ margin-bottom: 35px; margin-left: 410px; }
+.fill-wrap input{ height: 33px; width: 220px; border-radius: 5px; outline: none; border: 1px solid #cacaca; font-size: 14px; color: #333333; font-family:"微软雅黑",sans-serif;}
+.fill-wrap label{   font-size: 14px; color: #333333; font-family:"微软雅黑",sans-serif; }
+.fill-wrap span{  font-size: 12px; color: #f51c1c; font-family:"微软雅黑",sans-serif; padding-left: 20px; margin-left: 10px; background: url(../img/apply/error.png) no-repeat 0 2px; display: none; }
+#submit-btn{height: 33px; width: 220px; margin-left: 500px; border: none; background: #5890ff; border-radius: 5px; font-size: 14px; color: #ffffff; font-family:"微软雅黑",sans-serif; cursor: pointer;outline: none;}
+.fill-wrap:not(.not) label{ margin-right: 14px; }

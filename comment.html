@@ -12,6 +12,7 @@
 	<meta content=“telephone=no” name=“format-detection” />
 	<link rel="stylesheet" type="text/css" href="css/comment.css">
 	<script type="text/javascript" src="js/global.js"></script>
+	<script type="text/javascript" src="js/base64code.js"></script>
 	<script type="text/javascript" src="framework/jQuery/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript" src="js/comment/jqPaginator.js"></script>
 	<script type="text/javascript" src="js/comment/comment.js"></script>
@@ -29,11 +30,11 @@
 				<strong>活动管理</strong>
 			</div>
 			<nav id="header-right" class="fr">
-				<a href="#"><span></span></a>
+				<a href="activeList.html"><span></span></a>
 				<a href="#"><span></span></a>
 				<a href="#"><span></span></a>
 				<ul id="nav-list">
-					<a href="#" class="not-float"><li>修改密码</li></a>
+					<a href="mPassword.html" class="not-float"><li>修改密码</li></a>
 					<a href="#" class="not-float"><li>登出</li></a>
 				</ul>
 			</nav>
@@ -44,11 +45,11 @@
 			<section class="main-title clear">
 				<h2 class="fl">
 					<strong>当前位置：</strong>
-					<a href="#">活动列表>></a>
-					<a href="#">活动评论</a>
+					<a href="activeList.html">活动列表>></a>
+					<a href="comment.html">活动评论</a>
 				</h2>
 				<h2 class="fr">
-					<a id="return" href="#">返回</a>
+					<a id="return" href="activeList.html">返回</a>
 				</h2>
 			</section>
 			<section class="show-wall">
@@ -56,17 +57,19 @@
 					<div class="s-unit clear">
 						<div class="fl">
 							<figure>
-								<img src="img/comment/demo-img.jpg">
+								<div id="fix">
+									<img src="img/comment/demo-img.jpg">
+								</div>
 							</figure>
 						</div>
 						<div class="activity-details fl">
-							<h3 class="activity-title">北美LOL大赛开赛啦!</h3>
-							<p class="create-time"><span>创建时间：</span><span>2015/12/25</span><span>22.48</span></p>
-							<p class="address"><span>活动地点：</span><span>West Lake</span></p>
-							<p class="actor-number"><span>报名人数：</span><span>56</span></p>
-							<p class="activity-time"><span>活动时间：</span><span>2015/12/25</span> <span>14:00-16:00</span></p>
-							<p class="activity-type"><span>活动类型：</span><span>学术类</span></p>
-							<p class="founder"><span>创建者：</span><span>王美琪</span></p>
+							<h3 id="activity-title">北美LOL大赛开赛啦!</h3>
+							<p id="create-time"><span>创建时间：</span><span>2015/12/25</span><span>22.48</span></p>
+							<p id="address"><span>活动地点：</span><span>West Lake</span></p>
+							<p id="actor-number"><span>报名人数：</span><span>56</span></p>
+							<p id="activity-time"><span>活动时间：</span><span>2015/12/25</span> <span>14:00-16:00</span></p>
+							<p id="activity-type"><span>活动类型：</span><span>学术类</span></p>
+							<p id="founder"><span>创建者：</span><span>王美琪</span></p>
 						</div>
 					</div>
 				</div>
@@ -74,9 +77,9 @@
 			<section id="mian">
 				<div class="main-top">
 					<ul id="status-list">
-						<a href="#" class="active"><li>全部</li></a>
-						<a href="#"><li>已上墙</li></a>
-						<a href="#"><li>未上墙</li></a>
+						<a href="javaScript:;" class="active"><li>全部</li></a>
+						<a href="javaScript:;"><li>已上墙</li></a>
+						<a href="javaScript:;"><li>未上墙</li></a>
 					</ul>
 					<button type="button" id="fresh">刷新</button>
 				</div>
@@ -92,12 +95,11 @@
 						</tr>
 					</thead>
 					<tbody>
-						
 						<tr>
 							<td><div class="cell"><img src="img/comment/demo-img.jpg"></div></td>
 							<td><p>15:30</p></td>
 							<td><p>欧阳雨馨</p></td>
-							<td><p>未上墙</p></td>
+							<td><p class="not">未上墙</p></td>
 							<td>
 								<div class="btn-wrap">
 									<a class="show-it" href="#">上墙</a><br>
@@ -106,21 +108,22 @@
 							</td>
 						</tr>
 						<tr>
-							<td><div class="cell"><p>社团好热闹啊，活跃起来，come on</p></div></td>
+							<td><div class="cell"><p>社团好热闹啊，活跃起来，come onfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</p></div></td>
 							<td><p>15:30</p></td>
 							<td><p>欧阳雨馨</p></td>
-							<td><p>已上墙</p></td>
+							<td><p class="already">已上墙</p></td>
 							<td>
 								<div class="btn-wrap">
 									<a class="remove-it" href="#">删除</a>
 								</div>
 							</td>
 						</tr>
+						<tr><td id="none" colspan="5"><h1>暂无数据</h1></td></tr>
 					</tbody>
 				</table>
 			</div>
-			<footer class="pagination">
-				<ul>
+			<footer id="paging-box">
+				<!-- <ul>
 					<li><a href="#">首页</a></li>
 					<li><a href="#">上一页</a></li>
 					<li><a href="#">1</a></li>
@@ -130,7 +133,7 @@
 					<li><a href="#">5</a></li>
 					<li><a href="#">下一页</a></li>
 					<li><a href="#">尾页</a></li>
-				</ul>
+				</ul> -->
 			</footer>
 			</section>
 		</div>

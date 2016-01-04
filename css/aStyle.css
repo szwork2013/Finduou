@@ -48,7 +48,7 @@
 	.upload-wrap{ margin-top: 25px; margin-left: 32px;}
 	.core{ width: 292px; height: 150px;  border: 1px solid #cacaca; border-radius: 5px; position: relative; margin-bottom: 6px;}
 	.main-control{ width: 100px; margin: 0 auto; margin-top: 40px;text-align: center;  position: relative; z-index: 11; }
-	.main-control a { width: 67px; height: 67px; margin: 0 auto; display: block; background: url(../img/list/upload_icon.png) no-repeat; }
+	.main-control em { width: 67px; height: 67px; margin: 0 auto; display: block; background: url(../img/list/upload_icon.png) no-repeat; cursor: pointer; }
 	.main-control span{ font-size: 14px; font-family: "微软雅黑",sans-serif; color: #333; }
 	.main-control input{ position: absolute; left: 0; top: 0; width: 67px; height:67px; outline: none; z-index: -111; visibility: hidden;}
 	.photoframe{position: absolute; top: 0; left: 0; z-index: 3; }

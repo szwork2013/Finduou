@@ -27,7 +27,7 @@
 	#city-select li:hover{ background: #eee; }
 	.city-box .small-icon{ width: 24px; height: 33px; background: #e9eaee url(../img/list/area_icon.png) no-repeat 7px 15px; border-radius: 0 5px 5px 0; position: absolute; right: 0px; top: 0px; }
 	/*content-right*/
-	.content-right{ margin-left: 48px; width: 538px; }
+	.content-right{ margin-left: 48px; width: 586px; }
 	
 	.content-right label{   font-size: 14px; color: #333333; font-family:"微软雅黑",sans-serif; }
 	.content-right .small-icon{ width: 24px; height: 33px; background: #e9eaee url(../img/list/area_icon.png) no-repeat 7px 15px; border-radius: 0 5px 5px 0; position: absolute; right: 0px; top: 0px; }

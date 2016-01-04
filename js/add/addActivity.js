@@ -58,7 +58,7 @@ $(function(){
 	var data = new FormData();
 
 
-	var reg =/[@#\$%\^&\*<>]+/g;
+	var reg =/[<>]+/g;
 
 
 	$('#upload').change(function(e){
@@ -106,8 +106,14 @@ $(function(){
 })
 
 	//submit
+	var sonoff = true;
 	var str = '';
 	$('#save').click(function(event) {
+		if(sonoff){//防止多次请求开关
+			sonoff = false;
+		}else{
+			return false;
+		}
 		var onoff = false;
 
 		if($('#title-input-write').val().length>30)
@@ -199,24 +205,26 @@ $(function(){
 		//////////////intro
 		if($('#activity-intro').val()=='')
 		{
-			$('#activity-intro').next().show();
+			//$('#activity-intro').next().show();
+			$('#activity-intro').next().html('活动介绍长度10~300字符').show();
 			onoff = true;
 		}
 		else if($('#activity-intro').val().length>300||$('#activity-intro').val().length<10)
 		{
-			$('#activity-intro').next().show();
+			//$('#activity-intro').next().show();
+			$('#activity-intro').next().html('活动介绍长度10~300字符').show();
 			onoff = true;
 		}
 		else if(reg.test($('#activity-intro').val()))
 		{
-			$('#activity-intro').next().show();
+			//$('#activity-intro').next().show();
+			$('#activity-intro').next().html("活动介绍不能含有'<'或者'>'").show();
 			onoff = true;
 		}
 		else
 		{
 			$('#activity-intro').next().hide();
 			str = $('#activity-intro').val();
-			//str = $('#activity-intro').val().replace(/( )/g,'&nbsp').replace(/(\n)/g,'&brbr&')
 		}
 		//////
 		if(reg.test($('#question').val()))
@@ -237,6 +245,7 @@ $(function(){
 		/////
 		if(onoff)
 		{
+			sonoff = true;
 			return false;
 		}
 		data.append('circle_id','')
@@ -285,6 +294,7 @@ $(function(){
 			},
 			error:function(obj){
 				alert(obj.status+'失败');
+				sonoff = true;
 			}
 		});
 		})

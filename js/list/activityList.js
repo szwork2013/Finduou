@@ -1,5 +1,4 @@
 $(function(){
-
 	if(strdecode(getCookie('token'))==''||strdecode(getCookie('token'))==undefined||strdecode(getCookie('token'))==-1)
 	{
 		window.location.href = 'index.html'
@@ -48,16 +47,51 @@ $(function(){
 	});
 
 	/*prevent scroll*/
+	var scroll = true;
 	var oDiv = document.getElementById('preview-page');
-	oDiv.onmousewheel = function(){
-		return false;
-	};
+	oDiv.onmousewheel = preview;
 	if(oDiv.addEventListener)//兼容性处理
 	{
-		oDiv.addEventListener('DOMMouseScroll',function(ev){
-			var e = ev || window.event
-			e.preventDefault();
-			return false;},false);
+		oDiv.addEventListener('DOMMouseScroll',preview,false);
+	}
+	function preview(ev){
+		var oEvent = ev || window.event;
+		var b = true;//true往上滚
+		
+		if(oEvent.wheelDelta)
+		{
+			b = oEvent.wheelDelta >0 ? true : false;
+		}
+		else
+		{
+			b = oEvent.detail>0? false : true;
+		}
+		
+		if(b)
+		{
+			if(scroll)
+			{
+				scroll = false;
+				$('.page-wrap').animate({'top':0}, 500,'swing',function(){
+					scroll = true;
+				})
+			}
+		}
+		else
+		{	
+			if(scroll)
+			{
+				scroll = false;
+				$('.page-wrap').animate({'top':-180}, 500,'swing',function(){
+					scroll = true;
+				})
+			}	
+		}
+		if(oEvent.stopPropagation)
+		{
+			oEvent.stopPropagation();
+		}
+		return false;
 	}
 	////////////////////////////////main
 	

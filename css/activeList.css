@@ -100,6 +100,7 @@ header{ background: #fffffb; margin-bottom: 10px; }
 /*result-unit*/
 .s-unit{ height: 230px; padding-bottom: 30px; border-bottom: 1px solid #d7d7d7; position: relative;  }
 .s-unit figure{ margin: 42px 30px 0px 18px; }
+figure a { display: block; }
 .s-unit img{ width: 236px; height: 155px; }
 
 .activity-details{ margin-top: 42px; }

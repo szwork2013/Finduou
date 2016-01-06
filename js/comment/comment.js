@@ -69,20 +69,27 @@ $(function(){
 	common.totalPages = 0;//总页数
 	common.inow = 0;
 	common.notRepeat = 0;//防止点击tab多次请求
-	common.flag = 0;//标识查找内容
-	plan.init()
+	common.flag = '';//标识查找内容 初始化是空 
+	plan.init('',1)
 	
 	//////表格初始化
 	$('#status-list').find('a').click(function(event) {
 		if(common.notRepeat==$(this).index()){
 			return false;
 		}
-		common.flag = $(this).index();//记录请求哪种类型的数据
+		if($(this).index()==0){
+			common.flag =''
+		}else if($(this).index()==1){
+			common.flag = 1;//记录请求哪种类型的数据
+		}else if($(this).index()==2){
+			common.flag = 0;
+		}
+		
 		common.notRepeat=$(this).index();
 		$(this).siblings().attr('class','');
 		$(this).attr('class','active');
 		var This = $(this)
-		if(This.index()==1)
+		if(This.index()==1)//样式处理
 		{
 			This.css('borderRadius',0)
 		}else if(This.index()==2)
@@ -90,7 +97,7 @@ $(function(){
 			This.css('borderRadius','0 5px 0 0')
 		}
 		//$('#fresh').click()
-		plan.init();
+		plan.init(common.flag,1);
 	});
 
 	//删除操作
@@ -101,32 +108,32 @@ $(function(){
 
 	//上墙操作
 	$('tbody').delegate('.show-it', 'click', function(event) {
-		$('#fresh').click()
+		//$('#fresh').click()
+		plan.upWall($(this).attr('data'))
 	});
 
 	//刷新操作
 	$('#fresh').click(function(event) {
-		plan.init();
+		plan.init(common.flag,1);
 	});
 
 })
 
 /////////////function
 plan.init =  function(iFlag,iPage){//页面数据初始化
-
 	$.ajax({
 		url:basic.topAddress+basic.subAddress+'circle_activity_replyWs.asmx/GetAll?jsoncallback=?',
 		type: 'GET',
 		dataType: 'jsonp',
-		data: {'activity_id':'','user_id':'','pageSize':'5','pageIndex':'1'},
+		data: {'activity_id':'','user_id':'','on_wall':iFlag,'pageSize':'10','pageIndex':'1'},
 	})
 	.done(function(data) {
-		//console.log(data);
+		//console.log(strdecode(data.Head[0].RowCount));
 		plan.flii(data)
 		if(data.Head.length!=0){
 			common.totalPages = strdecode(data.Head[0].RowCount)
 			$('#paging-box').jqPaginator({
-				totalPages: Math.ceil(common.totalPages/5),
+				totalPages: Math.ceil(common.totalPages/10),
 				visiblePages: 5,
 				currentPage: 1,
 				onPageChange:function(num,type){
@@ -150,7 +157,7 @@ plan.req =  function(iFlag,iPage){//请求数据
 			url:basic.topAddress+basic.subAddress+'circle_activity_replyWs.asmx/GetAll?jsoncallback=?',
 			type: 'GET',
 			dataType: 'jsonp',
-			data: {'activity_id':'','user_id':'','pageSize':'5','pageIndex':iPage},
+			data: {'activity_id':'','user_id':'','on_wall':iFlag,'pageSize':'10','pageIndex':iPage},
 		})
 		.done(function(data) {
 			if(data.error)
@@ -158,6 +165,7 @@ plan.req =  function(iFlag,iPage){//请求数据
 				alert(data.error)
 				window.location.href = 'index.html'
 			}else{	
+				$('html,body').animate({scrollTop: '0px'}, 0);
 				plan.flii(data)
 			}
 
@@ -169,16 +177,19 @@ plan.req =  function(iFlag,iPage){//请求数据
 
 plan.flii = function(data){//填充方法；
 	obj=data.Head;
+	console.log(data);
 	$('tbody').empty()
 	if(obj.length==0){
 		$('tbody').html("<tr><td id='none' colspan='5'><h1>暂无数据</h1></td></tr>")
+		$('#paging-box').jqPaginator('destroy');
 		return false;
 	}
 	
 	for(var i=0;i<obj.length;++i)
 	{
+		//console.log(i);
 		var oTr = $('<tr></tr>');
-		var content = obj[i].reply_photo==''?"<div class='cell'><p>"+strdecode(obj[i].reply_photo)+"</p></div>":"<div class='cell'><img src='"+basic.topAddress+basic.webAddress+strdecode(obj[i].reply_photo)+"'></div>"
+		var content = obj[i].content!=''?"<div class='cell'><p>"+strdecode(obj[i].content)+"</p></div>":"<div class='cell'><img src='"+basic.topAddress+basic.webAddress+strdecode(obj[i].reply_photo)+"'></div>"
 		var td1 = $('<td></td>').html(content);
 		var td2 = $('<td></td>').html("<p>"+strdecode(obj[i].create_time)+"</p>");
 		var td3 = $('<td></td>').html("<p>"+strdecode(obj[i].reply_nickname)+"</p>");
@@ -194,7 +205,7 @@ plan.flii = function(data){//填充方法；
 
 }
 plan.cancel = function(cid){//删除方法
-	alert(cid)
+	//alert(cid)
 	$.ajax({
 		url:basic.topAddress+basic.subAddress+'circle_activity_replyWs.asmx/Delete?jsoncallback=?',
 		type: 'GET',
@@ -209,12 +220,12 @@ plan.cancel = function(cid){//删除方法
 	})
 }
 plan.upWall = function(cid){//上墙方法
-	alert(cid)
+	//alert(cid)
 	$.ajax({
-		url:basic.topAddress+basic.subAddress+'circle_activity_replyWs.asmx/Delete?jsoncallback=?',
+		url:basic.topAddress+basic.subAddress+'circle_activity_replyWs.asmx/OnWallFlag?jsoncallback=?',
 		type: 'GET',
 		dataType: 'jsonp',
-		data: {'id':cid,'USER':'','TOKEN':strdecode('MmJhYzBmMGEwZWUyNGYxM2JmYmI2ZGFiNDFmY2RlOTc=')},
+		data: {'id':cid,'on_wall':'1','USER':'','TOKEN':strdecode('MmJhYzBmMGEwZWUyNGYxM2JmYmI2ZGFiNDFmY2RlOTc=')},
 	})
 	.done(function(data) {
 		$('#fresh').click()

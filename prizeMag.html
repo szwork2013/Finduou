@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh" ng-app="FinduouApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Finduou</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="index,follow" />
+	<meta name="mobile-agent" content="format=html5">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content=“telephone=no” name=“format-detection” />
+	<link rel="stylesheet" type="text/css" href="css/prizeMag.css">
+	<script type="text/javascript" src="js/global.js"></script>
+	<script type="text/javascript" src="js/base64code.js"></script>
+	<script type="text/javascript" src="framework/jQuery/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="js/prizeMag/prizeMag.js"></script>
+   	<!--[if lt IE 9]>
+    	<script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src=" http://html5shiv.googlecode.com/svn/trunk/html5.js "></script >
+	<script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]--> 
+</head>
+<body>
+	<header>
+		<div id="header-box" class="clear">
+			<div id="header-left" class="fl">
+				<img src="img/comment/logo.png">
+				<strong>活动管理</strong>
+			</div>
+			<nav id="header-right" class="fr">
+				<a href="activeList.html"><span></span></a>
+				<a href="#"><span></span></a>
+				<a href="#"><span></span></a>
+				<ul id="nav-list">
+					<a href="mPassword.html" class="not-float"><li>修改密码</li></a>
+					<a href="#" class="not-float"><li>登出</li></a>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<article id="main">
+		<div id="container" ng-view>
+			<section class="main-title clear">
+				<h2 class="fl">
+					<strong>当前位置：</strong>
+					<a href="activeList.html">活动列表>></a>
+					<a href="comment.html">奖品管理</a>
+				</h2>
+				<h2 class="fr">
+					<button id="add" href="#">添加奖品</button>
+				</h2>
+				<div id="addLayer">
+					<div id="addBox">
+						<div class="fill-wrap">
+							<label>奖项名称：</label>
+							<input id="name-input" type="text" />
+							<span>1~10个字符</span>
+						</div>
+						<div class="fill-wrap">
+							<label class="mA">奖品：</label>
+							<input id="award-input" type="text" />
+							<span>1~30个字符</span>
+						</div>
+						<div class="fill-wrap">
+							<label>奖品个数：</label>
+							<input id="total-input" type="text" />
+							<span>填写范围1~20</span>
+						</div>
+						<div class="btn-wrap">
+							<button id="add-btn">添加</button>
+							<button id="cancel-btn">取消</button>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="show-wall">
+				<div class="unit-wrap">
+					<div class="s-unit clear">
+						<div class="fl">
+							<figure>
+								<div id="fix">
+									<img src="img/comment/demo-img.jpg">
+								</div>
+							</figure>
+						</div>
+						<div class="activity-details fl">
+							<h3 id="activity-title"></h3>
+							<p id="create-time"><span>创建时间：</span><span></span><span></span></p>
+							<p id="address"><span>活动地点：</span><span></span></p>
+							<p id="actor-number"><span>报名人数：</span><span></span></p>
+							<p id="activity-time"><span>活动时间：</span><span></span> <span></span></p>
+							<p id="activity-type"><span>活动类型：</span><span></span></p>
+							<p id="founder"><span>创建者：</span><span></span></p>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="main">
+			<div class="main-body">
+				<table id="main-table">
+					<thead>
+						<tr>
+							<td>奖项名称</td>
+							<td>奖品</td>
+							<td>奖品个数</td>
+							<td>中奖名单</td>
+							<td>操作</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="n1">
+								<div class="cell">
+									<p class="text">一等奖</p>
+									<input type="text" class="aName" />
+								</div>
+							</td>
+							<td class="n2">
+								<div class="cell">
+									<p class="text">iphone6s</p>
+									<input type="text" class="award" />
+								</div>
+							</td>
+							<td class="n3">
+								<div class="cell">
+									<p class="text">1</p>
+									<input type="text" class="number" />
+								</div>
+							</td>
+							<td><p class="not" title="王小二">王小二</p></td>
+							<td>
+								<div class="btn-wrap">
+									<button class="lottery" href="#">抽奖</button>
+									<button class="remove-it" href="#">删除</button>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			</section>
+		</div>
+	</article>
+</body>
+</html>

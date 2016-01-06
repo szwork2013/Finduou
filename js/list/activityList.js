@@ -82,7 +82,7 @@ $(function(){
 			if(scroll)
 			{
 				scroll = false;
-				$('.page-wrap').animate({'top':-180}, 500,'swing',function(){
+				$('.page-wrap').animate({'top':-100}, 500,'swing',function(){
 					scroll = true;
 				})
 			}	
@@ -154,6 +154,7 @@ $(function(){
 					{}
 					else
 					{
+						$('html,body').animate({scrollTop: '0px'}, 0)
 						ajax2()
 					}
 					
@@ -202,6 +203,7 @@ function getAll(cur){
 				}
 				else
 				{
+					$('html,body').animate({scrollTop: '0px'}, 0)
 					ajax(num)
 				}
 				
@@ -241,11 +243,11 @@ function fill(data){
         {
             var obj = $('<div></div>');
             obj.addClass('s-unit clear');
-            var a = $('<div></div>').addClass('fl').html("<figure><img src='"+basic.topAddress+basic.webAddress+strdecode(data.Head[i].poster)+"'></figure>")
-            var str = "<h3 class='activity-title'>"+strdecode(data.Head[i].title)+"</h3>\
+            var a = $('<div></div>').addClass('fl').html("<figure><a href='mActivity.html?aid="+data.Head[i].id+"'><img src='"+basic.topAddress+basic.webAddress+strdecode(data.Head[i].poster)+"'></a></figure>")
+            var str = "<a href='mActivity.html?aid="+data.Head[i].id+"'><h3 class='activity-title'>"+strdecode(data.Head[i].title)+"</h3></a>\
             <p class='create-time'><span>创建时间：</span><span>"+strdecode(data.Head[i].create_time).split(' ')[0]+"</span>&nbsp<span>"+strdecode(data.Head[i].create_time).split(' ')[1]+"</span></p>\
             <p class='address'><span>活动地点：</span><span>"+strdecode(data.Head[i].place)+"</span></p>\
-            <p class='actor-number'><span>报名人数：</span><span>"+strdecode(data.Head[i].join_number)+"</span></p>\
+            <p class='actor-number'><span>报名人数：</span><a href='participater.html?aid="+data.Head[i].id+"'><span>"+strdecode(data.Head[i].join_number)+"</span></a></p>\
             <p class='activity-time'><span>活动时间：</span><span>"+strdecode(data.Head[i].set_date).split(' ')[0]+"</span>&nbsp<span>"+strdecode(data.Head[0].set_time_s)+"-"+strdecode(data.Head[0].set_time_e)+"</span></p>\    <p class='activity-type'><span>活动类型：</span><span>"+strdecode(data.Head[i].type)+"</span></p>\
             <p class='founder'><span>创建者：</span><span>"+strdecode(data.Head[i].creater_name)+"</span></p>"
            // console.log(data.Head[0].set_date);

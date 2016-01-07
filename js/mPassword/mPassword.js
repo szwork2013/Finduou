@@ -29,6 +29,8 @@ $(function(){
 	});
 	/////submit
 	var onoff = true;
+	var uid = strdecode(getCookie('id'));
+	var token = strdecode(getCookie('token'));
 	//$('#submit-btn').attr('disabled','true')
 	$('#submit-btn').click(function(){
 		$(this).attr('disabled','true');
@@ -54,8 +56,7 @@ $(function(){
 			$('#inow').next().html('两次密码输入不一致').show();
 			$('#resure').next().html('两次密码输入不一致').show();
 			onoff = false;
-		}
-		else{
+		}else{
 			if(onoff)
 			{
 				$('#inow').next().hide();
@@ -65,13 +66,26 @@ $(function(){
 		}
 		if(onoff){
 			$.ajax({
-				url:basic.topAddress+basic.subAddress+'circle_activityWS.asmx/GetOne?jsoncallback=?',
+				url:basic.topAddress+basic.subAddress+'sys_userWs.asmx/UpdatePwd?jsoncallback=?',
 				type: 'GET',
 				dataType: 'jsonp',
-				data: {'id':aid},
+				data: {'id':uid,'login_pwdo':$('#ipast').val(),'login_pwd':$('#inow').val(),'USER':'','TOKEN':token},
 			})
-			.done(function() {
-				
+			.done(function(data) {
+				//console.log(uid);
+				//console.log(token);
+				if(data.error){
+					alert(data.error)
+					if(data.error=='权限不足'){
+						window.location.href = 'index.html'
+					}
+					onoff = true;
+					$('#submit-btn').attr('disabled',false)
+					return false;
+				}else{
+					alert('修改密码成功！')
+					window.location.href = 'activeList.html'
+				}
 			})
 			.fail(function() {
 				onoff = true;

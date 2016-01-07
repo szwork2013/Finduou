@@ -30,9 +30,9 @@ header{ background: #fffffb; margin-bottom: 10px; }
 #header-right a:nth-of-type(1) span{ background: url(../img/apply/header_icon.png) no-repeat; }
 #header-right a:nth-of-type(2) span{ background: url(../img/apply/header_icon.png) no-repeat -58px 0; }
 #header-right a:nth-of-type(3) span{ background: url(../img/apply/header_icon.png) no-repeat -109px 0; }
-#nav-list{ position: absolute; left: 36px; top: 40px; border: 1px solid #333;  border-bottom: none; display: none; }
-#nav-list li{ width: 130px; height: 40px; text-align: center; line-height: 40px; border-bottom: 1px solid #333; color: #f00;}
-#nav-list li:hover{ background: #333; }
+#nav-list{ position: absolute; left: 36px; top: 40px; border: 1px solid #cacaca;  border-bottom: none; display: none; background: #fff; }
+#nav-list li{ width: 130px; height: 40px; text-align: center; line-height: 40px; border-bottom: 1px solid #cacaca; color: #333;}
+#nav-list li:hover{ background: #eee; }
 
 /*container*/
 #container{ width: 1200px; margin: 0 auto; background: #fbfbfb; border-radius: 5px; border: 1px solid #d4d4d4; }

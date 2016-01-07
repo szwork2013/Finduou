@@ -255,9 +255,10 @@ function fill(data){
             var str2 = ""
             str2+=strdecode(data.Head[i].state)=='已启用'?"<li>状态：<span class='can-use'>已启用</span></li>":"<li>状态：<span class='not'>未启用</span></li>";
             //alert(str2)
+           // console.log(strdecode(data.Head[i].aduit_flag));
             str2+="<li class='modify'><a href='mActivity.html?aid="+data.Head[i].id+"'>修改活动</a></li><li class='member'><li class='member'><a href='participater.html?aid="+data.Head[i].id+"'>查看人员</a></li>"
             //str2+="<li class='comment'><a href='javaScript:;'>评论管理</a></li>"
-          //  str2+=data.Head[i].aduit_flag=='0'?"<li class='apply'><a href='apply.html?aid="+strencode(data.Head[i].id)+"'>申请背景墙</a></li>":"<li class='bg-wall'><a href='"+data.Head[i].bgwall+"'>背景墙</a></li>"
+          	  str2+=strdecode(data.Head[i].aduit_flag)=='0'?"<li class='apply'><a href='apply.html?aid="+strencode(data.Head[i].id)+"'>申请背景墙</a></li>":"<li class='bg-wall'><a href='"+data.Head[i].bgwall+"'>背景墙</a></li>"
             str2+="<li class='preview'><a href='javaScript:;' data='"+i+"'>预览</a></li>"
             var c =$('<ul></ul>').addClass('activity-operate fr');
            // var d = $("<a href='javaScript:;' data="+data.Head[i].id+">删除</a>").addClass('cancle-unit');

@@ -48,7 +48,7 @@
 					<a href="comment.html">奖品管理</a>
 				</h2>
 				<h2 class="fr">
-					<button id="add" href="#">添加奖品</button>
+					<button id="add">添加奖品</button>
 				</h2>
 				<div id="addLayer">
 					<div id="addBox">
@@ -65,6 +65,11 @@
 						<div class="fill-wrap">
 							<label>奖品个数：</label>
 							<input id="total-input" type="text" />
+							<span>填写范围1~20</span>
+						</div>
+						<div class="fill-wrap">
+							<label class="mB">赞助商：</label>
+							<input id="sponsor-input" type="text" />
 							<span>填写范围1~20</span>
 						</div>
 						<div class="btn-wrap">
@@ -104,6 +109,7 @@
 							<td>奖项名称</td>
 							<td>奖品</td>
 							<td>奖品个数</td>
+							<td>赞助商</td>
 							<td>中奖名单</td>
 							<td>操作</td>
 						</tr>
@@ -128,11 +134,20 @@
 									<input type="text" class="number" />
 								</div>
 							</td>
-							<td><p class="not" title="王小二">王小二</p></td>
-							<td>
-								<div class="btn-wrap">
-									<button class="lottery" href="#">抽奖</button>
-									<button class="remove-it" href="#">删除</button>
+							<td class="n4">
+								<div class="cell">
+									<p class="text">1</p>
+									<input type="text" class="sponsor" />
+								</div>
+							</td>
+							<td class="n5">
+								<div class="cell">
+									<p class="list not" title="王小二">王小二</p>
+								</div>
+							</td>
+							<td class="n6">
+								<div class="cell-wrap">
+									<button class="lottery">抽奖</button><button class="remove-it">删除</button>
 								</div>
 							</td>
 						</tr>

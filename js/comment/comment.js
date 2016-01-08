@@ -125,7 +125,7 @@ plan.init =  function(iFlag,iPage){//页面数据初始化
 		url:basic.topAddress+basic.subAddress+'circle_activity_replyWs.asmx/GetAll?jsoncallback=?',
 		type: 'GET',
 		dataType: 'jsonp',
-		data: {'activity_id':'','user_id':'','on_wall':iFlag,'pageSize':'10','pageIndex':'1'},
+		data: {'activity_id':'','user_id':'','on_wall':iFlag,'type':'互动','pageSize':'10','pageIndex':'1'},
 	})
 	.done(function(data) {
 		//console.log(strdecode(data.Head[0].RowCount));
@@ -157,7 +157,7 @@ plan.req =  function(iFlag,iPage){//请求数据
 			url:basic.topAddress+basic.subAddress+'circle_activity_replyWs.asmx/GetAll?jsoncallback=?',
 			type: 'GET',
 			dataType: 'jsonp',
-			data: {'activity_id':'','user_id':'','on_wall':iFlag,'pageSize':'10','pageIndex':iPage},
+			data: {'activity_id':'','user_id':'','on_wall':iFlag,'type':'互动','pageSize':'10','pageIndex':iPage},
 		})
 		.done(function(data) {
 			if(data.error)
@@ -177,7 +177,7 @@ plan.req =  function(iFlag,iPage){//请求数据
 
 plan.flii = function(data){//填充方法；
 	obj=data.Head;
-	console.log(data);
+	//console.log(data);
 	$('tbody').empty()
 	if(obj.length==0){
 		$('tbody').html("<tr><td id='none' colspan='5'><h1>暂无数据</h1></td></tr>")

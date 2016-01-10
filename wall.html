@@ -11,18 +11,9 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta content=“telephone=no” name=“format-detection” />
 	<link rel="stylesheet" type="text/css" href="css/wall.css">
-	<style type="text/css">
-	#main{
-		width: 1198px;
-		height: 600px; 
-		margin: 0 auto;
-		
-		background: url(img/wall/main_bg.jpg) no-repeat;
-		background-size: cover;
-		border:1px solid #d4d4d4;
-		border-radius: 3px;
-	}
-	</style>
+	<script type="text/javascript" src="framework/jQuery/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="js/wall/TweenMax.js"></script>
+	<script type="text/javascript" src="js/wall/wall.js"></script>
 </head>
 <body>
 	<header id="header">
@@ -49,7 +40,44 @@
 	</header>
 	<article>
 		<section id="main">
-			
+			<div id="main-box">
+				<ul id="main-list">
+					<li class="unit clear">
+						<div class="head-img fl">
+							<a href="javaScript:;" class="head"><img src="img/wall/head_img.jpg"></a>
+						</div>
+						<div class="content fl">
+							<span class="triangle">
+							</span>
+							<p class="text">
+								积极的风格的军阀割据的积极的风格的军阀割据的积极的风格的军阀割阀割
+积极的风格的军阀割据的积极的风格的军阀割据的积极的风格的军阀割阀割
+积极的风格的军阀割据的积极的风格的军阀割据的积极的风格的军阀割阀割
+							</p>
+						</div>
+					</li>
+					<li class="unit clear">
+						<div class="head-img fl">
+							<img src="img/wall/head_img.jpg">
+						</div>
+						<div class="content fl">
+							<span class="triangle">
+							</span>
+							<img src="img/wall/demo_1.jpg" class="content-pic">
+						</div>
+					</li>
+					<li class="unit clear">
+						<div class="head-img fl">
+							<img src="img/wall/head_img.jpg">
+						</div>
+						<div class="content fl">
+							<span class="triangle">
+							</span>
+							<img src="img/wall/demo_1.jpg" class="content-pic">
+						</div>
+					</li>
+				</ul>
+			</div>
 		</section>
 	</article>
 </body>

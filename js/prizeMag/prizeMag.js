@@ -1,7 +1,7 @@
 var plan = {};//挂载对象
 var public = {};//变量挂载
 public.reg = {};//挂载正则
-public.aid = getaId()
+public.aid = getaId()//挂载活动ID
 $(function(){
 	if(strdecode(getCookie('token'))==''||strdecode(getCookie('token'))==undefined||strdecode(getCookie('token'))==-1)
 	{
@@ -101,9 +101,10 @@ $(function(){
 			public.addC = $('#total-input').val()
 			public.addD = $('#sponsor-input').val().replace(public.reg.gReg,'&gt').replace(public.reg.lReg,'&lt');
 			plan.append()//ajax 添加
+			//$('#addLayer').css('zIndex',-100);
 			//plan.addFill()
 		}else if($('#name-input').val()==''&&$('#award-input').val()==''&&$('#total-input').val()==''&&$('#sponsor-input').val()==''){
-
+			
 		}else{
 			onoff = true;
 			return false;
@@ -188,7 +189,6 @@ $(function(){
 			}
 			//$(this).siblings('.text').html($(this).val().replace(public.reg.gReg,'&gt').replace(public.reg.lReg,'&lt')).show();
 		}
-		//$(this).hide();	
 
 	});
 
@@ -196,9 +196,8 @@ $(function(){
 	$('tbody').delegate('.remove-it', 'click', function(event) {
 		var This = $(this)
 		//$(this).parents('tr').remove();
-		alert(public.data.Head.length-1-This.parents('tr').index())
+		//alert(public.data.Head.length-1-This.parents('tr').index())
 		//alert(This.parents('tr').index())
-		
 		var rid = strdecode($(this).parents('tr').attr('data-id'))
 		plan.delete(rid,This)
 	});
@@ -251,7 +250,7 @@ plan.getAll = function(){//获得列表信息//获得活动的主要信息
 		data: {'activity_id':public.aid},
 	})
 	.done(function(data) {
-		console.log(data);
+		//console.log(data);
 		if(data.error)
 		{	
 			alert(data.error)
@@ -261,6 +260,7 @@ plan.getAll = function(){//获得列表信息//获得活动的主要信息
 			//console.log(data.Head.length);
 			for(var i=data.Head.length-1;i>=0;--i)
 			{
+				console.log(strdecode(data.Head[i].name))
 				public.addA = strdecode(data.Head[i].name);
 				public.addB = strdecode(data.Head[i].prize);
 				public.addC = strdecode(data.Head[i].number);
@@ -292,7 +292,10 @@ plan.append = function(){
 			alert(data.error)
 			window.location.href = 'index.html'
 		}else{	
-			plan.addFill()
+			plan.addFill(strencode(data.id));
+			var obj = {'activity_id':public.aid,'id':data.id,'name':public.addA,'prize':public.addB,'number':public.addC,'sponsor':public.addD,'winner':''}
+			public.data.Head.push(obj);
+			console.log(data)
 		}
 
 	})
@@ -327,29 +330,34 @@ plan.update = function(rid){//row id
 
 ////////////删除数据
 plan.delete = function(rid,This){//row id
-	var str = public.data.Head[This.parents('tr').index()].winners;
-	if(str=='')
+	var str = public.data.Head[public.data.Head.length-1-This.parents('tr').index()].winners;
+	if(str!='')
 	{
-
+		if(confirm('有人你删除不？')){
+			alert('有种')
+			//This.parents('tr').remove();
+		}else{
+			return false;
+		}
 	}
+	//console.log(1)
 	$.ajax({//先查看抽奖名单有人没人
-		url:basic.topAddress+basic.subAddress+'circle_activity_prize_winnerWs.asmx/GetAll?jsoncallback=?',
+		url:basic.topAddress+basic.subAddress+'circle_activity_prizeWs.asmx/Delete?jsoncallback=?',
 		type: 'GET',
 		dataType: 'jsonp',
-		data: {'prize_id':rid,'pageSize':'','pageIndex':''},
+		data: {'id':rid,'USER':'','TOKEN':strdecode(getCookie('token'))},
 	}).done(function(data) {
 		if(data.error)
 		{	
 			alert(data.error)
 			window.location.href = 'index.html'
 		}else{	
-			if(data.Head.length==0){
-
-			}else{
-				if(confirm('有人你删除不？')){
-					alert('有种')
-					This.parents('tr').remove();
-				}
+			public.data.Head.splice(public.data.Head.length-1-This.parents('tr').index(),1)
+			This.parents('tr').remove();
+			console.log('---')
+			for(var i=public.data.Head.length-1;i>=0;--i)
+			{
+				console.log(strdecode(public.data.Head[i].name))
 			}
 			
 		}

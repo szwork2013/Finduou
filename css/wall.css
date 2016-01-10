@@ -16,7 +16,7 @@ body { font-size:16px; font-family:"微软雅黑",sans-serif; background:#e9eaee
 .fr{ float:right;}
 
 html{ width: 100%; height: 100%;  }
-body{ background: url(../img/wall/wall_bg.jpg) no-repeat; background-attachment: fixed; background-size: cover; overflow: hidden; }
+body{ padding-bottom: 14px; background: url(../img/wall/wall_bg.jpg) no-repeat; background-attachment: fixed; background-size: cover; overflow: hiddden; }
 
 /*header*/
 	#header-box{
@@ -79,4 +79,81 @@ body{ background: url(../img/wall/wall_bg.jpg) no-repeat; background-attachment:
 		font-weight: normal;
 		color: #fff;
 		text-align: center;
+	}
+
+	/*content*/
+	#main{
+		width: 1198px;
+		height: 600px; 
+		margin: 0 auto;
+		
+		background: url(../img/wall/main_bg.jpg) no-repeat;
+		background-size: cover;
+		border:1px solid #d4d4d4;
+		border-radius: 3px;
+	}
+
+	/* main */
+	#main-box{
+		padding-top: 10px;
+
+		overflow: hidden;
+	}
+	.unit{
+		
+		margin-bottom: 10px;
+		margin-left: 10px;
+		
+	}
+	.head-img{
+		margin-right: 32px;
+	}
+	.head{
+		
+		width: 78px;
+		height: 78px;
+
+		display: block;
+	}
+	.head-img img{
+		width: 78px;
+		height: 78px;
+		
+
+		border: 1px solid #fff;
+		border-radius: 5px;
+	}
+	.content{
+		width: 994px;
+		min-height: 168px;
+		padding: 8px 36px 8px 20px;
+
+		position: relative;
+
+		background: rgba(38,38,38,0.6);
+		border:1px solid #fff;
+		border-radius: 5px;
+	}
+	.triangle{
+		width: 25px;
+		height: 25px;
+		display: block;
+
+		position: absolute;
+		top: 28px;
+		left: -25px;
+
+		background: url(../img/wall/triangle.png) no-repeat;
+	}
+	.text{
+		font-size: 30px;
+		font-family:"微软雅黑",sans-serif;
+		font-weight: normal;
+		color: #fff;
+		/* text-align: center; */
+		line-height: 54px;
+	}
+	.content-pic{
+		width: 300px;
+		height: 166px;
 	}

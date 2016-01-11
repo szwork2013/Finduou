@@ -50,6 +50,14 @@ body{ padding-bottom: 14px; background: url(../img/wall/wall_bg.jpg) no-repeat; 
 		margin-right: 17px;
 		margin-top: 18px;
 	}
+	#pic-frame{
+		width: 94px;
+		height: 94px;
+	}
+	#pic-frame img{
+		width: 94px;
+		height: 94px;
+	}
 	#tip{
 		margin-left: 4px;
 		padding-top: 6px;
@@ -95,13 +103,24 @@ body{ padding-bottom: 14px; background: url(../img/wall/wall_bg.jpg) no-repeat; 
 
 	/* main */
 	#main-box{
-		padding-top: 10px;
-
+		width: 1198px;
+		height: 600px; 
+		/*padding-top: 10px;*/
+		
+		position: relative;
 		overflow: hidden;
+	}
+	#main-list{
+		/*height: 600px; */
+		/*padding-top: 10px;*/
+
+		position: absolute;
+		top: 0px;
 	}
 	.unit{
 		
-		margin-bottom: 10px;
+		/*margin-bottom: 10px;*/
+		margin-top: 11px;
 		margin-left: 10px;
 		
 	}

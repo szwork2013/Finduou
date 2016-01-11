@@ -130,8 +130,10 @@ plan.init =  function(iFlag,iPage){//页面数据初始化
 	.done(function(data) {
 		//console.log(strdecode(data.Head[0].RowCount));
 		plan.flii(data)
+
 		if(data.Head.length!=0){
 			common.totalPages = strdecode(data.Head[0].RowCount)
+			//console.log(Math.ceil(strdecode(data.Head[0].RowCount)));
 			$('#paging-box').jqPaginator({
 				totalPages: Math.ceil(common.totalPages/10),
 				visiblePages: 5,
@@ -139,7 +141,7 @@ plan.init =  function(iFlag,iPage){//页面数据初始化
 				onPageChange:function(num,type){
 					if(type=='init'){
 					}else{
-						plan.req(0,num);
+						plan.req(common.flag,num);
 					}
 				}
 			});

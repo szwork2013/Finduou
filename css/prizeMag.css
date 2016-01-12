@@ -79,7 +79,7 @@ header{ background: #fffffb; margin-bottom: 10px; }
 #status-list .active{ background: #e6eeff;border: 1px solid #d7d7d7; border-bottom:1px solid #e6eeff; border-radius: 5px 0 0 0; }
 
 /*table*/
-.main-body{ width: 1175px; margin: 0 auto;padding-bottom: 100px;border: 1px solid #d7d7d7; border-radius: 0 5px 5px 5px;}
+.main-body{ width: 1175px; margin: 0 auto;padding-bottom: 100px;border: 1px solid #d7d7d7; border-radius:5px;}
 #main-table{ width: 1175px; margin: 0 auto; }
 thead td{ height: 40px; font-size: 14px; color: #333333; font-family:"微软雅黑",sans-serif; text-align: center; background: #e6eeff; border-right: 1px solid #d7d7d7; }
 thead td:last-child{ border-right: none; }

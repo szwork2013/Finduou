@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>Finduou</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="index,follow" />
+	<meta name="mobile-agent" content="format=html5">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content=“telephone=no” name=“format-detection” />
+	<link rel="stylesheet" type="text/css" href="css/questionConfig.css">
+	<script type="text/javascript" src="js/global.js"></script>
+	<script type="text/javascript" src="js/base64code.js"></script>
+	<script type="text/javascript" src="framework/jQuery/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="js/questionConfig/questionConfig.js"></script>
+   	<!--[if lt IE 9]>
+    	<script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src=" http://html5shiv.googlecode.com/svn/trunk/html5.js "></script >
+	<script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]--> 
+	<style type="text/css">
+
+	</style>
+</head>
+<body>
+	<header>
+		<div id="header-box" class="clear">
+			<div id="header-left" class="fl">
+				<img src="img/comment/logo.png">
+				<strong>活动管理</strong>
+			</div>
+			<nav id="header-right" class="fr">
+				<a href="activeList.html"><span></span></a>
+				<a href="#"><span></span></a>
+				<a href="#"><span></span></a>
+				<ul id="nav-list">
+					<a href="mPassword.html" class="not-float"><li>修改密码</li></a>
+					<a href="#" class="not-float"><li>登出</li></a>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<article id="main">
+		<div id="container">
+			<section class="main-title clear">
+				<h2 class="fl">
+					<strong>当前位置：</strong>
+					<a href="activeList.html">活动列表>></a>
+					<a id="sub" href="">活动详情>></a>
+					<span>报名配置</span>
+				</h2>
+				<h2 class="fr">
+					<a id="return" href="">返回</a>
+				</h2>
+			</section>
+			<section id="add-area">
+				<div class="add-box">
+					<button id="add-btn">新增问题</button>
+					<div id="float-layer">
+						<span class="triangle"></span>
+						<div id="config" class="clear">
+							<div class="first fl">
+								<label class="fl">类型</label>
+								<div class="wrap" id="fill-wrap">
+									<span class="select-result" onselectstart="return false">填空</span>
+									<a href="javaScript:;"></a>
+								</div>
+								<ul id="q-type" class="drop-list">
+									<li>填空</li>		
+									<li>单选</li>
+									<li>多选</li>
+								</ul>
+							</div>
+							<div class="second fl">
+								<div class="fl">
+									<label class="fl">问题</label>
+									<input type="text" id="question-title" />
+									<span class="error">问题长度1~30个字</span>
+								</div>
+							</div>
+							<div class="third fl">
+								<div class="fl">
+									<label class="fl">选项</label>
+									<textarea id="t1" class="fl"></textarea>
+									<span class="error fr tip" >每行一个选项，不能超过10字</span>
+								</div>
+							</div>
+							<div class="fourth fl">
+								<button id="save">保存</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</section>
+			<section id="show-area">
+				<div class="main-body">
+					<table id="main-table">
+						<thead>
+							<tr>
+								<td>问题</td>
+								<td>回答</td>
+								<td>操作</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr><td id="none" colspan="3"><h1>暂无数据</h1></td></tr>
+							<tr class="fill-unit">
+								<td class="n1">
+									<div class="cell">
+										<p class="text">你的LOL段位是？</p>
+									</div>
+								</td>
+								<td class="n2">
+									<div class="cell">
+										<input class="inp">
+									</div>
+								</td>
+								<td class="n3">
+									<div class="cell">
+										<div class="btn-group">
+											<div class="btn-wrap">
+												<button class="up">上移</button><button class="modify">修改</button><br><button class="down">下移</button><button class="cancel">删除</button>
+											</div>
+											<div class="m-layer clear">
+												<div class="m-first fl">
+													<label class="fl">类型</label>
+													<span class="fl">填空</span>
+												</div>
+												<div class="m-second fl">
+													<div class="fl">
+														<label class="fl">问题</label>
+														<input type="text" class="question-title" />
+														<span class="error">问题长度1~30个字</span>
+													</div>
+												</div>
+												<div class="m-third fl">
+													<div class="fl">
+														<label class="fl">选项</label>
+														<textarea class="t1" class="fl"></textarea>
+														<span class="error fr tip" >每行一个选项，不能超过10字</span>
+													</div>
+												</div>
+												<div class="m-fourth fl">
+													<button class="save">修改</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr class="selete">
+								<td class="n1">
+									<div class="cell">
+										<p class="text">你准备使用哪个英雄？</p>
+									</div>
+								</td>
+								<td class="n2">
+									<div class="cell">
+										<div class="drop">
+											<div class="wrap fill-wrap">
+												<span class="select-show" onselectstart="return false">填空</span>
+												<a href="javaScript:;"></a>
+											</div>
+											<ul class="drop-list">
+												<li>填空</li>		
+												<li>单选</li>
+												<li>多选</li>
+											</ul>
+										</div>
+									</div>
+								</td>
+								<td class="n3">
+									<div class="cell">
+										<div class="btn-group">
+											<div class="btn-wrap">
+												<button class="up">上移</button><button class="modify">修改</button><br><button class="down">下移</button><button class="cancel">删除</button>
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr class="checkboxs">
+								<td class="n1">
+									<div class="cell">
+										<p class="text">你觉得那些英雄太IMBA了？</p>
+									</div>
+								</td>
+								<td class="n2">
+									<div class="cell">
+										<form class="form">
+											<label><input name="Fruit" type="checkbox" class="fl" /><span class="fl">苹果</span></label> 
+											<label><input name="Fruit" type="checkbox" class="fl" /><span class="fl">苹果</span></label> 
+											<label><input name="Fruit" type="checkbox" class="fl" /><span class="fl">苹果</span></label> 
+											<label><input name="Fruit" type="checkbox" class="fl" /><span class="fl">苹果</span></label> 
+											<label><input name="Fruit" type="checkbox" class="fl" /><span class="fl">苹果</span></label> 
+										</form>
+									</div>
+								</td>
+								<td class="n3">
+									<div class="cell">
+										<div class="btn-group">
+											<div class="btn-wrap">
+												<button class="up">上移</button><button class="modify">修改</button><br><button class="down">下移</button><button class="cancel">删除</button>
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</section>
+		</div>
+	</article>
+</body>
+</html>

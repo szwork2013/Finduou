@@ -1,6 +1,7 @@
 var plan = {};//用于挂载函数
 var data = {};//用于挂载数据
 var public = {};
+//public.aid = getaId();
 public.index = 0;//索引
 public.total = 0;//数据总数;
 public.totalbB = 0;
@@ -52,7 +53,7 @@ plan.startMove = function(){//循环运动
 		}
 		plan.fill(data);
 		//plan.fresh();*/
-		if(data.Head.length<=3){//当评论个数小于3的时候执行刷新操作即可
+		if($('#main-list').children('li').length<3){//当评论个数小于3的时候执行刷新操作即可
 			if(data.Head.length==0){
 
 			}else{
@@ -61,9 +62,25 @@ plan.startMove = function(){//循环运动
 			
 			plan.fresh();
 			return false;
-		}else{
+		}else if($('#main-list').children('li').length==3){
+			if(data.Head.length>3){
+				plan.fill();
+				
+			}else{
+				plan.append();
+			}
 			plan.fresh();
+			return false;
+		}
+		else{
+			/*if($('#main-list').children('li').length<3){
+				plan.append();
+			}else{
+				
+			}*/
 			plan.fill();
+			plan.fresh();
+			
 		}
 		$('#main-list').animate({'top':-196*3}, 1000,'swing',function(){
 			//console.log(data.length);
@@ -108,20 +125,20 @@ plan.fill = function(){//填充信息
 		}
 		var oLi =  $("<li class='unit clear'></li>");
 		var c1 = $("<div class='head-img fl'></div>");
-		//console.log(strdecode(data.Head[i].id));
-		if(data.Head[i].img==''){
+		//console.log(strdecode(data.Head[public.index].id));
+		if(data.Head[public.index].img==''){
 			//alert(1)
-			console.log(strdecode(data.Head[i].id));
+			console.log(strdecode(data.Head[public.index].id));
 			c1.html("<img src='img/wall/head_img.jpg'>");
 		}else{
-			c1.html("<img src='"+basic.topAddress+basic.webAddress+strdecode(data.Head[i].img)+"'>");
+			c1.html("<img src='"+basic.topAddress+basic.webAddress+strdecode(data.Head[public.index].img)+"'>");
 		}
 		
 		var c2 = $("<div class='content fl'></div>");
 		var triangle = "<span class='triangle'></span>";
 		c2.html(triangle);
 		if(data.Head[public.index].content==''){
-			var oImg = $('<img>').attr('src',basic.topAddress+basic.webAddress+strdecode(data.Head[i].reply_photo));
+			var oImg = $('<img>').attr('src',basic.topAddress+basic.webAddress+strdecode(data.Head[public.index].reply_photo));
 			oImg.addClass('content-pic');
 			oImg.appendTo(c2);
 		}else{
@@ -144,25 +161,26 @@ plan.fill = function(){//填充信息
 
 plan.append = function(){//不足3个执行插入操作；多于三个执行克隆操作；
 	$('#main-list').empty();
-	for(var i=0;i<data.Head.length;++i){
+	var times = data.Head.length-$('#main-list').children('li').length>3?3:data.Head.length
+	for(var i=0;i<times;++i){//此处是个bug
 		if(public.index>=data.Head.length){
 			public.index = 0;
 		}
 		var oLi =  $("<li class='unit clear'></li>");
 		var c1 = $("<div class='head-img fl'></div>");
-		//console.log(strdecode(data.Head[i].id));
-		//c1.html("<img src='"+basic.topAddress+basic.webAddress+strdecode(data.Head[i].img)+"'>");
-		if(data.Head[i].img==''){
+		//console.log(strdecode(data.Head[public.index].id));
+		//c1.html("<img src='"+basic.topAddress+basic.webAddress+strdecode(data.Head[public.index].img)+"'>");
+		if(data.Head[public.index].img==''){
 			//alert(1)
 			c1.html("<img src='img/wall/head_img.jpg'>");
 		}else{
-			c1.html("<img src='"+basic.topAddress+basic.webAddress+strdecode(data.Head[i].img)+"'>");
+			c1.html("<img src='"+basic.topAddress+basic.webAddress+strdecode(data.Head[public.index].img)+"'>");
 		}
 		var c2 = $("<div class='content fl'></div>");
 		var triangle = "<span class='triangle'></span>";
 		c2.html(triangle);
 		if(data.Head[public.index].content==''){
-			var oImg = $('<img>').attr('src',basic.topAddress+basic.webAddress+strdecode(data.Head[i].reply_photo));
+			var oImg = $('<img>').attr('src',basic.topAddress+basic.webAddress+strdecode(data.Head[public.index].reply_photo));
 			oImg.addClass('content-pic');
 			oImg.appendTo(c2);
 		}else{

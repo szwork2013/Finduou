@@ -133,6 +133,7 @@ $(function(){
 				obj.type = '多选'
 			}
 			obj.title = common.qTitle;
+			obj.question = common.qTitle;
 			if(common.qType=='填空'){
 				obj.options = ''
 			}else{
@@ -161,9 +162,12 @@ $(function(){
 	$('#main-table').delegate('.modify', 'click', function(event) {
 		$('.modify').parent().next().hide();
 		$(this).parent().next().show();
-		//console.log(Data);
-		var target = Data.Head[$(this).parents('tr').index()-1];//找到目标源
-		var question = strdecode(target.question);
+
+		var target = Data.Head[$(this).parents('tr').index()];//找到目标源
+
+		var question = target.question;
+		//console.log(question);
+
 		$(this).parents('tr').find('.question-title').val(question);
 
 		if($(this).parents('tr').attr('data-type')!='填空'){
@@ -237,13 +241,7 @@ $(function(){
 			return false;
 		}else{//检验通过 开始post插入
 			var obj = {}
-			/*if(common.qType==0){
-				obj.type = '填空'
-			}else if(common.qType==1){
-				obj.type = '单选'
-			}else if(common.qType==2){
-				obj.type = '多选'
-			}*/
+
 			obj.type = qType;
 			obj.id = rid;
 			obj.title = common.qTitle;
@@ -266,7 +264,6 @@ $(function(){
 				alert('选项中不要夹杂空选项')
 				return false;
 			}
-			//console.log(obj);
 			plan.update(obj,$(this).parents('tr'));
 			//$(this).parents('tr').find('.text').html('aaa')
 			$(this).parents('.m-layer').hide();
@@ -288,7 +285,7 @@ $(function(){
 	//上移下移操作
 	$('#main-table').delegate('.up', 'click', function(event) {
 		//alert($(this).parents('tr').index())
-		if($(this).parents('tr').index()==1){
+		if($(this).parents('tr').index()==0){
 			return false;
 		}else{
 			plan.up($(this).parents('tr').attr('data-odr'),$(this).parents('tr'))
@@ -325,6 +322,7 @@ plan.init = function(){
 			console.log(data);
 			for(var i=0;i<data.Head.length;++i){
 				data.Head[i].title = strdecode(data.Head[i].question);
+				data.Head[i].question = strdecode(data.Head[i].question)
 				data.Head[i].type = strdecode(data.Head[i].type);
 				data.Head[i].options=strdecode(data.Head[i].options)
 				data.Head[i].odr = strdecode(data.Head[i].odr);
@@ -353,10 +351,10 @@ plan.insert = function(obj){//插入操作
 			window.location.href = 'index.html'
 		}else{	
 			console.log(data);
-			
 			obj.odr = Data.Head.length+1;
 			obj.id = data.id;
 			Data.Head.push(obj)
+			console.log(Data);
 			plan.fill(obj,strencode(data.id));
 		}
 
@@ -470,6 +468,7 @@ plan.fill = function(obj,id){
 		oTr.appendTo('tbody');
 }
 plan.delete = function(id,obj){
+
 	$.ajax({//获得活动的主要信息
 
 		url:basic.topAddress+basic.subAddress+'circle_activity_questionWs.asmx/Delete?jsoncallback=?',
@@ -485,7 +484,16 @@ plan.delete = function(id,obj){
 			window.location.href = 'index.html'
 		}else{	
 			console.log(data);
-			obj.parents('tr').remove()
+			var index = obj.parents('tr').attr('data-odr');
+			Data.Head.splice(index-1,1)
+
+			obj.parents('tr').remove();
+			for(var i=0;i<$('tbody').find('tr').length;++i){
+				$('tbody').find('tr').eq(i).attr('data-odr',i+1);
+				/*console.log(Data.Head[i].odr);*/
+				Data.Head[i].odr = i+1;
+			}
+
 		}
 
 	})
@@ -562,27 +570,31 @@ plan.up = function(odr,obj){//上移
 			window.location.href = 'index.html'
 		}else{	
 			//console.log(data);
-			for (var i = 0; i < Data.Head.length; i++) {
-				console.log(Data.Head[i].odr);
-			}
+			// for (var i = 0; i < Data.Head.length; i++) {
+			// 	console.log(Data.Head[i].odr);
+			// }
 			
 			//呼唤odr 同时位置变化
 			var odr = obj.attr('data-odr');
 			obj.attr('data-odr',obj.prev().attr('data-odr'))
 			obj.prev().attr('data-odr',odr)
-			obj.insertBefore(obj.prev());
+
+			
 
 			//内部的odr也要进行互换
+			console.log(Data);
 			Data.Head[odr-1].ord = odr;
-			Data.Head[odr].ord = obj.prev().attr('data-odr')
+			Data.Head[odr-2].ord = obj.attr('data-odr')
 			//
 			var index  = Data.Head[odr-1];//当前对象
 			Data.Head[odr-1] = Data.Head[odr-2]
 			Data.Head[odr-2] = index;
 			
-			for (var i = 0; i < Data.Head.length; i++) {
-				console.log(Data.Head[i].odr);
-			}
+			// for (var i = 0; i < Data.Head.length; i++) {
+			// 	console.log(Data.Head[i].odr);
+			// }
+			console.log(Data);
+			obj.insertBefore(obj.prev());
 		}
 
 	})

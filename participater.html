@@ -62,7 +62,7 @@
 										<td>账号情况</td>
 										<td>学校</td>
 										<td>手机号</td>
-										<td>报名问题</td>
+										<td>操作</td>
 									</tr>
 								</thead>
 								<tbody>
@@ -75,7 +75,8 @@
 										<td></td>
 										<td ng-bind="val.university_simple_name|base"></td>
 										<td ng-bind="val.join_mobile|base"></td>
-										<td ng-bind="val.answer|base"></td>
+										<!-- <td ng-bind="val.answer|base">报名详情</td> -->
+										<td><a ng-href="signDetails.html?uid={{val.id}}&aid={{val.activity_id}}">报名详情</a></td>
 									</tr>
 								</tbody>
 							</table>

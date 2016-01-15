@@ -258,9 +258,9 @@ plan.getAll = function(){//获得列表信息//获得活动的主要信息
 		}else{	
 			public.data = data;//拷贝一份用于删除验证
 			//console.log(data.Head.length);
-			for(var i=data.Head.length-1;i>=0;--i)
+			for(var i=0;i<data.Head.length;++i)
 			{
-				console.log(strdecode(data.Head[i].name))
+				//console.log(strdecode(data.Head[i].name))
 				public.addA = strdecode(data.Head[i].name);
 				public.addB = strdecode(data.Head[i].prize);
 				public.addC = strdecode(data.Head[i].number);

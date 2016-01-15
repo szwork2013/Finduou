@@ -4,7 +4,7 @@ var public = {};
 //public.aid = getaId();
 public.index = 0;//索引
 public.total = 0;//数据总数;
-public.totalbB = 0;
+
 var timer = null;
 $(function(){
 	plan.init(data);
@@ -21,8 +21,8 @@ plan.init = function(){//获得上墙评论
 	.done(function(obj) {
 		
 		data = obj;
-		console.log(data);
-		public.totalbB = public.total = data.Head.length;
+		//console.log(data);
+		public.total = data.Head.length;
 		plan.startMove(data);
 		if(data.Head.length==0){
 			return false;
@@ -37,51 +37,24 @@ plan.init = function(){//获得上墙评论
 }
 plan.startMove = function(){//循环运动
 	timer = setInterval(function(){
-		/*if(data.Head.length<=3){//当评论个数小于3的时候执行刷新操作即可
-			
-			plan.fresh();
-			return false;
-		}
-		if(public.total-public.index<=3){//当滚动要结束时去请求
-			console.log('xxxx');
-			plan.fresh();
-		}
-		if(data.Head.length<=3){
-			plan.append();
-		}else{
-			plan.fill();
-		}
-		plan.fill(data);
-		//plan.fresh();*/
-		if($('#main-list').children('li').length<3){//当评论个数小于3的时候执行刷新操作即可
-			if(data.Head.length==0){
+		plan.fresh();//进行刷新请求
 
-			}else{
+		if(public.total<=3){
+			//if($('#main-list').children('li').length<3){}
 				plan.append();
-			}
-			
-			plan.fresh();
-			return false;
-		}else if($('#main-list').children('li').length==3){
-			if(data.Head.length>3){
+				return false;
+
+		}else{
+			//plan.fill();
+			if($('#main-list').children('li').length<3){
+				plan.append();
+				return false;
+			}else{
 				plan.fill();
-				
-			}else{
-				plan.append();
 			}
-			plan.fresh();
-			return false;
-		}
-		else{
-			/*if($('#main-list').children('li').length<3){
-				plan.append();
-			}else{
-				
-			}*/
-			plan.fill();
-			plan.fresh();
 			
 		}
+		///////运动是后执行的 ，如果不满足运动条件则不执行
 		$('#main-list').animate({'top':-196*3}, 1000,'swing',function(){
 			//console.log(data.length);
 			for(var i=0;i<=2;++i)
@@ -104,21 +77,13 @@ plan.fresh = function(){//更新微信墙墙
 	.done(function(obj) {
 		data =obj;
 		public.total = data.Head.length;
-		//console.log(data);
-		//console.log(strdecode(data.Head[1].id));
-		//console.log(strdecode(data.Head[2].id));	
 	})
 	.fail(function() {
 		console.log("error");
 	})
 }
 plan.fill = function(){//填充信息
-/*	if(data.Head.length<=3){
-		var k = data.Head.length-1;
-		//$('#main-list').empty();
-	}else{
-		var k = 2;
-	}*/
+
 	for(var i=0;i<3;++i){
 		if(public.index>=data.Head.length){
 			public.index = 0;
@@ -218,7 +183,12 @@ plan.getSignNum = function(){//获得签到人数
 			alert(data.error)
 			window.location.href = 'index.html'
 		}else{	
-			$('#title').html(strdecode(data.Head[0].title))
+			var title = strdecode(data.Head[0].title)
+			if(title.length<20){
+
+				$('#title').css({'fontSize':46,'lineHeight':'82px'}).html(title)
+			}
+			$('#title').html(title)
 			$('#total').html(strdecode(data.Head[0].signin_number))
 		}
 

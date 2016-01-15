@@ -1,6 +1,6 @@
 var plan = {};//挂载对象
 var public = {};//变量挂载
-//public.aid = getaId()//挂载活动ID
+public.aid = getaId()//挂载活动ID
 $(function(){
 	if(strdecode(getCookie('token'))==''||strdecode(getCookie('token'))==undefined||strdecode(getCookie('token'))==-1)
 	{
@@ -31,7 +31,8 @@ $(function(){
 		window.location.href = 'index.html'
 	});
 
+	$('#return').attr('href','participater.html?aid='+strencode(public.aid))
 	///////initialization
-	plan.init();
+	//plan.init();
 	//plan.getAll();
 })

@@ -1,4 +1,5 @@
 $(function(){
+	//http://www.htmleaf.com/jQuery/Image-Effects/201504211716.html
 	if(strdecode(getCookie('token'))==''||strdecode(getCookie('token'))==undefined||strdecode(getCookie('token'))==-1)
 	{
 		window.location.href = 'index.html'

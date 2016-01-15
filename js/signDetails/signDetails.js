@@ -1,6 +1,7 @@
 var plan = {};//挂载对象
 var public = {};//变量挂载
 public.aid = getaId()//挂载活动ID
+public.uid = getuId()
 $(function(){
 	if(strdecode(getCookie('token'))==''||strdecode(getCookie('token'))==undefined||strdecode(getCookie('token'))==-1)
 	{
@@ -33,6 +34,21 @@ $(function(){
 
 	$('#return').attr('href','participater.html?aid='+strencode(public.aid))
 	///////initialization
-	//plan.init();
+	plan.init(public.uid,public.aid);
 	//plan.getAll();
 })
+plan.init = function(uid,aid){
+	$.ajax({
+			url:basic.topAddress+basic.subAddress+'circle_activity_question_answerWs.asmx/GetAll?jsoncallback=?',
+			type: 'GET',
+			dataType: 'jsonp',
+			data: {'activity_id':aid,'creater':uid,'pageSize':'','pageIndex':''},
+		})
+		.done(function(){
+			
+		})
+		.fail(function(data){
+			alert(data)
+			$(this).attr('disabled',false);
+		})
+}

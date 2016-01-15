@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<!-- <link rel="stylesheet" type="text/css" href="cropper.css"> -->
+	<style type="text/css">
+	*{ margin: 0; padding: 0; }
+	body{text-align: center;}
+	button{ width: 100px; height: 40px; border-radius: 5px; background: #f00; border:none; outline: none; font-size: 20px; color: #fff; font-family: "微软雅黑" ; margin-top: 100px; cursor: pointer;}
+	#file1{ position: absolute; width: 200px; left: 900px; top: 100px; outline: none; visibility: hidden; z-index: -1}
+	#result{ width: 900px; height: 500px;  border:2px solid #666; margin-top: 100px; margin: 100px auto;}
+	#result img{  }
+	p{ height: 30px; background: red; width: 0%; }
+	#result img{width: 900px; /* background: #f00; */}
+	#mask{ width: 100%; height: 100%; position: absolute; top: 0; text-align: center; background:rgba(0,0,0,0.6);  display: none; }
+	.container{ width: 500px; margin: 100px auto; margin-bottom: 0;}
+	</style>
+	<script type="text/javascript" src="base64code.js"></script>
+	<script type="text/javascript" src="jquery-2.1.4.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.2.4/cropper.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.2.4/cropper.js"></script>
+	<!-- <script type="text/javascript" src="cropper.js"></script> -->
+	<script type="text/javascript">
+		$(function(){
+/*			var $image = $('#report > img');
+var dataURL = $image.cropper("getCroppedCanvas");//
+var imgurl=dataURL.toDataURL("image/png",1.0);//这里转成base64 image，img的src可直接使用
+$("#changeAvatar > img").attr("src", imgurl);
+}*/
+var basic = {
+      topAddress :'http://192.168.0.64',//'http://120.26.212.237',//
+     //topAddress :'http://192.168.0.64',//
+    subAddress : '/FindUouWs1/',
+    webAddress:'/FindUouWeb'
+};
+function up(url,img){
+	var sp = url.split(',')[1]
+	var data = new FormData();
+		data.append('circle_id','')
+		data.append('university_id','')
+		data.append('type','')
+		data.append('state','')
+		data.append('title','切好的肉')
+		data.append('set_date','2015-1-1')
+		data.append('set_time_s','')
+		data.append('set_time_e','')
+		data.append('city','')
+		data.append('place','')
+		data.append('longitude','')
+		data.append('latitude','')
+		data.append('place_id','')
+		data.append('content','')
+		data.append('number','')
+		data.append('contact_flag','')
+		data.append('poster','')
+		data.append('fileType','PNG')
+		data.append('fileBase64String',sp)
+		data.append('creater','')
+		data.append('question','')
+		data.append('USER','')
+		data.append('TOKEN','')
+		alert('添加ing')
+		console.log(url);
+		$.ajax({
+			
+			url:basic.topAddress+basic.webAddress+'/UploadActivityPic.aspx',
+			type:'POST',
+			data:data,
+			cache: false,
+			contentType: false,		//不可缺参数
+			processData: false,		//不可缺参数
+			success:function(data){
+				console.log(data);
+				if(data.error)
+				{	
+					alert(data.error)
+					window.location.href = 'index.html'
+				}
+				else
+				{
+					alert('添加活动成功')
+					console.log(data);
+					//img.src = basic.topAddress+basic.webAddress+strdecode(previewData.Head[index].poster)
+					//window.location.href = 'activeList.html'
+					
+				}
+				
+			},
+			error:function(obj){
+				alert(obj.status+'失败');
+				sonoff = true;
+			}
+		});
+			
+}
+		
+
+		$('#cut').click(function(event) {
+			$('#mask').hide();
+			var $image = $('.container > img');
+			var dataURL = $image.cropper("getCroppedCanvas", {width: 900, height: 500});
+			//getImageData()
+			//console.log( $image.cropper("getImageData"));
+			var imgurl=dataURL.toDataURL("image/png",1.0);
+			//$("#result > img").attr("src", imgurl);
+			var image = new Image()
+		      	//image.src = imgurl;
+		      //	alert('a')
+		      	up(imgurl,this)
+		      	image.onload = function(){
+		      		//alert(0)
+			      	if(this.width!=900&&this.height!=500)
+				{
+					alert('not enough')
+				}else{
+					alert('b')
+					
+				}
+		      	}
+		});
+
+
+		$('#up').click(function(event) {
+			$('#file1').click();
+		});
+
+
+		$('#file1').change(function(e){
+		var reg =/[\.](jpg|gif|png|JPG|PNG|GIF|jpeg)$/  // 文件类型判断
+
+		
+
+		if(e.target.files[0].name.match(reg)==null )
+		{
+			alert('格式')
+			return false;
+		}		
+
+		if(e.target.files[0].size>4194304)//不能超过5M每个文件
+		{
+			$('#poster-tip').html('图片不能超过4M').show();
+			return false;
+		}
+
+
+		var reader = new FileReader(); 
+		reader.readAsDataURL(e.target.files[0]);	 
+		reader.onload = function(ev){ 
+		     	var image = new Image()
+		      	image.src = this.result;
+		      	image.onload = function(){
+		      		$('#mask').show();
+		      		$('.container').html(this)
+		      		$('.container > img').cropper({
+		 	aspectRatio: 9/5,
+		 	resizable:false,
+		 	minContainerWidth:500,
+		 	minContainerHeight:500,
+		 	crop: function(data) {
+
+		  }
+		});   
+		      	}
+		      	
+			
+		}   		
+			
+				
+			})
+
+			
+
+})
+	</script>
+</head>
+<body>
+	<form action="" method="post" enctype="multipart/form-data" >
+		<input type="file" id="file1" multiple="multiple" />
+	</form>
+	<button id="up">上传</button>
+	<div>
+		<progress id="cal" value="" max="100">
+		</progress>
+		<p></p>
+	</div>
+	<div id="result">
+  		<img src="">
+	</div>
+	<div id="mask">
+		<div class="container">
+  <img id="cutPic" src="900-500篮球.jpg">
+		</div>    
+		<button id="cut">裁切</button>
+	</div>
+</body>
+</html>

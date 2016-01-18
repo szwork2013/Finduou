@@ -51,8 +51,8 @@
 				<section class="main-title clear">
 					<h2 class="fl">
 						<strong>当前位置：</strong>
-						<a href="activeList.html">活动列表>></a>
-						<a href="addActivity.html">添加活动</a>
+						<a href="activeList.html">活动列表</a>
+						<span href="addActivity.html">>>添加活动</span>
 					</h2>
 					<h2 class="fr">
 					<a id="return" href="activeList.html">返回</a>
@@ -77,7 +77,7 @@
 							<span class="fr">(必选)</span>
 							<div class="city-wrap fr">
 								<span class="select-result">请选择</span>
-								<a class="small-icon" href="javaScript:;"></a>
+								<em class="fr"><a class="small-icon" href="javaScript:;"></a></em>
 								<ul id="city-select" class="drop-list">
 								<li>纽约</li>
 								<li>洛杉矶</li>
@@ -104,18 +104,18 @@
 								<label class="fl">活动类型：</label>
 								<div class="wrap">
 									<span class="select-result" onselectstart="return false">请选择</span>
-									<a href="javaScript:;" class="small-icon"></a>
+									<em class="fr"><a href="javaScript:;" class="small-icon"></a></em>
 								</div>
 								<ul id="active-type-select" class="drop-list">
-									<li>生活娱乐</li>
-									<li>职业发展</li>
+									<!-- <li>生活娱乐</li>
+									<li>职业发展</li> -->
 								</ul>
 							</div>
 							<div class="select-wrap fl">
 								<label class="fl">活动状态：</label>
 								<div class="wrap">
 									<span class="select-result s1" onselectstart="return false">请选择</span>
-									<a class="small-icon" href="javaScript:;"></a>
+									<em class="fr"><a class="small-icon" href="javaScript:;"></a></em>
 								</div>
 								<ul id="active-status-select">
 									<li>已启用</li>
@@ -143,6 +143,11 @@
 							<textarea id="activity-intro" class="fl" placeholder="(必填)(10-300字)"></textarea>
 							<p class="right-tip fl">请正确填写活动介绍</p>
 						</div>
+						<div class="fill-wrap clear">
+							<label>详情链接：</label>
+							<input id="link" type="text" placeholder="(选填)（1-30字）" />
+							<p id="right-tip" class="right-tip fr">请输入活动标题</p>
+						</div>
 						<div class="fill-wrap">
 							<label>需要报名：</label>
 							<input id="question" type="checkbox" placeholder="(选填)" />
@@ -164,6 +169,7 @@
 		</div>
 		<div class="cropper">
 			<button id="cut-btn">裁切</button>
+			<button id="another">取消</button>
 		</div>
 	</div>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAslXLzbetaH41cOt6sBGsG4rW5W1FEb94&libraries=places&callback=initMap"async defer></script>

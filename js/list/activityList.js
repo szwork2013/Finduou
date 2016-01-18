@@ -41,6 +41,11 @@ $(function(){
 	});
 	$('#active-type').find('li').click(function(event) {
 		$(this).parent().prev().find('span').html($(this).html())
+		if($(this).html()!='全部'){
+			$(this).parent().prev().find('span').css('marginLeft','4px')
+		}else{
+			$(this).parent().prev().find('span').css('marginLeft','12px')
+		}
 	});
 	$('#active-status').find('li').click(function(event) {
 		$(this).parent().prev().find('span').html($(this).html())

@@ -1,7 +1,11 @@
+var plan = {};//挂载函数
+var public = {};//挂载变量
+var iData = {};//原始数据
+public.aid = getaId()
 $(function(){
 	if(strdecode(getCookie('token'))==''||strdecode(getCookie('token'))==undefined||strdecode(getCookie('token'))==-1)
 	{
-		window.location.href = 'index.html'
+		//window.location.href = 'index.html'
 	}
 	
 	//top可复用
@@ -97,51 +101,9 @@ $(function(){
 })
 /////////////////////////////////初始化
 	
-	var aid = getaId()
+	plan.init();
 	//console.log(aid);
-	$.ajax({
-		url:basic.topAddress+basic.subAddress+'circle_activityWS.asmx/GetOne?jsoncallback=?',
-		type: 'GET',
-		dataType: 'jsonp',
-		data: {'id':aid},
-	})
-	.done(function(data) {
-		if(data.error)
-		{	
-			alert(data.error)
-			window.location.href = 'index.html'
-		}
-		$('#title-input-write').val(strdecode(data.Head[0].title))
-		$('#d422').val(strdecode(data.Head[0].set_date).split(' ')[0])
-		$('#d242').val(strdecode(data.Head[0].set_time_s))
-		$('#d243').val(strdecode(data.Head[0].set_time_e))
-		$('#address-input-write').val(strdecode(data.Head[0].place))
-		//var str = data.Head[0].type
-		var str = strdecode(data.Head[0].type)==''?'全部':strdecode(data.Head[0].type)
-		//var str2 = data.Head[0].state=='0'?'未启用':'已启用'
-		$('.city-wrap').children('span').html(strdecode(data.Head[0].city))
-		$('#active-type-select').prev().find('span').html(str)
-		$('#active-status-select').prev().find('span').html(strdecode(data.Head[0].state))
-		$('.photoframe').html("<img src='"+basic.topAddress+basic.webAddress+strdecode(data.Head[0].poster)+"' />")
-		$('#activity-intro').val(strdecode(data.Head[0].content).replace(/(&nbsp)/g,' ').replace(/(&brbr&)/g,'\n'))
-
-		$('#question').val(strdecode(data.Head[0].question));
-
-		objImg = strdecode(data.Head[0].poster);
-
-		maplng = parseFloat(strdecode(data.Head[0].longitude));
-		maplot = parseFloat(strdecode(data.Head[0].latitude));
-		locate.lng = parseFloat(strdecode(data.Head[0].longitude));
-		locate.lat = parseFloat(strdecode(data.Head[0].latitude))
-		locate.address = strdecode(data.Head[0].place);
-		locate.place_id = strdecode(data.Head[0].place_id);
-
-		$('html').append($("<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAslXLzbetaH41cOt6sBGsG4rW5W1FEb94&libraries=places&callback=initMap'async defer>"))
 	
-	})
-	.fail(function() {
-
-	})
 	
 	/////cancel
 	$('#cancel').click(function(event) {
@@ -149,7 +111,7 @@ $(function(){
 			url:basic.topAddress+basic.subAddress+'circle_activityWS.asmx/Delete?jsoncallback=?',
 			type: 'GET',
 			dataType: 'jsonp',
-			data: {id:aid,'USER':'','TOKEN':getCookie('token')},
+			data: {id:public.aid,'USER':'','TOKEN':getCookie('token')},
 		})
 		.done(function() {
 			if(data.error)
@@ -173,14 +135,66 @@ $(function(){
 	var reg =/[<|>]+/g;
 
 	//submit
-	var sonoff = true;
+	//var sonoff = true;
 	$('#save').click(function(event) {
 		
-		if(sonoff){//防止多次请求开关
-			sonoff = false;
-		}else{
-			return false;
+	})
+})
+
+plan.init = function(){
+	$.ajax({
+		url:basic.topAddress+basic.subAddress+'circle_activityWS.asmx/GetOne?jsoncallback=?',
+		type: 'GET',
+		dataType: 'jsonp',
+		data: {'id':public.aid},
+	})
+	.done(function(data) {
+		//console.log(data);
+		if(data.error)
+		{	
+			alert(data.error)
+			window.location.href = 'index.html'
 		}
+		$('#title-input-write').val(strdecode(data.Head[0].title))
+		$('#d422').val(strdecode(data.Head[0].set_date).split(' ')[0])
+		$('#d242').val(strdecode(data.Head[0].set_time_s))
+		$('#d243').val(strdecode(data.Head[0].set_time_e))
+		$('#address-input-write').val(strdecode(data.Head[0].place))
+		//var str = data.Head[0].type
+		var str = strdecode(data.Head[0].type)==''?'全部':strdecode(data.Head[0].type)
+		//var str2 = data.Head[0].state=='0'?'未启用':'已启用'
+		$('.city-wrap').children('span').html(strdecode(data.Head[0].city))
+		$('#active-type-select').prev().find('span').html(str)
+		$('#active-status-select').prev().find('span').html(strdecode(data.Head[0].state))
+		$('.photoframe').html("<img src='"+basic.topAddress+basic.webAddress+strdecode(data.Head[0].poster)+"' />")
+		$('#activity-intro').val(strdecode(data.Head[0].content).replace(/(&nbsp)/g,' ').replace(/(&brbr&)/g,'\n'))
+		$('#link').val(strdecode(data.Head[0].buy_ticket))
+		$('#question').val(strdecode(data.Head[0].question));
+		if(strdecode(data.Head[0].question_flag)==1){
+			$('#question').attr('checked','checked');
+			$('#sign-btn').attr('href','questionConfig.html?aid='+strdecode(data.Head[0].id))	
+		}else{
+			$('#sign-btn').hide();
+		}
+
+		objImg = strdecode(data.Head[0].poster);
+
+		maplng = parseFloat(strdecode(data.Head[0].longitude));
+		maplot = parseFloat(strdecode(data.Head[0].latitude));
+		locate.lng = parseFloat(strdecode(data.Head[0].longitude));
+		locate.lat = parseFloat(strdecode(data.Head[0].latitude))
+		locate.address = strdecode(data.Head[0].place);
+		locate.place_id = strdecode(data.Head[0].place_id);
+
+		$('html').append($("<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAslXLzbetaH41cOt6sBGsG4rW5W1FEb94&libraries=places&callback=initMap'async defer>"))
+	
+	})
+	.fail(function() {
+
+	})
+}
+plan.modify = function(){
+	$('#save').attr('disabled',false)
 		var onoff = false;
 		if($('#title-input-write').val().length>30)
 		{
@@ -195,11 +209,11 @@ $(function(){
 			onoff = true;
 
 		}
-		else if(reg.test($('#title-input-write').val()))
+/*		else if(reg.test($('#title-input-write').val()))
 		{
 			$('#title-input-write').next().html('非法输入 &nbsp &nbsp &nbsp &nbsp &nbsp').show();
 			onoff = true;
-		}
+		}*/
 		else
 		{
 			$('#title-input-write').next().hide();
@@ -210,11 +224,11 @@ $(function(){
 			$('#d243').next().show();
 			onoff = true;
 		}
-		else if(reg.test($('#d422').val())||reg.test($('#d242').val())||reg.test($('#d243').val()))
+/*		else if(reg.test($('#d422').val())||reg.test($('#d242').val())||reg.test($('#d243').val()))
 		{
 			$('#d243').next().show();
 			onoff = true;
-		}
+		}*/
 		else
 		{
 			$('#d243').next().hide();
@@ -296,10 +310,9 @@ $(function(){
 
 		if(onoff)
 		{
-			sonoff = true;
+			$('#save').removeAttr("disabled")
 			return false;
 		}
-		data.append('id',aid);
 		data.append('circle_id','')
 		data.append('university_id',strdecode(getCookie('uid')))
 		data.append('type',$('#active-type-select').prev().find('span').html())
@@ -313,14 +326,19 @@ $(function(){
 		data.append('longitude',locate.lng)
 		data.append('latitude',locate.lat)
 		data.append('place_id',locate.place_id)
-		data.append('content',str)
+		data.append('content',public.content)
 		data.append('number','')
 		data.append('contact_flag','')
-		data.append('poster',objImg)
+		data.append('poster','')
+		data.append('fileType','PNG')
+		data.append('fileBase64String',public.img)//图片
+		data.append('question_flag',Flag)
+		data.append('buy_ticket',$('#link').val())
 		data.append('creater',strdecode(getCookie('id')))
 		data.append('question',$('#question').val())
 		data.append('USER',strdecode(getCookie('USER')))
 		data.append('TOKEN',strdecode(getCookie('token')))
+		$('#save').html('保存中').css('background','#999')
 
 		$.ajax({
 			url:basic.topAddress+basic.webAddress+'/UploadActivityPic.aspx',
@@ -346,9 +364,8 @@ $(function(){
 			},
 			error:function(obj){
 				alert(obj.status+'失败');
-				sonoff = true;
+				//sonoff = true;
+				$('#save').removeAttr("disabled")
 			}
 		});
-		})
-})
-
+}

@@ -1,5 +1,6 @@
 var plan = {};//请求挂载对象
-var common = {};//变量挂载对象
+var public = {};//变量挂载对象
+public.aid = getaId()
 $(function(){
 	if(strdecode(getCookie('token'))==''||strdecode(getCookie('token'))==undefined||strdecode(getCookie('token'))==-1)
 	{
@@ -35,13 +36,70 @@ $(function(){
 
 
 	/*initialization*/
-	//var aid = getaId()
-	$.ajax({//获得活动的主要信息
+	plan.getInfo();
+
+	/*cache*/
+	public.totalPages = 0;//总页数
+	public.inow = 0;
+	public.notRepeat = 0;//防止点击tab多次请求
+	public.flag = '';//标识查找内容 初始化是空 
+	plan.init('',1)
+	
+	//////表格初始化
+	$('#status-list').find('a').click(function(event) {
+		if(public.notRepeat==$(this).index()){
+			return false;
+		}
+		if($(this).index()==0){
+			public.flag =''
+		}else if($(this).index()==1){
+			public.flag = 1;//记录请求哪种类型的数据
+		}else if($(this).index()==2){
+			public.flag = 0;
+		}
+		
+		public.notRepeat=$(this).index();
+		$(this).siblings().attr('class','');
+		$(this).attr('class','active');
+		var This = $(this)
+		if(This.index()==1)//样式处理
+		{
+			This.css('borderRadius',0)
+		}else if(This.index()==2)
+		{
+			This.css('borderRadius','0 5px 0 0')
+		}
+		//$('#fresh').click()
+		plan.init(public.flag,1);
+	});
+
+	//删除操作
+	$('tbody').delegate('.remove-it', 'click', function(event) {
+		plan.cancel($(this).attr('data'))
+	});
+
+
+	//上墙操作
+	$('tbody').delegate('.show-it', 'click', function(event) {
+		//$('#fresh').click()
+		plan.upWall($(this).attr('data'))
+	});
+
+	//刷新操作
+	$('#fresh').click(function(event) {
+		plan.init(public.flag,1);
+	});
+
+})
+
+/////////////function
+plan.getInfo = function(){
+		$.ajax({//获得活动的主要信息
 
 		url:basic.topAddress+basic.subAddress+'circle_activityWS.asmx/GetOne?jsoncallback=?',
 		type: 'GET',
 		dataType: 'jsonp',
-		data: {'id':''},
+		data: {'id':public.aid},
 	})
 	.done(function(data) {
 		//console.log(data);
@@ -65,83 +123,29 @@ $(function(){
 	.fail(function() {
 
 	})
-	/*cache*/
-	common.totalPages = 0;//总页数
-	common.inow = 0;
-	common.notRepeat = 0;//防止点击tab多次请求
-	common.flag = '';//标识查找内容 初始化是空 
-	plan.init('',1)
-	
-	//////表格初始化
-	$('#status-list').find('a').click(function(event) {
-		if(common.notRepeat==$(this).index()){
-			return false;
-		}
-		if($(this).index()==0){
-			common.flag =''
-		}else if($(this).index()==1){
-			common.flag = 1;//记录请求哪种类型的数据
-		}else if($(this).index()==2){
-			common.flag = 0;
-		}
-		
-		common.notRepeat=$(this).index();
-		$(this).siblings().attr('class','');
-		$(this).attr('class','active');
-		var This = $(this)
-		if(This.index()==1)//样式处理
-		{
-			This.css('borderRadius',0)
-		}else if(This.index()==2)
-		{
-			This.css('borderRadius','0 5px 0 0')
-		}
-		//$('#fresh').click()
-		plan.init(common.flag,1);
-	});
-
-	//删除操作
-	$('tbody').delegate('.remove-it', 'click', function(event) {
-		plan.cancel($(this).attr('data'))
-	});
-
-
-	//上墙操作
-	$('tbody').delegate('.show-it', 'click', function(event) {
-		//$('#fresh').click()
-		plan.upWall($(this).attr('data'))
-	});
-
-	//刷新操作
-	$('#fresh').click(function(event) {
-		plan.init(common.flag,1);
-	});
-
-})
-
-/////////////function
+}
 plan.init =  function(iFlag,iPage){//页面数据初始化
 	$.ajax({
 		url:basic.topAddress+basic.subAddress+'circle_activity_replyWs.asmx/GetAll?jsoncallback=?',
 		type: 'GET',
 		dataType: 'jsonp',
-		data: {'activity_id':'','user_id':'','on_wall':iFlag,'type':'互动','pageSize':'10','pageIndex':'1'},
+		data: {'activity_id':public.aid,'user_id':'','on_wall':iFlag,'type':'互动','pageSize':'10','pageIndex':'1'},
 	})
 	.done(function(data) {
 		//console.log(strdecode(data.Head[0].RowCount));
 		plan.flii(data)
 
 		if(data.Head.length!=0){
-			common.totalPages = strdecode(data.Head[0].RowCount)
+			public.totalPages = strdecode(data.Head[0].RowCount)
 			//console.log(Math.ceil(strdecode(data.Head[0].RowCount)));
 			$('#paging-box').jqPaginator({
-				totalPages: Math.ceil(common.totalPages/10),
+				totalPages: Math.ceil(public.totalPages/10),
 				visiblePages: 5,
 				currentPage: 1,
 				onPageChange:function(num,type){
 					if(type=='init'){
 					}else{
-						plan.req(common.flag,num);
+						plan.req(public.flag,num);
 					}
 				}
 			});

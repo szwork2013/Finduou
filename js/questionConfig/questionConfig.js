@@ -319,7 +319,7 @@ plan.init = function(){
 			alert(data.error)
 			window.location.href = 'index.html'
 		}else{	
-			console.log(data);
+			//console.log(data);
 			for(var i=0;i<data.Head.length;++i){
 				data.Head[i].title = strdecode(data.Head[i].question);
 				data.Head[i].question = strdecode(data.Head[i].question)
@@ -350,11 +350,11 @@ plan.insert = function(obj){//插入操作
 			alert(data.error)
 			window.location.href = 'index.html'
 		}else{	
-			console.log(data);
+			//console.log(data);
 			obj.odr = Data.Head.length+1;
 			obj.id = data.id;
 			Data.Head.push(obj)
-			console.log(Data);
+			//console.log(Data);
 			plan.fill(obj,strencode(data.id));
 		}
 

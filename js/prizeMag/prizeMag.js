@@ -100,6 +100,7 @@ $(function(){
 			public.addB = $('#award-input').val().replace(public.reg.gReg,'&gt').replace(public.reg.lReg,'&lt');
 			public.addC = $('#total-input').val()
 			public.addD = $('#sponsor-input').val().replace(public.reg.gReg,'&gt').replace(public.reg.lReg,'&lt');
+			public.addE = '';
 			plan.append()//ajax 添加
 			//$('#addLayer').css('zIndex',-100);
 			//plan.addFill()
@@ -287,6 +288,7 @@ plan.append = function(){
 		data: {'activity_id':public.aid,'photo':'','name':public.addA,'prize':public.addB,'number':public.addC,'sponsor':public.addD,'USER':'','TOKEN':strdecode(getCookie('token'))},
 	})
 	.done(function(data) {
+		//console.log(data);
 		if(data.error)
 		{	
 			alert(data.error)
@@ -295,7 +297,7 @@ plan.append = function(){
 			plan.addFill(strencode(data.id));
 			var obj = {'activity_id':public.aid,'id':data.id,'name':public.addA,'prize':public.addB,'number':public.addC,'sponsor':public.addD,'winner':''}
 			public.data.Head.push(obj);
-			console.log(data)
+			//console.log(data)
 		}
 
 	})
@@ -354,7 +356,7 @@ plan.delete = function(rid,This){//row id
 		}else{	
 			public.data.Head.splice(public.data.Head.length-1-This.parents('tr').index(),1)
 			This.parents('tr').remove();
-			console.log('---')
+			//console.log('---')
 			for(var i=public.data.Head.length-1;i>=0;--i)
 			{
 				console.log(strdecode(public.data.Head[i].name))
@@ -375,8 +377,8 @@ plan.addFill = function(id){
 	var td2 = "<td class='n2'><div class='cell'><p class='text'>"+public.addB+"</p><input type='text' class='award' /></div></td>"
 	var td3 = "<td class='n3'><div class='cell'><p class='text'>"+public.addC+"</p><input type='text' class='number' /></div></td>"
 	var td4 = "<td class='n4'><div class='cell'><p class='text'>"+public.addD+"</p><input type='text' class='sponsor' /></div></td>"
-	var td5 = "<td class='n5'><div class='cell'><p class='list not' title=''>"+public.addE+"</p></div></td>"
-	var td6 = "<td><div class='cell-wrap'><button class='lottery' href='#'>抽奖</button><button class='remove-it' href='#'>删除</button></div></td>"
+	var td5 = "<td class='n5'><div class='cell'><p class='list not' title='"+public.addE+"'>"+public.addE+"</p></div></td>"
+	var td6 = "<td><div class='cell-wrap'><a class='lottery' href='#'>抽奖</a><button class='remove-it' href='#'>删除</button></div></td>"
 	oTr.html(td1+td2+td3+td4+td5+td6);
 	oTr.appendTo('tbody');
 	$('#addLayer').find('input').val('').end().find('span').hide();

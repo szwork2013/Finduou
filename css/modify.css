@@ -42,43 +42,24 @@ header{ background: #fffffb; margin-bottom: 10px; }
 .main-title h2:nth-of-type(1) a{ font-size: 14px; color: #333333; font-family:"微软雅黑",sans-serif; font-weight: normal; line-height: 49px; margin-left: -4px; }
 .main-title strong{ font-size: 14px; color: #333333; font-family:"微软雅黑",sans-serif; font-weight: normal;  margin-left: 16px;}
 
-.main-title h2:nth-of-type(2){}
 #add-active,#return{ width: 94px; height: 33px;font-size: 14px; color: #fff; font-family:"微软雅黑",sans-serif;font-weight: normal; margin-right: 14px; background: #5890ff; display: inline-block; border-radius: 5px; line-height: 33px;text-align: center; margin-top: 8px;}
 
-/*search-group*/
-/* .search-group{ padding-top: 28px; padding-bottom: 30px; background: #fbfbfb; } */
-/*
-正式上线时top和bottom要做样式合并优化
-*/
-/*search-top*/
-/* #search-top{ line-height: 35px;  background: #fff; margin-bottom: 30px;}
-#search-top input{ height: 33px; border-radius: 5px; outline: none; border: 1px solid #cacaca; font-size: 14px; color: #333333; font-family:"微软雅黑",sans-serif;}
-#search-top label{   font-size: 14px; color: #333333; font-family:"微软雅黑",sans-serif; }
-#search-top div:nth-of-type(1):not(.wrap){ margin-left: 26px; } */
+
 #title-input{ width: 207px; padding-left: 14px;}
 
-/* #search-top div:nth-of-type(2):not(.wrap){ margin-left: 45px; position: relative;}
-#search-top a{ width: 24px; height: 33px; background: #e9eaee url(../img/list/area_icon.png) no-repeat 7px 15px; border-radius: 0 5px 5px 0; position: absolute; right: 0px; top: 0px; } */
+
 .wrap{ position: relative; width: 88px; height: 33px;   font-size: 14px; font-family: "微软雅黑",sans-serif; color: #333; border-radius: 5px;  border:  1px solid #cacaca; float: right;}
-.select-result{ margin-left: 14px; }
+
 #active-type{ width: 88px; position: absolute; right: 0; top: 35px; border: 1px solid #cacaca; display: none; z-index: 100; }
 #active-type li{ text-align: center;  font-size: 14px; font-family: "微软雅黑",sans-serif; color: #333; background: #999}
 #active-type li:hover{ background: #f00; }
-/* #search-top div:nth-of-type(3):not(.wrap){ margin-left: 60px; }
-#search-top .start,#search-top .to{ width: 90px; padding-left: 14px;} */
+
 
 /*search-bottom*/
-/* #search-bottom{ line-height: 35px;  background: #fff; margin-bottom: 30px;}
-#search-bottom input{ height: 33px; border-radius: 5px; outline: none; border: 1px solid #cacaca; font-size: 14px; color: #333333; font-family:"微软雅黑",sans-serif;}
-#search-bottom label{   font-size: 14px; color: #333333; font-family:"微软雅黑",sans-serif; }
-#search-bottom div:nth-of-type(1):not(.wrap){ margin-left: 26px; }
-#address-input{ width: 207px; padding-left: 14px;}
 
-#search-bottom div:nth-of-type(2):not(.wrap){ margin-left: 45px; position: relative;}
-#search-bottom a{ width: 24px; height: 33px; background: #e9eaee url(../img/list/area_icon.png) no-repeat 7px 15px; border-radius: 0 5px 5px 0; position: absolute; right: 0px; top: 0px; } */
 .wrap{ position: relative; width: 88px; height: 33px;   font-size: 14px; font-family: "微软雅黑",sans-serif; color: #333; border-radius: 5px;  border:  1px solid #cacaca; float: right; cursor: pointer;}
-.select-result{ margin-left: 4px; }
-.s1{ margin-left: 10px; }
+.select-result{  display: inline-block; width: 64px; text-align: center; }
+.s1{ margin-left: 0; display: inline-block; width: 64px; text-align: center; }
 #active-status{ width: 88px; position: absolute; right: 0; top: 35px; border: 1px solid #cacaca; display: none; }
 #active-status li{ text-align: center;  font-size: 14px; font-family: "微软雅黑",sans-serif; color: #333; }
 #active-status li:hover{ background: #f00; }
@@ -161,13 +142,13 @@ header{ background: #fffffb; margin-bottom: 10px; }
 
 /*submit*/
 #submit-group{text-align: center;padding-bottom: 122px;}
-#save,#cancel,#cut-btn{ width: 94px; height: 33px;font-size: 14px; color: #fff; border: none; cursor:pointer; font-family:"微软雅黑",sans-serif;font-weight: normal; background: #5890ff;  border-radius: 5px; line-height: 33px;text-align: center;}
+#save,#cancel,#cut-btn,#another{outline: none; width: 94px; height: 33px;font-size: 14px; color: #fff; border: none; cursor:pointer; font-family:"微软雅黑",sans-serif;font-weight: normal; background: #5890ff;  border-radius: 5px; line-height: 33px;text-align: center;}
 
 /*mask*/
-#mask{ width: 100%; height: 100%; background: rgba(0,0,0,0.6); position: absolute; top: 0; left: 0; z-index: 9999; display: none;}
+#mask{ width: 100%; height: 100%; background: rgba(0,0,0,0.6); position: fixed; top: 0; left: 0; z-index: 9999; display: none;}
 #cut-box{ width: 500px; margin: 0 auto; margin-top: 100px; }
 .cropper{ text-align: center; }
-#cut-btn{ background: #f00; }
+#cut-btn,#another{ background: #f00; }
 
 /*问题配置*/
 #question{ width: 20px; height: 20px; display: inline-block; margin-left: 20px; margin-right: 20px; margin-top: 10px; position: relative;top: 5px; }

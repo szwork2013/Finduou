@@ -11,16 +11,14 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta content=“telephone=no” name=“format-detection” />
 	<link rel="stylesheet" type="text/css" href="css/aStyle.css">
-
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.2.4/cropper.css">
+	<link rel="stylesheet" type="text/css" href="js/add/cropper.min.css">
 	<script type="text/javascript" src="js/global.js"></script>
 	<script type="text/javascript" src="framework/jQuery/jquery-2.1.4.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.2.4/cropper.js"></script>
+	<script type="text/javascript" src="js/add/cropper.min.js"></script>
 	<script type="text/javascript" src="js/base64code.js"></script>
 	<script type="text/javascript" src="js/add/WdatePicker.js"></script>
 	<script type="text/javascript" src="js/add/map.js"></script>
 	<script type="text/javascript" src="js/add/addActivity.js"></script>
-	<!-- <script type="text/javascript" src="js/dest/addActivity.min.js"></script> -->
    	<!--[if lt IE 9]>
    	 <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	<script src=" http://html5shiv.googlecode.com/svn/trunk/html5.js "></script >
@@ -164,8 +162,8 @@
 		</div>
 	</article>
 	<div id="mask">
-		<div id="cut-box">
-			<img src="">
+		<div id="cut-box" style="height: 500px;width: 500px">
+			<img id="image" src="">
 		</div>
 		<div class="cropper">
 			<button id="cut-btn">裁切</button>

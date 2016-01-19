@@ -344,11 +344,15 @@ tbody .btn-wrap button{
 	cursor: pointer;
 }
 .drop-list li{ 
+	width: 88px;
 	text-align: center;  
 	font-size: 14px;
 	font-family: "微软雅黑",sans-serif;
 	color: #333; 
 	line-height: 28px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 	background: #fff; 
 }
 

@@ -42,7 +42,7 @@ $(function(){
 		return str.replace(re,'aa').length;
 	}
 	$('#submit-btn').click(function(event) {
-		$(this).attr('disabled','true');//防止多次请求
+		$(this).attr('disabled',true);//防止多次请求
 		/////////////负责人姓名验证
 		if($('#name-input').val()==''){
 			$('#name-input').next().html('请输入负责人姓名').show();
@@ -106,27 +106,31 @@ $(function(){
 				$('#require-input').next().hide();
 			}
 		}
+
 		if(onoff)
 		{
+			$('#submit-btn').html('保存中').css('background','#999');
 			$.ajax({
 				url:basic.topAddress+basic.subAddress+'circle_activity_wallapplyWs.asmx/Insert?jsoncallback=?',
 				type: 'GET',
 				dataType: 'jsonp',
-				data: {'activity_id':aid,'preside_name':$('#name-input').val(),'mobile':$('#connect-input').val(),'reason':$('#reason-input').val(),'require':$('#require-input').val(),'creater':uid,'USER':'','TOKEN':token},
+				data: {'activity_id':aid,'preside_name':$('#name-input').val(),'mobile':$('#connect-input').val(),'reason':$('#reason-input').val(),'require':$('#require-input').val(),'creater':uid,'bgimage':'','USER':'','TOKEN':token},
 			})
 			.done(function(){
-				
+				alert('提交成功，当前申请状态为：未处理，请耐心等待工作人员处理')
+				$('#submit-btn').html('提交成功').css('background','#5890ff');
 			})
 			.fail(function(data){
 				alert(data)
-				$(this).attr('disabled',false);
+				$('#submit-btn').removeAttr("disabled").html('提交').css('background','#5890ff');
 			})
 			
 		}
 		else
 		{
 			onoff = true;
-			$(this).attr('disabled',false);
+			$('#submit-btn').removeAttr("disabled").html('提交').css('background','#5890ff');
+			//$(this).attr('disabled',false);
 			return false;
 		}
 	})

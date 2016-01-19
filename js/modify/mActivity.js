@@ -2,6 +2,10 @@ var plan = {};//挂载函数
 var public = {};//挂载变量
 var iData = {};//原始数据
 public.aid = getaId()
+public.img ='';//图片
+public.content = '';//简介内容
+var cropper = null;
+public.ifConfig = false;
 $(function(){
 	if(strdecode(getCookie('token'))==''||strdecode(getCookie('token'))==undefined||strdecode(getCookie('token'))==-1)
 	{
@@ -46,7 +50,7 @@ $(function(){
 		$(this).next().toggle()
 		event.stopPropagation();
 	});
-	$('#active-type-select').find('li').click(function(event) {
+	$('#active-type-select').delegate('li', 'click', function(event) {
 		$('#active-type-select').prev().find('span').html($(this).html())
 	});
 	$('#active-status-select').find('li').click(function(event) {
@@ -56,11 +60,21 @@ $(function(){
 	$('#upbtn').click(function(event) {
 		$('#upload').click()
 	});
-	var objImg = '';
+	$('#question').change(function(event) {//是否配置问题
+		public.ifConfig=$("input[type='checkbox']").is(':checked');
+		if(public.ifConfig){
+			$('#sign-btn').attr('href',"questionConfig.html?aid="+public.aid).show();
+			console.log(strencode(public.aid));
+			console.log(public.aid);
+		}else{
+			$('#sign-btn').attr('href','#').hide();
+		}
+	});
+	//var objImg = '';
 	//var test = ''
 	var data = new FormData();
 
-	$('#upload').change(function(e){
+	$('.main-control').delegate('#upload', 'change', function(e) {
 
 		var reg =/[\.](jpg|gif|png|JPG|PNG|GIF|jpeg)$/  // 文件类型判断
 
@@ -83,25 +97,46 @@ $(function(){
 		     	var image = new Image()
 		      	image.src = this.result;
 		      	image.onload = function(){
-			      	if(this.width!=900&&this.height!=500)
-				{
-					$('#poster-tip').html('图片尺寸900*500').show();
-				}
-		      		else
-		      		{
-		      			objImg = e.target.files[0]
-		      			$('.photoframe').html(this)	;
-		      			$('#poster-tip').hide()
-		      			
-		      		}
+		      		$('#mask').show();
+		      		$('#cut-box').html(this)
+			      		//var image = document.getElementById('image');
+			      		cropper = new Cropper(image, {
+						  aspectRatio: 9 / 5,
+						  minContainerWidth:500,
+						  minContainerHeight:500,
+						  crop: function(data) {
+						  }
+						});
 		      	}
 		}   
 						
 
 })
+	$('#cut-btn').click(function(event) {
+		$('#mask').hide();
+
+		var dataURL=cropper.getCroppedCanvas({
+		  width: 900,
+		  height: 500
+		});
+
+		var imgurl=dataURL.toDataURL("image/png",1.0);
+		console.log(imgurl)
+		var image = new Image()
+	      	image.src = imgurl;
+
+	      	public.img = imgurl.split(',')[1];
+
+	      	image.onload = function(){
+
+				$('.photoframe').html(this)
+	      	}
+	});
+
 /////////////////////////////////初始化
 	
 	plan.init();
+	plan.getList();
 	//console.log(aid);
 	
 	
@@ -132,12 +167,20 @@ $(function(){
 		
 	});
 	//
+		$('#another').click(function(event) {
+		var file = $("#upload") 
+		file.after(file.clone().val("")); 
+		file.remove(); 
+
+		$('#mask').hide();
+	});
+	//
 	var reg =/[<|>]+/g;
 
 	//submit
 	//var sonoff = true;
 	$('#save').click(function(event) {
-		
+		plan.modify()
 	})
 })
 
@@ -167,17 +210,21 @@ plan.init = function(){
 		$('#active-type-select').prev().find('span').html(str)
 		$('#active-status-select').prev().find('span').html(strdecode(data.Head[0].state))
 		$('.photoframe').html("<img src='"+basic.topAddress+basic.webAddress+strdecode(data.Head[0].poster)+"' />")
-		$('#activity-intro').val(strdecode(data.Head[0].content).replace(/(&nbsp)/g,' ').replace(/(&brbr&)/g,'\n'))
+		$('#activity-intro').val(strdecode(data.Head[0].content))
 		$('#link').val(strdecode(data.Head[0].buy_ticket))
 		$('#question').val(strdecode(data.Head[0].question));
 		if(strdecode(data.Head[0].question_flag)==1){
 			$('#question').attr('checked','checked');
-			$('#sign-btn').attr('href','questionConfig.html?aid='+strdecode(data.Head[0].id))	
+			$('#sign-btn').attr('href','questionConfig.html?aid='+data.Head[0].id);
+			
+			
 		}else{
 			$('#sign-btn').hide();
 		}
+		public.ifConfig=$("input[type='checkbox']").is(':checked');
 
-		objImg = strdecode(data.Head[0].poster);
+		public.img = strdecode(data.Head[0].poster);
+		//console.log(public.img)
 
 		maplng = parseFloat(strdecode(data.Head[0].longitude));
 		maplot = parseFloat(strdecode(data.Head[0].latitude));
@@ -193,8 +240,27 @@ plan.init = function(){
 
 	})
 }
+plan.getList = function(){//获得活动类型
+	$.ajax({
+		url:basic.topAddress+basic.subAddress+'dictWs.asmx/GetAll?jsoncallback=?',
+		type: 'GET',
+		dataType: 'jsonp',
+		data: {'table':'dict_activity_type','val':''},
+		})
+		.done(function(data){
+			var str = ''
+			for(var i=0;i<data.Head.length;++i){
+				str+="<li>"+strdecode(data.Head[i].name)+"</li>"
+			}
+			$('#active-type-select').html(str)
+		})
+		.fail(function(data){
+			alert(data)
+		})
+}
 plan.modify = function(){
-	$('#save').attr('disabled',false)
+	$('#save').attr('disabled',true)
+	//alert(0)
 		var onoff = false;
 		if($('#title-input-write').val().length>30)
 		{
@@ -307,12 +373,18 @@ plan.modify = function(){
 			onoff = true;
 			alert('报名问题不能含有非法字符')
 		}
-
+		if(public.ifConfig)
+		{
+			var Flag = 1;
+		}else{
+			var Flag = 0;
+		}
 		if(onoff)
 		{
 			$('#save').removeAttr("disabled")
 			return false;
 		}
+		var data = new FormData();
 		data.append('circle_id','')
 		data.append('university_id',strdecode(getCookie('uid')))
 		data.append('type',$('#active-type-select').prev().find('span').html())

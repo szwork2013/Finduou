@@ -5,20 +5,20 @@ if(strdecode(getCookie('token'))==''||strdecode(getCookie('token'))==undefined||
 var main = angular.module('FinduouApp',['tm.pagination','req','excel','navBar'])
 main.filter('base',function(){
 
-            return function(str){
-                return strdecode(str)
-            }
-        });
+    return function(str){
+        return strdecode(str)
+    }
+});
 main.controller('c1',['$scope','$q','$filter','getList','outport',function($scope,$q,$filter,getList,outport){
-            $scope.results;
-            $scope.all  ;
-        
-                    $scope.paginationConf = {}; 
-            var result = getList.init();
-            result.then(function(data){
-                    $scope.results = data;
-                   $scope.all = strdecode(data.Head[0].RowCount);
-            	$scope.paginationConf = {
+        $scope.results;
+        $scope.all  ;
+        $scope.paginationConf = {}; 
+    var result = getList.init();
+    result.then(function(data){
+      //  console.log(strdecode(data.Head[0].user_id));
+        $scope.results = data;
+        $scope.all = strdecode(data.Head[0].RowCount);
+        $scope.paginationConf = {
                         currentPage: 1,//当前页
                         totalItems:  $scope.all,//总数目
                         itemsPerPage: 20,//每页展示几项
@@ -26,14 +26,14 @@ main.controller('c1',['$scope','$q','$filter','getList','outport',function($scop
                         perPageOptions: [10, 20, 30, 40, 50],
                         rememberPerPage: 'perPageItems',
                         onChange: function(){
-                                var result =  getList.freshList($scope.paginationConf.currentPage)
-                                 result.then(function(data){
-                                     $scope.results = data;
-                                },function(){})
+                            var result =  getList.freshList($scope.paginationConf.currentPage)
+                            result.then(function(data){
+                               $scope.results = data;
+                           },function(){})
 
                         }
                     }; 
-          },function(){});
+                },function(){});
             //excel
             $scope.download = function(){
                 var result = outport.getExcel()
@@ -41,4 +41,4 @@ main.controller('c1',['$scope','$q','$filter','getList','outport',function($scop
                     window.open(data.url)
                 },function(){})
             }
-}])
+        }])

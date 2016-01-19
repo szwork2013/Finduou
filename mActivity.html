@@ -11,23 +11,19 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta content=“telephone=no” name=“format-detection” />
 	<link rel="stylesheet" type="text/css" href="css/modify.css">
-	<!-- <link rel="stylesheet" type="text/css" href="css/bStyle.css"> -->
+	<link rel="stylesheet" type="text/css" href="js/modify/cropper.min.css">
 	<script type="text/javascript" src="js/global.js"></script>
 	<script type="text/javascript" src="framework/jQuery/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript" src="js/base64code.js"></script>
+	<script type="text/javascript" src="js/modify/cropper.min.js"></script>
 	<script type="text/javascript" src="js/modify/WdatePicker.js"></script>
 	<script type="text/javascript" src="js/modify/map.js"></script>
 	<script type="text/javascript" src="js/modify/mActivity.js"></script>
-	<!-- <script type="text/javascript" src="js/dest/mActivity.min.js"></script> -->
-	
    	<!--[if lt IE 9]>
-    	<script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	<script src=" http://html5shiv.googlecode.com/svn/trunk/html5.js "></script >
 	<script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]--> 
-	<style type="text/css">
-
-	</style>
 </head>
 <body>
 	<header>
@@ -70,8 +66,8 @@
 						<div class="fill-wrap">
 							<label>活动时间：</label>
 							<input  id="d422" class="Wdate" type="text" onfocus="WdatePicker({minDate:'%y-%M-#{%d}'})" placeholder="(必填)"/>
-							<input type="text" id="d242" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'H:mm'})" class="Wdate" placeholder="(必填)"/>
-							<input type="text" id="d243" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'H:mm'})" class="Wdate" placeholder="(必填)"/>
+							<input id="d242" class="Wdate" type="text" onFocus="WdatePicker({dateFmt:'HH:mm',maxDate:'#F{$dp.$D(\'d243\')}'})"/> 
+							<input id="d243" class="Wdate" type="text" onFocus="WdatePicker({dateFmt:'HH:mm',minDate:'#F{$dp.$D(\'d242\')}'})"/>
 							<p class="left-tip fr">请输入活动时间</p>
 						</div>
 						<div class="city-box clear">
@@ -138,7 +134,7 @@
 									
 								</div>
 							</div>
-							<p id="poster-tip" class="right-tip fr">请上传活动海报&nbsp&nbsp</p>
+							<p id="poster-tip" class="right-tip fl">请上传活动海报&nbsp&nbsp</p>
 						</div>
 						<div class="intro-wrap clear">
 							<label class="fl">活动介绍：</label>
@@ -153,7 +149,7 @@
 						<div class="fill-wrap">
 							<label>报名问题：</label>
 							<input id="question" type="checkbox" placeholder="(选填)" />
-							<a style="display: inline-block;" id="sign-btn" href="#">报名配置</a>
+							<a target="_blank" style="display: inline-block;" id="sign-btn" href="#">报名配置</a>
 						</div>
 						
 					</div>
@@ -167,15 +163,15 @@
 		</div>
 	</article>
 	<div id="mask">
-		<div id="cut-box">
-			<img src="">
+		<div id="cut-box" style="height: 500px;width: 500px">
+			<img id="image" src="">
 		</div>
 		<div class="cropper">
 			<button id="cut-btn">裁切</button>
 			<button id="another">取消</button>
 		</div>
 	</div>
-<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAslXLzbetaH41cOt6sBGsG4rW5W1FEb94&libraries=places&callback=initMap"async defer></script> -->
-</body>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAslXLzbetaH41cOt6sBGsG4rW5W1FEb94&libraries=places&callback=initMap"async defer></script>
+ --></body>
 </body>
 </html>

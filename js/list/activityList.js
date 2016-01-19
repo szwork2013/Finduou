@@ -41,11 +41,11 @@ $(function(){
 	});
 	$('#active-type').find('li').click(function(event) {
 		$(this).parent().prev().find('span').html($(this).html())
-		if($(this).html()!='全部'){
+		/*if($(this).html()!='全部'){
 			$(this).parent().prev().find('span').css('marginLeft','4px')
 		}else{
 			$(this).parent().prev().find('span').css('marginLeft','12px')
-		}
+		}*/
 	});
 	$('#active-status').find('li').click(function(event) {
 		$(this).parent().prev().find('span').html($(this).html())
@@ -176,6 +176,7 @@ $(function(){
 	});
 
 	//main初始化
+	//alert(0)
 	getAll();
 function getAll(cur){
 	$.ajax({
@@ -187,7 +188,7 @@ function getAll(cur){
 	}).done(function(data) {
 
 		 	fill(data)
-
+		 	//console.log(strdecode(data.Head[0].question_flag));
 			if(data.Head.length==0)
 			{
 				var obj = $('<div>无相关活动</div>');
@@ -242,6 +243,7 @@ function getAll(cur){
 })
 
 function fill(data){
+	//console.log(strdecode(data.Head[0].question_flag));
   	previewData = data;
         $('.unit-wrap').empty();
         for(var i=0;i<data.Head.length;++i)
@@ -262,7 +264,7 @@ function fill(data){
             //alert(str2)
            // console.log(strdecode(data.Head[i].aduit_flag));
             str2+="<li class='modify'><a href='mActivity.html?aid="+data.Head[i].id+"'>修改活动</a></li><li class='member'><a href='participater.html?aid="+data.Head[i].id+"'>报名名单</a></li>"
-            //str2+="<li class='comment'><a href='javaScript:;'>评论管理</a></li>"
+            str2+="<li class='comment'><a href='comment.html?aid="+data.Head[i].id+"'>评论管理</a></li>"
           	  str2+=strdecode(data.Head[i].aduit_flag)=='0'?"<li class='apply'><a href='apply.html?aid="+strencode(data.Head[i].id)+"'>申请背景墙</a></li>":"<li class='bg-wall'><a href='"+data.Head[i].bgwall+"'>背景墙</a></li>"
             str2+="<li class='preview'><a href='javaScript:;' data='"+i+"'>预览</a></li>"
               str2+="<li class='management'><a href='prizeMag.html?aid="+data.Head[i].id+"'>奖品管理</a></li>"

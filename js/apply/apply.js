@@ -35,6 +35,7 @@ $(function(){
 	var uid = strdecode(getCookie('id'));
 	var token = strdecode(getCookie('token'));
 	var aid = getaId();
+
 	var telReg = /^(\d){10,20}$/;  //手机号码正则
 
 	function getLength(str){
@@ -114,11 +115,14 @@ $(function(){
 				url:basic.topAddress+basic.subAddress+'circle_activity_wallapplyWs.asmx/Insert?jsoncallback=?',
 				type: 'GET',
 				dataType: 'jsonp',
-				data: {'activity_id':aid,'preside_name':$('#name-input').val(),'mobile':$('#connect-input').val(),'reason':$('#reason-input').val(),'require':$('#require-input').val(),'creater':uid,'bgimage':'','USER':'','TOKEN':token},
+				data: {'activity_id':aid,'preside_name':$('#name-input').val(),'mobile':$('#connect-input').val(),'reason':$('#reason-input').val(),'requires':$('#require-input').val(),'creater':uid,'bgimage':'','USER':'','TOKEN':token},
 			})
 			.done(function(){
 				alert('提交成功，当前申请状态为：未处理，请耐心等待工作人员处理')
-				$('#submit-btn').html('提交成功').css('background','#5890ff');
+				$('#submit-btn').html('提交成功').css('background','#5890ff').attr('disabled',true);
+				setTimeout(function(){//5s后跳转
+					window.location.href = 'activeList.html'
+				}, 5000);
 			})
 			.fail(function(data){
 				alert(data)

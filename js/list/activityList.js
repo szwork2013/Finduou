@@ -41,17 +41,18 @@ $(function(){
 	});
 	$('#active-type').find('li').click(function(event) {
 		$(this).parent().prev().find('span').html($(this).html())
-		/*if($(this).html()!='全部'){
-			$(this).parent().prev().find('span').css('marginLeft','4px')
-		}else{
-			$(this).parent().prev().find('span').css('marginLeft','12px')
-		}*/
 	});
 	$('#active-status').find('li').click(function(event) {
 		$(this).parent().prev().find('span').html($(this).html())
 	});
 
 	/*prevent scroll*/
+	//console.log(strdecode(getCookie('id')));
+	if(strdecode(getCookie('id'))==0){
+		var iSuper = ''
+	}else{
+		var iSuper = strdecode(getCookie('uid'));//是否超级管理员
+	}
 	var scroll = true;
 	var oDiv = document.getElementById('preview-page');
 	oDiv.onmousewheel = preview;
@@ -119,13 +120,13 @@ $(function(){
 		}
 
 		//记录查询信息
-		checkData = {'circle_id':'','university_id':strdecode(getCookie('uid')),'type':ss,'state':str,'name':'','title':$('#title-input').val(),'set_time_s':$('#d4311').val(),'set_time_e':$('#d4312').val(),'city':'','place':$('#address-input').val(),'creater_name':$('#founder').val(),'pageSize':'10','pageIndex':1}
+		checkData = {'circle_id':'','university_id':iSuper,'type':ss,'state':str,'name':'','title':$('#title-input').val(),'set_time_s':$('#d4311').val(),'set_time_e':$('#d4312').val(),'city':'','place':$('#address-input').val(),'creater_name':$('#founder').val(),'pageSize':'10','pageIndex':1}
 
 		$.ajax({
 			url:basic.topAddress+basic.subAddress+'circle_activityWS.asmx/GetAllForWeb?jsoncallback=?',
 			type: 'GET',
 			dataType: 'jsonp',
-			data:{'circle_id':'','university_id':strdecode(getCookie('uid')),'type':ss,'state':str,'name':'','title':$('#title-input').val(),'set_time_s':$('#d4311').val(),'set_time_e':$('#d4312').val(),'city':'','place':$('#address-input').val(),'creater_name':$('#founder').val(),'pageSize':'10','pageIndex':1}
+			data:{'circle_id':'','university_id':iSuper,'type':ss,'state':str,'name':'','title':$('#title-input').val(),'set_time_s':$('#d4311').val(),'set_time_e':$('#d4312').val(),'city':'','place':$('#address-input').val(),'creater_name':$('#founder').val(),'pageSize':'10','pageIndex':1}
 		}).done(function(data) {
 			if(data.error)
 			{	
@@ -183,7 +184,7 @@ function getAll(cur){
 		url:basic.topAddress+basic.subAddress+'circle_activityWS.asmx/GetAllForWeb?jsoncallback=?',
 		type: 'GET',
 		dataType: 'jsonp',
-		data:{'circle_id':'','university_id':strdecode(getCookie('uid')),'type':'','state':'','name':'','title':'','set_time_s':'','set_time_e':'','city':'','place':'','creater_name':'','pageSize':'10','pageIndex':1}
+		data:{'circle_id':'','university_id':iSuper,'type':'','state':'','name':'','title':'','set_time_s':'','set_time_e':'','city':'','place':'','creater_name':'','pageSize':'10','pageIndex':1}
 		//data:{'circle_id':'','university_id':'','type':'','state':'','name':'','title':'','set_time_s':'','set_time_e':'','city':'','place':'','creater_name':'','pageSize':'10','pageIndex':1}
 	}).done(function(data) {
 
@@ -233,7 +234,7 @@ function getAll(cur){
 		$('#pre-time').html("<span>"+strdecode(previewData.Head[index].set_date).split(' ')[0]+"</span><span>"+strdecode(previewData.Head[index].set_time_s)+"-"+strdecode(previewData.Head[index].set_time_e)+"</span>")
 		$('#pre-address').html("<a href='javaScript:;'>"+strdecode(previewData.Head[index].place)+"</a>")
 		$('.f3-sub').find('p').html("已报名("+strdecode(previewData.Head[index].join_number)+")")
-		$('#text').html(strdecode(previewData.Head[index].content).replace(/( )/g,'&nbsp').replace(/\n/g,'<br>'))
+		$('#text').html(strdecode(previewData.Head[index].content).replace(/( )/g,'&nbsp').replace(/(<)/g,'&lt').replace(/(>)/g,'&gt').replace(/\n/g,'<br>'))
 		$('#preview-page').show();
 	});
 	$('#onoff').click(function(event) {
@@ -265,7 +266,7 @@ function fill(data){
            // console.log(strdecode(data.Head[i].aduit_flag));
             str2+="<li class='modify'><a href='mActivity.html?aid="+data.Head[i].id+"'>修改活动</a></li><li class='member'><a href='participater.html?aid="+data.Head[i].id+"'>报名名单</a></li>"
             str2+="<li class='comment'><a href='comment.html?aid="+data.Head[i].id+"'>评论管理</a></li>"
-          	  str2+=strdecode(data.Head[i].aduit_flag)=='0'?"<li class='apply'><a href='apply.html?aid="+strencode(data.Head[i].id)+"'>申请背景墙</a></li>":"<li class='bg-wall'><a href='"+data.Head[i].bgwall+"'>背景墙</a></li>"
+          	  str2+=strdecode(data.Head[i].aduit_flag)=='0'?"<li class='apply'><a href='apply.html?aid="+data.Head[i].id+"'>申请背景墙</a></li>":"<li class='bg-wall'><a href='wall.html?aid="+data.Head[i].id+"'>背景墙</a></li>"
             str2+="<li class='preview'><a href='javaScript:;' data='"+i+"'>预览</a></li>"
               str2+="<li class='management'><a href='prizeMag.html?aid="+data.Head[i].id+"'>奖品管理</a></li>"
             var c =$('<ul></ul>').addClass('activity-operate fr');
@@ -281,7 +282,7 @@ function fill(data){
 /////////////////list
 function ajax(num){
 
-        var userData ={'circle_id':'','university_id':strdecode(getCookie('uid')),'type':'','state':'','name':'','title':'','set_time_s':'','set_time_e':'','city':'','place':'','creater_name':'','pageSize':'10','pageIndex':num}
+        var userData ={'circle_id':'','university_id':iSuper,'type':'','state':'','name':'','title':'','set_time_s':'','set_time_e':'','city':'','place':'','creater_name':'','pageSize':'10','pageIndex':num}
 
         $.ajax({
         url:basic.topAddress+basic.subAddress+'circle_activityWS.asmx/GetAllForWeb?jsoncallback=?',

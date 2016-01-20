@@ -165,11 +165,12 @@ body{ padding-bottom: 14px; background: url(../img/wall/wall_bg.jpg) no-repeat; 
 		background: url(../img/wall/triangle.png) no-repeat;
 	}
 	.text{
+		width: 994px;
 		font-size: 30px;
+		word-wrap: break-word;
 		font-family:"微软雅黑",sans-serif;
 		font-weight: normal;
 		color: #fff;
-		/* text-align: center; */
 		line-height: 54px;
 	}
 	.content-pic{

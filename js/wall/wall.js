@@ -1,7 +1,7 @@
 var plan = {};//用于挂载函数
 var data = {};//用于挂载数据
 var public = {};
-//public.aid = getaId();
+public.aid = getaId();
 public.index = 0;//索引
 public.total = 0;//数据总数;
 
@@ -16,7 +16,7 @@ plan.init = function(){//获得上墙评论
 		url:basic.topAddress+basic.subAddress+'circle_activity_replyWs.asmx/GetAll?jsoncallback=?',
 		type: 'GET',
 		dataType: 'jsonp',
-		data: {'activity_id':'','user_id':'','on_wall':'1','type':'互动','pageSize':'','pageIndex':''},
+		data: {'activity_id':public.aid,'user_id':'','on_wall':'1','type':'互动','pageSize':'','pageIndex':''},
 	})
 	.done(function(obj) {
 		
@@ -75,6 +75,7 @@ plan.fresh = function(){//更新微信墙墙
 		data: {'activity_id':'','user_id':'','on_wall':'1','type':'互动','pageSize':'','pageIndex':''},
 	})
 	.done(function(obj) {
+		//console.log(obj);
 		data =obj;
 		public.total = data.Head.length;
 	})
@@ -91,19 +92,20 @@ plan.fill = function(){//填充信息
 		var oLi =  $("<li class='unit clear'></li>");
 		var c1 = $("<div class='head-img fl'></div>");
 		//console.log(strdecode(data.Head[public.index].id));
-		if(data.Head[public.index].img==''){
+		//console.log(data.Head[public.index].reply_photo=='');
+		if(data.Head[public.index].reply_photo==''){//头像为空，用默认头像
 			//alert(1)
-			console.log(strdecode(data.Head[public.index].id));
+			//console.log(strdecode(data.Head[public.index].id));
 			c1.html("<img src='img/wall/head_img.jpg'>");
 		}else{
-			c1.html("<img src='"+basic.topAddress+basic.webAddress+strdecode(data.Head[public.index].img)+"'>");
+			c1.html("<img src='"+basic.topAddress+basic.webAddress+strdecode(data.Head[public.index].reply_photo)+"'>");
 		}
 		
 		var c2 = $("<div class='content fl'></div>");
 		var triangle = "<span class='triangle'></span>";
 		c2.html(triangle);
-		if(data.Head[public.index].content==''){
-			var oImg = $('<img>').attr('src',basic.topAddress+basic.webAddress+strdecode(data.Head[public.index].reply_photo));
+		if(data.Head[public.index].img!=''){
+			var oImg = $('<img>').attr('src',basic.topAddress+basic.webAddress+strdecode(data.Head[public.index].img));
 			oImg.addClass('content-pic');
 			oImg.appendTo(c2);
 		}else{
@@ -135,11 +137,11 @@ plan.append = function(){//不足3个执行插入操作；多于三个执行克�
 		var c1 = $("<div class='head-img fl'></div>");
 		//console.log(strdecode(data.Head[public.index].id));
 		//c1.html("<img src='"+basic.topAddress+basic.webAddress+strdecode(data.Head[public.index].img)+"'>");
-		if(data.Head[public.index].img==''){
+		if(data.Head[public.index].reply_photo==''){
 			//alert(1)
 			c1.html("<img src='img/wall/head_img.jpg'>");
 		}else{
-			c1.html("<img src='"+basic.topAddress+basic.webAddress+strdecode(data.Head[public.index].img)+"'>");
+			c1.html("<img src='"+basic.topAddress+basic.webAddress+strdecode(data.Head[public.index].reply_photo)+"'>");
 		}
 		var c2 = $("<div class='content fl'></div>");
 		var triangle = "<span class='triangle'></span>";
@@ -174,7 +176,7 @@ plan.getSignNum = function(){//获得签到人数
 		url:basic.topAddress+basic.subAddress+'circle_activityWS.asmx/GetOne?jsoncallback=?',
 			type: 'GET',
 			dataType: 'jsonp',
-			data:{'id':''}
+			data:{'id':public.aid}
 	})
 	.done(function(data) {
 		//console.log(data);
@@ -203,7 +205,7 @@ plan.getCodePic = function(){//获得二维码
 		url:basic.topAddress+basic.subAddress+'QRCodeWs.asmx/SetQRCode?jsoncallback=?',
 			type: 'GET',
 			dataType: 'jsonp',
-			data:{'content':"document.write('window.open(http://www.hao123.com)')"}
+			data:{'content':public.aid}
 	})
 	.done(function(data) {
 		//console.log(data);

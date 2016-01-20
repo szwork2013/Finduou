@@ -4,6 +4,7 @@ var iData = {};//原始数据
 public.aid = getaId()
 public.img ='';//图片
 public.content = '';//简介内容
+public.poster = ''
 var cropper = null;
 public.ifConfig = false;
 $(function(){
@@ -178,9 +179,9 @@ $(function(){
 	var reg =/[<|>]+/g;
 
 	//submit
-	//var sonoff = true;
+
 	$('#save').click(function(event) {
-		plan.modify()
+		plan.modify(public)
 	})
 })
 
@@ -223,7 +224,7 @@ plan.init = function(){
 		}
 		public.ifConfig=$("input[type='checkbox']").is(':checked');
 
-		public.img = strdecode(data.Head[0].poster);
+		public.poster = strdecode(data.Head[0].poster);
 		//console.log(public.img)
 
 		maplng = parseFloat(strdecode(data.Head[0].longitude));
@@ -258,7 +259,7 @@ plan.getList = function(){//获得活动类型
 			alert(data)
 		})
 }
-plan.modify = function(){
+plan.modify = function(public){
 	$('#save').attr('disabled',true)
 	//alert(0)
 		var onoff = false;
@@ -358,15 +359,15 @@ plan.modify = function(){
 			$('#activity-intro').next().html('活动介绍长度10~300字符').show();
 			onoff = true;
 		}
-		else if(reg.test($('#activity-intro').val()))
+/*		else if(reg.test($('#activity-intro').val()))
 		{
 			$('#activity-intro').next().html("活动介绍不能含有'<'或者'>'").show();
 			onoff = true;
-		}
+		}*/
 		else
 		{
 			$('#activity-intro').next().hide();
-			str = $('#activity-intro').val()
+			public.content = $('#activity-intro').val()
 		}
 		if(reg.test($('#question').val()))
 		{
@@ -385,6 +386,7 @@ plan.modify = function(){
 			return false;
 		}
 		var data = new FormData();
+		data.append('id',public.aid)
 		data.append('circle_id','')
 		data.append('university_id',strdecode(getCookie('uid')))
 		data.append('type',$('#active-type-select').prev().find('span').html())
@@ -437,7 +439,8 @@ plan.modify = function(){
 			error:function(obj){
 				alert(obj.status+'失败');
 				//sonoff = true;
-				$('#save').removeAttr("disabled")
+				$('#save').removeAttr("disabled").html('保存').css('background','#5890ff');
+				//$('#save').removeAttr("disabled")
 			}
 		});
 }

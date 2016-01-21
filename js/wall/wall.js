@@ -38,7 +38,7 @@ plan.init = function(){//获得上墙评论
 plan.startMove = function(){//循环运动
 	timer = setInterval(function(){
 		plan.fresh();//进行刷新请求
-
+		plan.freshSign();//刷新签到人数
 		if(public.total<=3){
 			//if($('#main-list').children('li').length<3){}
 				plan.append();
@@ -191,6 +191,30 @@ plan.getSignNum = function(){//获得签到人数
 				$('#title').css({'fontSize':46,'lineHeight':'82px'}).html(title)
 			}
 			$('#title').html(title)
+			$('#total').html(strdecode(data.Head[0].signin_number))
+		}
+
+	})
+	.fail(function() {
+
+	})
+}
+plan.freshSign = function(){
+	$.ajax({
+
+		url:basic.topAddress+basic.subAddress+'circle_activityWS.asmx/GetOne?jsoncallback=?',
+			type: 'GET',
+			dataType: 'jsonp',
+			data:{'id':public.aid}
+	})
+	.done(function(data) {
+		//console.log(data);
+		if(data.error)
+		{	
+			alert(data.error)
+			window.location.href = 'index.html'
+		}else{	
+
 			$('#total').html(strdecode(data.Head[0].signin_number))
 		}
 

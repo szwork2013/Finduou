@@ -33,7 +33,7 @@ section{ width: 1178px; height: 608px; padding: 10px; margin: 0 auto; border: 1p
 #prize{margin-bottom: 10px; text-align: center; font-size: 45px; font-family:"微软雅黑",sans-serif; color: #fff600; font-weight: normal; }
 #prize-name{ margin-bottom: 14px; }
 #prize-name,#sponsor{line-height: 24px;  text-align: center; font-size: 24px; font-family:"微软雅黑",sans-serif; color: #fff; font-weight: normal; }
-#sponsor{  padding-bottom: 6px; }
+#sponsor{  padding-bottom: 10px; }
 .layer2{ margin-top: 80px; }
 #pool{width:400px; height: 122px; margin: 0 auto; border: 2px solid #fff; overflow: hidden; border-radius: 5px;}
 #name{ line-height: 122px; text-align: center; font-size: 60px; font-family:"微软雅黑",sans-serif; color: #fff600; font-weight: normal; }

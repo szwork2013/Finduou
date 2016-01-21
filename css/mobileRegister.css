@@ -1,0 +1,57 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*reset*/
+body,h1,h2,h3,h4,h5,p,dl,dd,ul,ol,form,input,textarea,th,td,select,figure { margin:0; padding:0; }
+article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block};
+em { font-style:normal; }
+li { list-style:none; }
+a{ text-decoration:none; outline:none; }
+img { border:none; vertical-align:top; }
+body { font-size:16px; font-family:"微软雅黑",sans-serif; background:#f5f5f5;}
+
+.clear{zoom:1;}
+.clear:after{content:'';display:block;; clear:both;}
+.fl{ float:left;}
+.fr{ float:right;}
+input[type=text]{ -webkit-appearance:none; }
+/* input:focus{ box-shadow:0px 0px 4px #357bff; } */
+/*reset end*/
+
+a,img,button,input,textarea{-webkit-tap-highlight-color:rgba(255,255,255,0);-webkit-tap-highlight-color: transparent;}
+#base-info{ width: 100%;}
+#question-title,#base-title{ width: 100%; text-indent: 5%; line-height: 1rem; font-size: 0.5rem;font-family:"微软雅黑",sans-serif; color: #333; font-weight: normal;}
+
+#base-form,#question-form{ width: 90% ; margin: 0 auto; background: #fff; border: 1px solid #dddddd; border-bottom: none;}
+.unit{height: 1.25rem; line-height: 1.25rem;border-bottom: 1px solid #dddddd; position: relative;}
+.unit input{ width: 100%; height: 0.75rem; padding: 0.25rem 0; line-height: 0.75rem; /*text-align: center;*/ display: block;font-size: 0.4rem;font-family:"微软雅黑",sans-serif; border: none; outline: none; }
+
+label{ font-size: 0.4rem;font-family:"微软雅黑",sans-serif; font-weight: normal; }
+.label-wrap{ width: 20% ; line-height: 1.25rem; text-indent: 0.5rem;}
+.input-wrap{ width: 80% }
+
+/*sex*/
+.active{ color: #fff; background: #6cadf7; }
+#man,#woman{ display: inline-block; margin-left: 1.2rem; width: 1rem; height: 1rem; line-height: 1rem; border: 1px solid #e0e0e0; border-radius: 0.5rem; text-align: center; }
+
+
+/*question*/
+#question { padding-bottom: 2rem; }
+.checkbox-title,.select-title,.fill-title{ line-height: 1rem;  text-indent: 0.5rem;border-bottom: 1px solid #dddddd; position: relative;}
+.fill-unit input[type=text]{ width: 94%; padding-left: 6%; height: 1rem; display: block;font-size: 0.4rem;font-family:"微软雅黑",sans-serif; border: none; outline: none; color: #999999; }
+.fill-unit p{border-bottom: 1px solid #dddddd;}
+/*单选*/
+.select{ position: relative; }
+select{ position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 6; visibility: hidden;}
+
+.triangle-right {position: absolute;right: 0.27rem;top: 15px; z-index: 4;width: 0;height: 0;border-top: 5px solid transparent;border-left: 10px solid #cbcbcb;border-bottom: 5px solid transparent;}
+.triangle-right1 {position: absolute;right: 0.32rem;top: 15px; z-index: 5;width: 0;height: 0;border-top: 5px solid transparent;border-left: 10px solid #fff;border-bottom: 5px solid transparent;}
+/*多选*/
+.checkbox-wrap{border-bottom: 1px solid #dddddd;}
+.checkbox-wrap p{ width: 50%; padding: 0.33rem 0;}
+.not-check{ position: relative; margin-left: 0.6rem;  display: inline-block;width: 0.33rem; height: 0.33rem; border: 1px solid #aaaaaa; background: #f2f2f2;}
+.check{display: block; position: absolute; left: -1px; top: -1px; width: 0.34rem; height: 0.34rem; border: 1px solid #3c8ae2; background: #6cadf7; font-size: 0.28rem; color: #fff; font-weight: bold;}
+
+
+.btn-wrap{ /*position: fixed; bottom: 0px; */width: 100%; }
+#save{ width: 100%; height: 1.5rem; line-height: 1.5rem; text-align: center; background: #3d5c96; color: #fff; font-size: 0.5rem; font-family:"微软雅黑",sans-serif; border: none; outline: none;}

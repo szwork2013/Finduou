@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>报名信息</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+	<meta name="robots" content="index,follow" />
+	<meta name="mobile-agent" content="format=html5">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content=“telephone=no” name=“format-detection” />
+	<script type="text/javascript">
+		document.getElementsByTagName('html')[0].style.fontSize = window.screen.width/10+'px'
+	</script>
+	<link rel="stylesheet" type="text/css" href="css/mobileRegister.css">
+	<script type="text/javascript" src="framework/jQuery/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="js/mobile/mobileRegister.js"></script>
+</head>
+<body>
+	<article id="base-info">
+		<header>
+			<h2 id="base-title">基本信息</h2>
+		</header>
+		<section>
+			<form id="base-form">
+				<div class="unit clear">
+					<p class="label-wrap fl">
+						<label class="name">姓名</label>
+					</p>
+					<p class="input-wrap fr">
+						<input type="text" id="user-name" />
+					</p>
+				</div>
+				<div class="unit clear">
+					<p class="label-wrap fl">
+					<label>性别</label>
+					</p>
+					<p class="input-wrap fr">
+						<span class="active" id="man">男</span>
+						<span id="woman">女</span>
+					</p>
+				</div>
+				<div class="unit clear">
+					<p class="label-wrap fl">
+						<label>手机号</label>
+					</p>
+					<p class="input-wrap fr">
+						<input type="text" id="phone" />
+					</p>
+				</div>
+				<div class="unit clear">
+					<p class="label-wrap fl">
+						<label>学校</label>
+					</p>
+					<p class="input-wrap fr">
+						<input type="text" id="school" />
+					</p>
+				</div>
+				<div class="unit clear">
+					<p class="label-wrap fl">
+						<label>Email</label>
+					</p>
+					<p class="input-wrap fr">
+						<input type="text" id="email" />
+					</p>
+				</div>
+			</form>
+		</section>
+	</article>
+	<article id="question">
+		<header>
+			<h2 id="question-title">报名问题</h2>
+		</header>
+		<section>
+			<form id="question-form">
+			<div class="checkboxs">
+					<h3 class="checkbox-title"><label>你会使用的英雄是?（多选）</label></h3>
+					<div class="checkbox-wrap clear">
+						<p class="fl">
+							<span class="not-check">
+								<i class="check">√</i>
+							</span>
+							<label>盲僧</label>
+						</p>
+						<p class="fl">
+							<span class="not-check">
+								
+							</span>
+							<label>盲僧</label>
+						</p>
+						<p class="fl">
+							<span class="not-check">
+								
+							</span>
+							<label>盲僧</label>
+						</p>
+					</div>
+				</div>
+				<div class="fill-unit">
+					<h3 class="fill-title"><label>你的LOL段位是什么?</label></h3>
+					<p><input type="text" class="fill-input" placeholder="答:" /></p>
+				</div>
+				<div class="select">
+					<h3 class="select-title"><label>你最熟练的英雄是?</label>
+					<div class="triangle-right"></div>
+					<div class="triangle-right1"></div></h3>
+					
+					<select class="user-select">
+						<option>sf</option>
+						<option>风暴之灵</option>
+					</select>
+				</div>
+				<div class="checkboxs">
+					<h3 class="checkbox-title"><label>你会使用的英雄是?（多选）</label></h3>
+					<div class="checkbox-wrap clear">
+						<p class="fl">
+							<span class="not-check">
+								<i class="check">√</i>
+							</span>
+							<label>盲僧</label>
+						</p>
+						<p class="fl">
+							<span class="not-check">
+								
+							</span>
+							<label>盲僧</label>
+						</p>
+						<p class="fl">
+							<span class="not-check">
+								
+							</span>
+							<label>盲僧</label>
+						</p>
+					</div>
+				</div>
+				<div class="select">
+					<h3 class="select-title"><label>你最熟练的英雄是?</label>
+					<div class="triangle-right"></div>
+					<div class="triangle-right1"></div></h3>
+					
+					<select class="user-select">
+						<option>sf</option>
+						<option>风暴之灵</option>
+					</select>
+				</div>
+				<div class="fill-unit">
+					<h3 class="fill-title"><label>你的LOL段位是什么?</label></h3>
+					<p><input type="text" class="fill-input" placeholder="答:" /></p>
+				</div>
+			</form>
+		</section>
+	</article>
+	<h1 class="btn-wrap"><button id="save">报名</button></h1>
+</body>
+</html>

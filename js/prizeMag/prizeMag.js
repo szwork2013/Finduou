@@ -378,8 +378,8 @@ plan.addFill = function(id){//id是未解码的
 	var td3 = "<td class='n3'><div class='cell'><p class='text'>"+public.addC+"</p><input type='text' class='number' /></div></td>"
 	var td4 = "<td class='n4'><div class='cell'><p class='text'>"+public.addD+"</p><input type='text' class='sponsor' /></div></td>"
 	var td5 = "<td class='n5'><div class='cell'><p class='list not' title='"+public.addE+"'>"+public.addE+"</p></div></td>"
-	var td6 = "<td><div class='cell-wrap'><a class='lottery' href='draw.html?wid="+id+"&aid="+strencode(public.aid)+"'>抽奖</a><button class='remove-it' href='#'>删除</button></div></td>"
-	console.log(strdecode(id));
+	var td6 = "<td><div class='cell-wrap'><a target='_blank' class='lottery' href='draw.html?wid="+id+"&aid="+strencode(public.aid)+"'>抽奖</a><button class='remove-it' href='#'>删除</button></div></td>"
+	//console.log(strdecode(id));
 	oTr.html(td1+td2+td3+td4+td5+td6);
 	oTr.appendTo('tbody');
 	$('#addLayer').find('input').val('').end().find('span').hide();

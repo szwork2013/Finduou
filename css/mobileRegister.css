@@ -26,8 +26,8 @@ a,img,button,input,textarea{-webkit-tap-highlight-color:rgba(255,255,255,0);-web
 .unit{height: 1.25rem; line-height: 1.25rem;border-bottom: 1px solid #dddddd; position: relative;}
 .unit input{ width: 100%; height: 0.75rem; padding: 0.25rem 0; line-height: 0.75rem; /*text-align: center;*/ display: block;font-size: 0.4rem;font-family:"微软雅黑",sans-serif; border: none; outline: none; }
 
-label{ font-size: 0.4rem;font-family:"微软雅黑",sans-serif; font-weight: normal; }
-.label-wrap{ width: 20% ; line-height: 1.25rem; text-indent: 0.5rem;}
+label{ font-size: 0.4rem;font-family:"微软雅黑",sans-serif; font-weight: normal; text-align: center; }
+.label-wrap{ width: 20% ; line-height: 1.25rem; text-align: center; /*text-indent: 0.5rem;*/}
 .input-wrap{ width: 80% }
 
 /*sex*/
@@ -38,20 +38,21 @@ label{ font-size: 0.4rem;font-family:"微软雅黑",sans-serif; font-weight: nor
 /*question*/
 #question { padding-bottom: 2rem; }
 .checkbox-title,.select-title,.fill-title{ line-height: 1rem;  text-indent: 0.5rem;border-bottom: 1px solid #dddddd; position: relative;}
+.answer{ width: 4rem;  line-height: 1rem;  overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin-left: 1rem;  font-size: 0.4rem;font-family:"微软雅黑",sans-serif; font-weight: normal; text-align: center; }
 .fill-unit input[type=text]{ width: 94%; padding-left: 6%; height: 1rem; display: block;font-size: 0.4rem;font-family:"微软雅黑",sans-serif; border: none; outline: none; color: #999999; }
 .fill-unit p{border-bottom: 1px solid #dddddd;}
 /*单选*/
 .select{ position: relative; }
-select{ position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 6; visibility: hidden;}
+select{ position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 6;opacity: 0;}
 
 .triangle-right {position: absolute;right: 0.27rem;top: 15px; z-index: 4;width: 0;height: 0;border-top: 5px solid transparent;border-left: 10px solid #cbcbcb;border-bottom: 5px solid transparent;}
 .triangle-right1 {position: absolute;right: 0.32rem;top: 15px; z-index: 5;width: 0;height: 0;border-top: 5px solid transparent;border-left: 10px solid #fff;border-bottom: 5px solid transparent;}
 /*多选*/
-.checkbox-wrap{border-bottom: 1px solid #dddddd;}
+.checkbox-wrap{border-bottom: 1px solid #dddddd; overflow: hidden;}
 .checkbox-wrap p{ width: 50%; padding: 0.33rem 0;}
 .not-check{ position: relative; margin-left: 0.6rem;  display: inline-block;width: 0.33rem; height: 0.33rem; border: 1px solid #aaaaaa; background: #f2f2f2;}
 .check{display: block; position: absolute; left: -1px; top: -1px; width: 0.34rem; height: 0.34rem; border: 1px solid #3c8ae2; background: #6cadf7; font-size: 0.28rem; color: #fff; font-weight: bold;}
-
+.cp label{ /*display: inline-block;*/ width: 3rem;overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 
 .btn-wrap{ /*position: fixed; bottom: 0px; */width: 100%; }
 #save{ width: 100%; height: 1.5rem; line-height: 1.5rem; text-align: center; background: #3d5c96; color: #fff; font-size: 0.5rem; font-family:"微软雅黑",sans-serif; border: none; outline: none;}

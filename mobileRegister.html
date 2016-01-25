@@ -14,6 +14,7 @@
 		document.getElementsByTagName('html')[0].style.fontSize = window.screen.width/10+'px'
 	</script>
 	<link rel="stylesheet" type="text/css" href="css/mobileRegister.css">
+	<script type="text/javascript" src="js/base64code.js"></script>
 	<script type="text/javascript" src="framework/jQuery/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript" src="js/mobile/mobileRegister.js"></script>
 </head>
@@ -36,7 +37,7 @@
 					<p class="label-wrap fl">
 					<label>性别</label>
 					</p>
-					<p class="input-wrap fr">
+					<p class="input-wrap fr" id="sex">
 						<span class="active" id="man">男</span>
 						<span id="woman">女</span>
 					</p>
@@ -74,35 +75,35 @@
 		</header>
 		<section>
 			<form id="question-form">
-			<div class="checkboxs">
+				<!-- <div class="checkboxs">
 					<h3 class="checkbox-title"><label>你会使用的英雄是?（多选）</label></h3>
 					<div class="checkbox-wrap clear">
-						<p class="fl">
+						<p class="fl cp" data=true>
 							<span class="not-check">
 								<i class="check">√</i>
 							</span>
 							<label>盲僧</label>
 						</p>
-						<p class="fl">
+						<p class="fl cp" data=true>
 							<span class="not-check">
-								
+								<i class="check">√</i>
 							</span>
 							<label>盲僧</label>
 						</p>
-						<p class="fl">
+						<p class="fl cp">
 							<span class="not-check">
 								
 							</span>
 							<label>盲僧</label>
 						</p>
 					</div>
-				</div>
-				<div class="fill-unit">
+				</div> -->
+				<!-- <div class="fill-unit">
 					<h3 class="fill-title"><label>你的LOL段位是什么?</label></h3>
 					<p><input type="text" class="fill-input" placeholder="答:" /></p>
-				</div>
-				<div class="select">
-					<h3 class="select-title"><label>你最熟练的英雄是?</label>
+				</div> -->
+				<!-- <div class="select">
+					<h3 class="select-title"><label>你最熟练的英雄是?</label><span class="answer"></span>
 					<div class="triangle-right"></div>
 					<div class="triangle-right1"></div></h3>
 					
@@ -110,23 +111,23 @@
 						<option>sf</option>
 						<option>风暴之灵</option>
 					</select>
-				</div>
-				<div class="checkboxs">
+				</div> -->
+				<!-- <div class="checkboxs">
 					<h3 class="checkbox-title"><label>你会使用的英雄是?（多选）</label></h3>
 					<div class="checkbox-wrap clear">
-						<p class="fl">
+						<p class="fl cp" data=true>
 							<span class="not-check">
 								<i class="check">√</i>
 							</span>
 							<label>盲僧</label>
 						</p>
-						<p class="fl">
+						<p class="fl cp" data=true>
 							<span class="not-check">
-								
+								<i class="check">√</i>
 							</span>
 							<label>盲僧</label>
 						</p>
-						<p class="fl">
+						<p class="fl cp">
 							<span class="not-check">
 								
 							</span>
@@ -135,19 +136,19 @@
 					</div>
 				</div>
 				<div class="select">
-					<h3 class="select-title"><label>你最熟练的英雄是?</label>
+					<h3 class="select-title"><label>你最熟练的英雄是?</label><span class="answer"></span>
 					<div class="triangle-right"></div>
 					<div class="triangle-right1"></div></h3>
 					
 					<select class="user-select">
-						<option>sf</option>
+						<option>sf1</option>
 						<option>风暴之灵</option>
 					</select>
 				</div>
 				<div class="fill-unit">
 					<h3 class="fill-title"><label>你的LOL段位是什么?</label></h3>
 					<p><input type="text" class="fill-input" placeholder="答:" /></p>
-				</div>
+				</div> -->
 			</form>
 		</section>
 	</article>

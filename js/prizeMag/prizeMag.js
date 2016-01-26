@@ -333,16 +333,16 @@ plan.update = function(rid){//row id
 ////////////删除数据
 plan.delete = function(rid,This){//row id
 	var str = public.data.Head[public.data.Head.length-1-This.parents('tr').index()].winners;
-	if(str!='')
+	console.log(str);
+	if(str!=''&&str!=undefined)
 	{
-		if(confirm('有人你删除不？')){
-			alert('有种')
-			//This.parents('tr').remove();
+		if(confirm('中奖名单已有人！确定删除？')){
+
 		}else{
 			return false;
 		}
 	}
-	//console.log(1)
+
 	$.ajax({//先查看抽奖名单有人没人
 		url:basic.topAddress+basic.subAddress+'circle_activity_prizeWs.asmx/Delete?jsoncallback=?',
 		type: 'GET',
@@ -363,7 +363,7 @@ plan.delete = function(rid,This){//row id
 			}
 			
 		}
-
+		alert('删除成功')
 	})
 	.fail(function() {
 

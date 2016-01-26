@@ -18,11 +18,11 @@
 	<![endif]--> 
 	<script type="text/javascript" src="js/base64code.js"></script>
 	<script type="text/javascript" src="framework/angular/angular-1.4.6.js"></script>
-	<script type="text/javascript" src="js/participater/tm.pagination.js"></script>
 	<script type="text/javascript" src="js/global.js"></script>
-	<script type="text/javascript" src="js/participater/factory.js"></script>
+	<!-- <script type="text/javascript" src="js/participater/factory.js"></script>
 	<script type="text/javascript" src="js/participater/directive.js"></script>
-	<script type="text/javascript" src='js/participater/participater.js'></script>
+	<script type="text/javascript" src='js/participater/participater.js'></script> -->
+	<script type="text/javascript" src="js/participater/main.js"></script>
 </head>
 <body>
 	<header>
@@ -43,7 +43,7 @@
 						<a href="#">活动参与人员</a>
 					</h2>
 					<div id="output" class="fl">
-						<a id="output-btn" href="javaScript:;" ng-click="download()">导出Excel</a>
+						<!-- <a id="output-btn" href="javaScript:;" ng-click="download()">导出Excel</a> -->
 					</div>
 					<h2 class="fr">
 						<a id="return" href="activeList.html">返回</a>
@@ -51,6 +51,7 @@
 				</section>
 				<section id="table-box">
 					<div id="table-wrap">
+						<h2 class="channel">通过APP报名</h2>
 						<div class="radius">
 							<table id="main-table">
 								<thead>
@@ -68,24 +69,57 @@
 								<tbody>
 									<tr ng-repeat="val in results.Head">
 										<td><p ng-bind="val.join_nickname|base"></p></td>
-										<td ng-bind="val.join_name|base"></td>
+										<td ><p ng-bind="val.join_name|base"></p></td>
 										<!-- <td ng-bind="val.join_name"></td> -->
-										<td ng-bind="val.join_sex|base"></td>
-										<td ng-bind="val.join_time|base"></td>
-										<td></td>
-										<td ng-bind="val.university_simple_name|base"></td>
-										<td ng-bind="val.join_mobile|base"></td>
+										<td><p ng-bind="val.join_sex|base"></p></td>
+										<td><p ng-bind="val.join_time|base"></p></td>
+										<td><p></p></td>
+										<td><p ng-bind="val.university_simple_name|base"></p></td>
+										<td><p ng-bind="val.join_mobile|base"></p></td>
 										<!-- <td ng-bind="val.answer|base">报名详情</td> -->
-										<td><a ng-href="signDetails.html?uid={{val.user_id}}&aid={{val.activity_id}}">报名详情</a></td>
+										<td><a ng-href="signDetails.html?uid={{val.user_id}}&aid={{val.activity_id}}&path=app">报名详情</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div id="table2-wrap">
+						<h2 class="channel">通过微信报名</h2>
+						<div class="radius">
+							<table id="main-table2">
+								<thead>
+									<tr>
+										<td>昵称</td>
+										<td>姓名</td>
+										<td>性别</td>
+										<td>报名时间</td>
+										<td>账号情况</td>
+										<td>学校</td>
+										<td>手机号</td>
+										<td>操作</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="value in weChatJoiner.Head">
+										<td><p ng-bind="value.join_nickname|base"></p></td>
+										<td ng-bind="value.name|base"></td>
+										<!-- <td ng-bind="value.join_name"></td> -->
+										<td ng-bind="value.sex|base"></td>
+										<td ng-bind="value.create_time|base"></td>
+										<td></td>
+										<td ng-bind="value.university|base"></td>
+										<td ng-bind="value.mobile|base"></td>
+										<!-- <td ng-bind="value.answer|base">报名详情</td> -->
+										<td><a ng-href="signDetails.html?uid={{value.id}}&aid={{value.activity_id}}&path=wechat">报名详情</a></td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</section>
-				<section id="paging-box" class="pagination clear" onselectstart="return false">
+				<!-- <section id="paging-box" class="pagination clear" onselectstart="return false">
 					<tm-pagination conf="paginationConf"></tm-pagination>
-				</section>
+				</section> -->
 		</div>
 	</article>
 </body>

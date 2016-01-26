@@ -11,7 +11,7 @@ common.reg = {};
 $(function(){
 	if(strdecode(getCookie('token'))==''||strdecode(getCookie('token'))==undefined||strdecode(getCookie('token'))==-1)
 	{
-		//window.location.href = 'index.html'
+		window.location.href = 'index.html'
 	}
 	
 	//top可复用
@@ -338,7 +338,7 @@ plan.init = function(){
 }
 
 plan.insert = function(obj){//插入操作
-	$.ajax({//获得活动的主要信息
+	$.ajax({
 		url:basic.topAddress+basic.subAddress+'circle_activity_questionWs.asmx/Insert?jsoncallback=?',
 		type: 'GET',
 		dataType: 'jsonp',
@@ -502,7 +502,7 @@ plan.delete = function(id,obj){
 	})
 }
 plan.update = function(obj,This){
-	$.ajax({//获得活动的主要信息
+	$.ajax({
 
 		url:basic.topAddress+basic.subAddress+'circle_activity_questionWs.asmx/Update?jsoncallback=?',
 		type: 'GET',

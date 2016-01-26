@@ -1,0 +1,136 @@
+var Main = React.createClass({
+	mixins: [React.addons.LinkedStateMixin],
+	getInitialState:function(){
+		return {'name':'','sex':'','email':'','school':'','contact':''}
+	},
+	componentDidMount:function(){
+		var This = this;
+			$.ajax({
+			url:basic.topAddress+basic.subAddress+'sys_user_adminWs.asmx/GetOne?jsoncallback=?',
+			type:'GET',
+			dataType: 'jsonp',
+			//data:{'id':strdecode(getCookie('id')),'login_name':'','USER':'','TOKEN':strdecode(getCookie('TOKEN'))},
+			data:{'id':'','login_name':'','USER':'','TOKEN':''},
+		})
+		.done(function(data) {
+			if(data.error)
+			{
+				window.location.href = 'index.html'
+			}
+			This.setState({
+				'name':strdecode(data.Head[0].name),
+				'sex':strdecode(data.Head[0].sex),
+				'email':strdecode(data.Head[0].email),
+				'school':strdecode(data.Head[0].university_name),
+				'contact':strdecode(data.Head[0].mobile)
+			})
+		})
+		.fail(function() {
+			console.log("error");
+		})
+	},
+	save:function(){
+		console.log(this.state.contact);
+	},
+	render:function(){
+		return (
+			<div id='container'>
+				<M1 name = {this.state.name}/>
+				<M2 sex = {this.state.sex}/>
+				<M3 email = {this.state.email}/>
+				<M4 school = {this.state.school}/>
+				<M5 valueLink={this.linkState('contact')} save={this.save}/>
+				<M6 save={this.save} userData={this.state}/>
+			</div>
+			
+		)
+	}
+})
+//
+var M1 = React.createClass({
+	render:function(){
+		return (
+			<div className="m1">
+					<span>姓名</span>
+					<span id="name">{this.props.name}</span>
+			</div>
+		)
+	}
+})
+//
+var M2 = React.createClass({
+	render:function(){
+		return (
+			<div className="m1">
+					<span>性别</span>
+					<span id="sex">{this.props.sex}</span>
+			</div>
+		)
+	}
+})
+//
+var M3 = React.createClass({
+	render:function(){
+		return (
+			<div className="m1">
+					<span>邮箱</span>
+					<span id="email">{this.props.email}</span>
+			</div>
+		)
+	}
+})
+
+var M4 = React.createClass({
+	render:function(){
+		return (
+			<div className="m1">
+					<span>学校</span>
+					<span id="school">{this.props.school}</span>
+			</div>
+		)
+	}
+})
+
+var M5 = React.createClass({
+	render:function(){
+		return (
+			<div className="m2">
+					<span>联系方式</span>
+					<input type="text" valueLink={this.props.valueLink} id="contact"/>
+			</div>
+		)
+	}
+})
+//
+var M6 = React.createClass({
+	getInitialState:function(){
+		return {'onoff':false}
+	},
+	handleClick:function(){
+		//alert(1)
+		console.log(this.props.userData);
+		this.setState({
+			'onoff':true
+		})
+		//var This = this;
+		setTimeout(function(){
+			this.setState({
+			'onoff':false
+		}).bind(this)
+
+		}, 3000);
+		//this.props.save();
+	},
+	render:function(){
+		return (
+			<div className="m3">
+					<button id="submit" onClick={this.handleClick} disabled={this.state.onoff}>提交</button>
+			</div>
+		)
+	}
+})
+
+React.render(
+  	<Main />,
+	document.getElementById('main')
+);

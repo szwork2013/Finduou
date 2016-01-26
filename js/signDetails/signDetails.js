@@ -1,11 +1,12 @@
 var plan = {};//挂载对象
 var public = {};//变量挂载
-public.aid = getaId()//挂载活动ID
-public.uid = getuId()
+public.aid = getaId();//挂载活动ID
+public.uid = getuId();
+public.path = getPath();
 $(function(){
 	if(strdecode(getCookie('token'))==''||strdecode(getCookie('token'))==undefined||strdecode(getCookie('token'))==-1)
 	{
-		//window.location.href = 'index.html'
+		window.location.href = 'index.html'
 	}
 	
 	//top可复用
@@ -34,12 +35,17 @@ $(function(){
 
 	$('#return').attr('href','participater.html?aid='+strencode(public.aid))
 	///////initialization
-	plan.init(public.uid,public.aid);
-	plan.info(public.uid,public.aid)
-	//plan.getAll();
+	if(public.path=='app'){
+		plan.init(public.uid,public.aid);
+		plan.info(public.uid,public.aid);
+	}else if(public.path=='wechat'){
+		plan.getWechatInfo(public)
+	}else{
+		window.location.href = 'index.html'
+	}
+	
 })
 plan.init = function(uid,aid){
-
 	$.ajax({
 		url:basic.topAddress+basic.subAddress+'circle_activity_question_answerWs.asmx/GetAll?jsoncallback=?',
 		type: 'GET',
@@ -60,10 +66,9 @@ plan.info = function(uid,aid){
 		url:basic.topAddress+basic.subAddress+'circle_activity_joinsWs.asmx/GetAll?jsoncallback=?',
 		type: 'GET',
 		dataType: 'jsonp',
-		data: {'activity_id':aid,'user_id':uid,'pageSize':'20','pageIndex':'1'},
+		data: {'activity_id':aid,'user_id':uid,'pageSize':'','pageIndex':'1'},
 		})
 		.done(function(data){
-			//console.log(data);
 			$('#info-table').find('td').eq(0).html('姓名：'+strdecode(data.Head[0].join_nickname))
 			$('#info-table').find('td').eq(1).html('性别：'+strdecode(data.Head[0].join_sex))
 			$('#info-table').find('td').eq(2).html('学校：'+strdecode(data.Head[0].university_name))
@@ -76,8 +81,7 @@ plan.info = function(uid,aid){
 plan.fill = function(data){
 
 	for(var i=0;i<data.Head.length;++i){
-		//var arr = strdecode(data.Head[i].answer);
-		//console.log(strdecode(data.Head[i].creater));
+
 		if(strdecode(data.Head[i].type)!='多选'){
 			var type = strdecode(data.Head[i].type)=='填空'?'completed':'radio'
 			var oTr = $('<tr>').addClass(type);
@@ -101,3 +105,25 @@ plan.fill = function(data){
 		}
 	}
 }
+plan.getWechatInfo = function(public){
+	$.ajax({
+		url:basic.topAddress+basic.subAddress+'circle_activity_joins_withoutappWs.asmx/GetOne?jsoncallback=?',
+		type: 'GET',
+		dataType: 'jsonp',
+		data: {'activity_id':public.aid,'creater':public.uid},
+		})
+		.done(function(data){
+			console.log(data);
+			$('#info-table').find('td').eq(0).html('姓名：'+strdecode(data.Head[0].name));
+			$('#info-table').find('td').eq(1).html('性别：'+strdecode(data.Head[0].sex));
+			$('#info-table').find('td').eq(2).html('学校：'+strdecode(data.Head[0].university));
+			$('#info-table').find('td').eq(3).html('手机号：'+strdecode(data.Head[0].mobile));
+
+			plan.fill(data)
+
+		})
+		.fail(function(data){
+
+		})
+}
+

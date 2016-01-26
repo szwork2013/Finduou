@@ -52,9 +52,10 @@ header{ background: #fffffb; margin-bottom: 10px; }
 #output{ margin-left: 35px; }
 
 /*table*/
-#table-box{ padding-top: 26px;}
+#table-box{ padding-bottom: 30px;}
+.channel{ font-size: 18px; color: #333333; font-family:"微软雅黑",sans-serif; font-weight: normal; text-indent: 30px; margin: 6px 0;  }
 .radius{width: 1160px; max-height: 610px; margin: 0 auto;border-radius: 5px; border: 1px solid #d7d7d7; }
-#main-table{width: 1160px; max-height: 610px; margin: 0 auto; }
+#main-table,#main-table2{width: 1160px; max-height: 610px; margin: 0 auto; }
 thead{ height: 28px; }
 thead td{ background: #e6eeff; }
 thead td:nth-of-type(1){ width: 134px; }
@@ -67,9 +68,16 @@ thead td:nth-of-type(7){ width: 120px; }
 thead td:nth-of-type(8){ width: 266px; }
 tbody tr:last-of-type td{border-bottom:none;}
 tr td:last-of-type{ border-right: none; }
-td{height: 28px; text-align: center; border-right: 1px solid #d7d7d7;  border-bottom: 1px solid #d7d7d7;font-size: 14px; color: #333333; font-family:"微软雅黑",sans-serif; font-weight: normal;  }
-td p{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-
+td{height: 28px; text-align: center; border-right: 1px solid #d7d7d7;  border-bottom: 1px solid #d7d7d7;font-size: 14px; color: #333333; font-family:"微软雅黑",sans-serif; font-weight: normal;}
+td p{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+tr td:nth-of-type(1) p{ width: 134px; }
+tr td:nth-of-type(2) p{ width: 134px; }
+tr td:nth-of-type(3) p{ width: 60px; }
+tr td:nth-of-type(4) p{ width: 150px; }
+tr td:nth-of-type(5) p{ width: 134px; }
+tr td:nth-of-type(6) p{ width: 134px; }
+tr td:nth-of-type(7) p{ width: 120px; }
+tr td:nth-of-type(8) p{ width: 266px; }
 
 /*pagination*/
 .pagination{ padding: 30px 0; text-align: center;}

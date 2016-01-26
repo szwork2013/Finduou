@@ -22,7 +22,6 @@ $(function(){
 
 	//////单选
 	$('#question-form').delegate('.select', 'touchstart', function(event) {
-		//$(this).find('.select-title').css('visibility','hidden');
 		$(this).find('.user-select').show().click();	
 		event.stopPropagation()
 	});
@@ -57,13 +56,12 @@ plan.init = function(){
 		data: {'activity_id':plan.aid},
 	})
 	.done(function(data) {
-		//console.log(data);
 		if(data.error)
 		{	
 			alert(data.error)
 			window.location.href = 'index.html'
 		}else{	
-			console.log(data);
+
 			for(var i=0;i<data.Head.length;++i){
 				plan.fill(data.Head[i])
 			}
@@ -210,7 +208,6 @@ plan.test = function(){
 		return false;
 	}
 	
-	console.log(answer);
 	basic.name = $('#user-name').val();
 	basic.sex = $('.active').html();
 	basic.mobile = $('#phone').val();
@@ -222,9 +219,8 @@ plan.test = function(){
 }
 plan.submit = function(basic){
 
-	console.log(basic);
 	var obj = {'activity_id':plan.aid,'answer':basic.answer,'prize_id':'','name':basic.name,'university':basic.university,'email':basic.email,'sex':basic.sex,'mobile':basic.mobile};
-	console.log(obj);
+
 	$.ajax({
 		url:basic.topAddress+basic.subAddress+'circle_activity_joins_withoutappWs.asmx/Insert?jsoncallback=?',
 		type: 'GET',
@@ -232,8 +228,7 @@ plan.submit = function(basic){
 		data:{'activity_id':plan.aid,'answer':basic.answer,'prize_id':'','name':basic.name,'university':basic.university,'email':basic.email,'sex':basic.sex,'mobile':basic.mobile},
 		})
 		.done(function(data){
-			console.log(data);
-			alert(1)
+			
 			window.location.href = 'https://appsto.re/cn/TntY_.i';
 			
 		})

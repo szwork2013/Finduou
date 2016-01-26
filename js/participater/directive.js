@@ -20,9 +20,5 @@ nav.directive('topNav',function(){
 				window.location.href = 'index.html'
 			}
 		},
-		link:function(scope,ele,attr){		
-			//alert(scope.onoff)
-
-		}
 	}
 })

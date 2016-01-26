@@ -27,7 +27,7 @@ html,body{ height: 100%; }
 #main{background: rgba(0,0,0,0.5); margin-top: 112px; padding-top: 70px; padding-bottom: 78px;}
 #main-center{ width: 1232px; margin: 0 auto; }
 #page-left{ text-align: center; }
-#page-left img{ margin-top: 67px; }
+#page-left img{ margin-top: 67px; width: 201px; height: 201px; }
 #page-left p{ font-size: 18px; color: #e6e6e6; font-family:"微软雅黑",sans-serif;}
 
 #page-right{ margin-left: 150px; }

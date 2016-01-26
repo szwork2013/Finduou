@@ -62,15 +62,12 @@ plan.start = function(){
 	},30)
 }
 plan.stop = function(){
-
 	clearInterval(public.timer);
 	$('#operate-btn').html('抽奖');
 	//$(this).html('抽奖');
 	$('#save').removeAttr('disabled')
 }
 plan.insert = function(){
-	
-	
 	$.ajax({
 		url:basic.topAddress+basic.subAddress+'circle_activity_prize_winnerWs.asmx/Insert?jsoncallback=?',
 		type: 'GET',
@@ -122,8 +119,6 @@ plan.info = function(public){//奖项信息
 			alert(data.error)
 			window.location.href = 'index.html'
 		}else{	
-
-			//console.log(data);
 			if(data.Head.length==0){ return false;}//当无内容的时候，不做初始化
 			$('#prize').html(strdecode(data.Head[0].prize))
 			$('#prize-name').html(strdecode(data.Head[0].name)+'（'+strdecode(data.Head[0].number)+'个）')

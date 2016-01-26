@@ -82,7 +82,13 @@ function getuId(){
     str = str.substring(4)
     return  strdecode(str)
 }
-
+//get path
+function getPath(){
+    var re = /path=[\w][^\&]+/g;
+    var str = window.location.search.match(re)[0];
+    str = str.substring(5)
+    return  str
+}
 //
 function getwId(){//得到奖项的id
 	var re = /wid=[\w][^\&]+/g;

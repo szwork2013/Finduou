@@ -50,7 +50,7 @@ $(function(){
 	})
 
 	//var telReg = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/; 
-	var telReg = /\d+/
+	var telReg = /^\d{10-20}$/
 	//submit
 	$('#submit').click(function(event) {
 		if(telReg.test($('#contact').val())&&$('#contact').val().length<=20)

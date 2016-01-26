@@ -29,9 +29,6 @@ var Main = React.createClass({
 			console.log("error");
 		})
 	},
-	save:function(){
-		console.log(this.state.contact);
-	},
 	render:function(){
 		return (
 			<div id='container'>
@@ -39,7 +36,7 @@ var Main = React.createClass({
 				<M2 sex = {this.state.sex}/>
 				<M3 email = {this.state.email}/>
 				<M4 school = {this.state.school}/>
-				<M5 valueLink={this.linkState('contact')} save={this.save}/>
+				<M5 valueLink={this.linkState('contact')}/>
 				<M6 save={this.save} userData={this.state}/>
 			</div>
 			
@@ -107,19 +104,42 @@ var M6 = React.createClass({
 		return {'onoff':false}
 	},
 	handleClick:function(){
-		//alert(1)
+		var telReg = /^\d{10,20}$/;
 		console.log(this.props.userData);
 		this.setState({
 			'onoff':true
-		})
-		//var This = this;
-		setTimeout(function(){
+		});
+		var obj = this.props.userData;
+		if(telReg.test(this.props.userData.contact))
+		{
+			$.ajax({
+			url:basic.topAddress+basic.subAddress+'sys_user_adminWs.asmx/Update?jsoncallback=?',
+			type:'GET',
+			dataType: 'jsonp',
+			//data:{'id':strdecode(getCookie('id')),'org_name':'','login_name':'','email':'','name':'','sex':'','university_id':'','mobile':'','USER':'','TOKEN':strdecode(getCookie('TOKEN'))},
+			data:{'id':'','org_name':'','login_name':'','email':'','name':'','sex':'','university_id':'','mobile':obj.contact,'USER':'','TOKEN':''},
+			})
+			.done(function(data) {
+				if(data.error){
+					alert(data.error)
+				}else{
+					alert('修改成功!')
+					window.location.href = 'activeList.html'
+				}
+				
+			})
+			.fail(function() {
+				console.log("error");
+			})
+		}
+		else
+		{
+			alert('请输入正确的手机号码!');
 			this.setState({
 			'onoff':false
-		}).bind(this)
+			});
+		}
 
-		}, 3000);
-		//this.props.save();
 	},
 	render:function(){
 		return (

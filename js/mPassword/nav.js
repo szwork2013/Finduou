@@ -1,3 +1,7 @@
+if(strdecode(getCookie('token'))==''||strdecode(getCookie('token'))==undefined||strdecode(getCookie('token'))==-1)
+{
+	window.location.href = 'index.html'
+}
 var Top = React.createClass({
 	render:function(){
 		return(

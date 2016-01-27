@@ -9,8 +9,8 @@ var Main = React.createClass({
 			url:basic.topAddress+basic.subAddress+'sys_user_adminWs.asmx/GetOne?jsoncallback=?',
 			type:'GET',
 			dataType: 'jsonp',
-			//data:{'id':strdecode(getCookie('id')),'login_name':'','USER':'','TOKEN':strdecode(getCookie('TOKEN'))},
-			data:{'id':'','login_name':'','USER':'','TOKEN':''},
+			data:{'id':strdecode(getCookie('id')),'login_name':'','USER':'','TOKEN':strdecode(getCookie('TOKEN'))},
+			//data:{'id':'','login_name':'','USER':'','TOKEN':''},
 		})
 		.done(function(data) {
 			if(data.error)
@@ -37,7 +37,7 @@ var Main = React.createClass({
 				<M3 email = {this.state.email}/>
 				<M4 school = {this.state.school}/>
 				<M5 valueLink={this.linkState('contact')}/>
-				<M6 save={this.save} userData={this.state}/>
+				<M6 userData={this.state}/>
 			</div>
 			
 		)
@@ -116,8 +116,9 @@ var M6 = React.createClass({
 			url:basic.topAddress+basic.subAddress+'sys_user_adminWs.asmx/Update?jsoncallback=?',
 			type:'GET',
 			dataType: 'jsonp',
-			//data:{'id':strdecode(getCookie('id')),'org_name':'','login_name':'','email':'','name':'','sex':'','university_id':'','mobile':'','USER':'','TOKEN':strdecode(getCookie('TOKEN'))},
-			data:{'id':'','org_name':'','login_name':'','email':'','name':'','sex':'','university_id':'','mobile':obj.contact,'USER':'','TOKEN':''},
+			data:{'id':strdecode(getCookie('id')),'org_name':'','login_name':'','email':obj.email,'name':obj.name,'sex':obj.sex,'university_id':'','mobile':obj.contact,'USER':'','TOKEN':strdecode(getCookie('TOKEN'))},
+			//data:{'id':strdecode(getCookie('id')),'org_name':'','login_name':'','email':'admin@finduou.com','name':'黄贤闯','sex':'男','university_id':'1','mobile':obj.contact,'USER':'','TOKEN':strdecode(getCookie('TOKEN'))},
+
 			})
 			.done(function(data) {
 				if(data.error){

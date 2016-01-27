@@ -10,7 +10,7 @@ public.ifConfig = false;
 $(function(){
 	if(strdecode(getCookie('token'))==''||strdecode(getCookie('token'))==undefined||strdecode(getCookie('token'))==-1)
 	{
-		//window.location.href = 'index.html'
+		window.location.href = 'index.html'
 	}
 	
 	//top可复用
@@ -71,8 +71,7 @@ $(function(){
 			$('#sign-btn').attr('href','#').hide();
 		}
 	});
-	//var objImg = '';
-	//var test = ''
+
 	var data = new FormData();
 
 	$('.main-control').delegate('#upload', 'change', function(e) {

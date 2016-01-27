@@ -1,8 +1,7 @@
 $(function(){
-	if(getCookie('token')==''||getCookie('token')==undefined)
+	if(strdecode(getCookie('token'))==''||strdecode(getCookie('token'))==undefined||strdecode(getCookie('token'))==-1)
 	{
-		//alert(strdecode(getCookie('email')))
-		//window.location.href = 'index.html'
+		window.location.href = 'index.html'
 	}
 	
 	//top可复用
@@ -24,7 +23,6 @@ $(function(){
 		removeCookie('id')
 		removeCookie('pwd')
 		removeCookie('uid')
-		// removeCookie('USER')
 		removeCookie('token')
 		window.location.href = 'index.html'
 	});
@@ -115,14 +113,20 @@ $(function(){
 				url:basic.topAddress+basic.subAddress+'circle_activity_wallapplyWs.asmx/Insert?jsoncallback=?',
 				type: 'GET',
 				dataType: 'jsonp',
-				data: {'activity_id':aid,'preside_name':$('#name-input').val(),'mobile':$('#connect-input').val(),'reason':$('#reason-input').val(),'requires':$('#require-input').val(),'creater':uid,'bgimage':'','USER':'','TOKEN':token},
+				data: {'activity_id':aid,'preside_name':$('#name-input').val(),'mobile':$('#connect-input').val(),'reason':$('#reason-input').val(),'requires':$('#require-input').val(),'creater':uid,'bgimage':'','USER':'','TOKEN':strdecode(getCookie('token'))},
 			})
-			.done(function(){
-				alert('提交成功，当前申请状态为：未处理，请耐心等待工作人员处理')
-				$('#submit-btn').html('提交成功').css('background','#5890ff').attr('disabled',true);
-				setTimeout(function(){//5s后跳转
-					window.location.href = 'activeList.html'
-				}, 5000);
+			.done(function(data){
+				if(data.error){
+					alert(data.error);
+					window.location.href = 'index.html'
+				}else{
+					alert('提交成功，当前申请状态为：未处理，请耐心等待工作人员处理')
+					$('#submit-btn').html('提交成功').css('background','#5890ff').attr('disabled',true);
+					setTimeout(function(){//5s后跳转
+						window.location.href = 'activeList.html'
+					}, 5000);
+				}
+				
 			})
 			.fail(function(data){
 				alert(data)

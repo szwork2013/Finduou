@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh" ng-app='Finduou'>
 <head>
 	<meta charset="UTF-8">
 	<title>Finduou</title>
@@ -11,25 +11,27 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta content=“telephone=no” name=“format-detection” />
 	<link rel="stylesheet" type="text/css" href="css/comment.css">
-	<script type="text/javascript" src="js/global.js"></script>
+	<!-- <script type="text/javascript" src="js/global.js"></script> -->
 	<script type="text/javascript" src="js/base64code.js"></script>
-	<script type="text/javascript" src="framework/jQuery/jquery-2.1.4.min.js"></script>
-	<script type="text/javascript" src="js/comment/jqPaginator.js"></script>
+	<script type="text/javascript" src="framework/angular/angular-1.4.6.js"></script>
+	<script type="text/javascript" src="js/comment/directive.js"></script>
+	<script type="text/javascript" src="js/comment/service.js"></script>
+	<script type="text/javascript" src="js/comment/tm.pagination.js"></script>
 	<script type="text/javascript" src="js/comment/comment.js"></script>
    	<!--[if lt IE 9]>
-    	<script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	<script src=" http://html5shiv.googlecode.com/svn/trunk/html5.js "></script >
 	<script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]--> 
 </head>
-<body>
+<body ng-controller='main'>
 	<header>
 		<div id="header-box" class="clear">
 			<div id="header-left" class="fl">
 				<img src="img/comment/logo.png">
 				<strong>活动管理</strong>
 			</div>
-			<nav id="header-right" class="fr">
+			<!-- <nav id="header-right" class="fr">
 				<a href="activeList.html"><span></span></a>
 				<a href="#"><span></span></a>
 				<a href="#"><span></span></a>
@@ -37,7 +39,8 @@
 					<a href="mPassword.html" class="not-float"><li>修改密码</li></a>
 					<a href="#" class="not-float"><li>登出</li></a>
 				</ul>
-			</nav>
+			</nav> -->
+			<top-nav i-cookie='removeCookie(param)'></top-nav>
 		</div>
 	</header>
 	<article id="main">
@@ -58,18 +61,18 @@
 						<div class="fl">
 							<figure>
 								<div id="fix">
-									<!-- <img src="img/comment/demo-img.jpg"> -->
+									<img ng-src="{{activeInfo.poster}}">
 								</div>
 							</figure>
 						</div>
 						<div class="activity-details fl">
-							<h3 id="activity-title"></h3>
-							<p id="create-time"><span>创建时间：</span><span></span><span></span></p>
-							<p id="address"><span>活动地点：</span><span></span></p>
-							<p id="actor-number"><span>报名人数：</span><span></span></p>
-							<p id="activity-time"><span>活动时间：</span><span></span> <span></span></p>
-							<p id="activity-type"><span>活动类型：</span><span></span></p>
-							<p id="founder"><span>创建者：</span><span></span></p>
+							<h3 id="activity-title" ng-bind='activeInfo.title|base64'></h3>
+							<p id="create-time"><span>创建时间：</span><span ng-bind='activeInfo.create_time|base64'></span></p>
+							<p id="address"><span>活动地点：</span><span ng-bind='activeInfo.place|base64'></span></p>
+							<p id="actor-number"><span>报名人数：</span><span ng-bind='activeInfo.join_number|base64'></span></p>
+							<p id="activity-time"><span>活动时间：</span><span ng-bind="activeInfo.set_date|split:'0'"></span>&nbsp<span ng-bind='activeInfo.set_time_s|base64'></span>-<span ng-bind='activeInfo.set_time_e|base64'></span></p>
+							<p id="activity-type"><span>活动类型：</span><span ng-bind='activeInfo.type|base64'></span></p>
+							<p id="founder"><span>创建者：</span><span ng-bind='activeInfo.creater_name|base64'></span></p>
 						</div>
 					</div>
 				</div>
@@ -77,11 +80,11 @@
 			<section id="main">
 				<div class="main-top">
 					<ul id="status-list">
-						<a href="javaScript:;" class="active"><li>全部</li></a>
-						<a href="javaScript:;"><li>已上墙</li></a>
-						<a href="javaScript:;"><li>未上墙</li></a>
+						<a href="javaScript:;" ng-class="{active:a1}" ng-click="tab('a')"><li>全部</li></a>
+						<a href="javaScript:;" ng-class="{active:a2,active1:a2}" ng-click="tab('b')"><li>已上墙</li></a>
+						<a href="javaScript:;" ng-class="{active:a3,active2:a3}" ng-click="tab('c')"><li>未上墙</li></a>
 					</ul>
-					<button type="button" id="fresh">刷新</button>
+					<button type="button" id="fresh" ng-click='fresh(basic,1)'>刷新</button>
 				</div>
 			<div class="main-body">
 				<table id="main-table">
@@ -95,19 +98,25 @@
 						</tr>
 					</thead>
 					<tbody>
-						<!-- <tr>
-							<td><div class="cell"><img src="img/comment/demo-img.jpg"></div></td>
-							<td><p>15:30</p></td>
-							<td><p>欧阳雨馨</p></td>
-							<td><p class="not">未上墙</p></td>
+						<tr ng-repeat='val in List'>
+							<td>
+								<div class="cell">
+									<img ng-src="{{val.img}}" ng-show="{{val.img==''?false:true}}">
+									<p ng-bind='val.content|base64|noInject' ng-show="{{val.img==''?true:false}}">社团好热闹啊，活跃起来，come on</p>
+								</div>
+							</td>
+							<!-- <td><div class="cell"><p>社团好热闹啊，活跃起来，come on</p></div></td> -->
+							<td><p ng-bind='val.create_time|base64'></p></td>
+							<td><p ng-bind='val.reply_nickname|base64|noInject'></p></td>
+							<td><p ng-class="{{val.on_wall|base64}}==0?'not':'already'" ng-bind="{{val.on_wall|base64}}==0?'未上墙':'已上墙'"></p></td>
 							<td>
 								<div class="btn-wrap">
-									<a class="show-it" href="#">上墙</a><br>
-									<a class="remove-it" href="#">删除</a>
+									<a class="show-it" href="javaScript:;" ng-show="{{val.on_wall|base64}}==0?true:false" ng-click='upWall($index)'>上墙</a><br>
+									<a class="remove-it" href="javaScript:;" ng-click='delete($index)'>删除</a>
 								</div>
 							</td>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<td><div class="cell"><p>社团好热闹啊，活跃起来，come onfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</p></div></td>
 							<td><p>15:30</p></td>
 							<td><p>欧阳雨馨</p></td>
@@ -122,9 +131,9 @@
 					</tbody>
 				</table>
 			</div>
-			<footer id="paging-box">
-				
-			</footer>
+			<section id="paging-box" class="pagination clear" onselectstart="return false">
+					<tm-pagination conf="paginationConf"></tm-pagination>
+			</section>
 			</section>
 		</div>
 	</article>

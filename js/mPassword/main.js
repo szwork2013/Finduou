@@ -59,6 +59,7 @@ var M4 = React.createClass({
 		//console.log(this.props.data)
 		var onoff = true;
 		var obj = this.props.data;
+		var This = this;
 		this.setState({
 			'onoff':true
 		})
@@ -91,8 +92,36 @@ var M4 = React.createClass({
 				$('#resure').next().hide();
 			}
 		}
-		if(onoff){
-			alert('通过')
+		if(onoff){//验证成功
+			$.ajax({
+				url:basic.topAddress+basic.subAddress+'sys_userWs.asmx/UpdatePwd?jsoncallback=?',
+				type: 'GET',
+				dataType: 'jsonp',
+				data: {'id':strdecode(getCookie('uid')),'login_pwdo':obj.old,'login_pwd':obj.newA,'USER':'','TOKEN':strdecode(getCookie('token'))},
+			})
+			.done(function(data) {
+				//console.log(uid);
+				//console.log(token);
+				if(data.error){
+					alert(data.error)
+					if(data.error=='权限不足'){
+						window.location.href = 'index.html';
+						this.setState({
+							'onoff':false
+						})
+					}
+					
+				}else{
+					alert('修改密码成功！')
+					window.location.href = 'activeList.html'
+				}
+			})
+			.fail(function() {
+				this.setState({
+					'onoff':false
+				})
+				return false;
+			})
 		}else{
 			this.setState({
 			'onoff':false

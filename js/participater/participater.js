@@ -1,7 +1,3 @@
-if(strdecode(getCookie('token'))==''||strdecode(getCookie('token'))==undefined||strdecode(getCookie('token'))==-1)
-{
-    window.location.href = 'index.html'
-}
 var main = angular.module('FinduouApp',['req','navBar'])
 
 main.filter('base',function(){
@@ -10,6 +6,10 @@ main.filter('base',function(){
     }
 });
 main.controller('c1',['$scope','$q','$filter','getList',function($scope,$q,$filter,getList){
+            if(strdecode(getCookie('token'))==''||strdecode(getCookie('token'))==undefined||strdecode(getCookie('token'))==-1)
+            {
+                window.location.href = 'index.html'
+            }
            $scope.results;
            var result = getList.init();
            result.then(function(data){
@@ -20,15 +20,4 @@ main.controller('c1',['$scope','$q','$filter','getList',function($scope,$q,$filt
            weChat.then(function(data){
                         $scope.weChatJoiner = data;
                 },function(){});
-
-
-
-
-      /*      //excel
-            $scope.download = function(){
-                var result = outport.getExcel()
-                result.then(function(data){
-                    window.open(data.url)
-                },function(){})
-            }*/
 }])

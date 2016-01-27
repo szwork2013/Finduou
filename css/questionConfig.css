@@ -36,7 +36,7 @@ header{ background: #fffffb; margin-bottom: 10px; }
 #nav-list li:hover{ background: #eee; }
 
 /*container*/
-#container{ width: 1200px; margin: 0 auto; padding-bottom: 110px; background: #fbfbfb; border-radius: 5px; border: 1px solid #d4d4d4; }
+#container{ width: 1200px; margin: 0 auto; padding-bottom: 50px; background: #fbfbfb; border-radius: 5px; border: 1px solid #d4d4d4; }
 /*main*/
 
 .main-title{ height: 49px; border-bottom: 1px solid #d4d4d4; color: #333333;}
@@ -540,3 +540,5 @@ tbody .error{
 	height: 100%;
 	line-height: 24px;
 }
+
+#mobile-link{ margin-top: 40px; text-indent: 40px; color: #f00; font-family:"微软雅黑",sans-serif;font-size: 14px; display: none; }

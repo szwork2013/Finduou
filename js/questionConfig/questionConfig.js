@@ -13,7 +13,8 @@ $(function(){
 	{
 		window.location.href = 'index.html'
 	}
-	
+	$('#mobile-link').html('移动端报名地址:http://www.finduou.com/manage/mobileRegister.html?aid='+common.aid);
+
 	//top可复用
 	$('#header-right').find('span').eq(2).click(function(event) {
 		$('#nav-list').toggle()
@@ -194,8 +195,11 @@ $(function(){
 		event.stopPropagation();
 		var oInp = $(this).parents('.m-layer').find('.question-title');
 		var t1 =$(this).parents('.m-layer').find('.t1') ;//alert(0)
-		var qType = Data.Head[$(this).parents('tr').index()-1].type;
-		var rid = strdecode(Data.Head[$(this).parents('tr').index()-1].id)
+
+		var qType = Data.Head[$(this).parents('tr').index()].type;
+		var rid = Data.Head[$(this).parents('tr').index()].id;	
+		
+		
 		//alert(qType)
 		/////进行问题标题检验
 		if(oInp.val()==''){
@@ -264,6 +268,7 @@ $(function(){
 				alert('选项中不要夹杂空选项')
 				return false;
 			}
+			
 			plan.update(obj,$(this).parents('tr'));
 			//$(this).parents('tr').find('.text').html('aaa')
 			$(this).parents('.m-layer').hide();
@@ -328,7 +333,12 @@ plan.init = function(){
 				data.Head[i].odr = strdecode(data.Head[i].odr);
 				plan.fill(data.Head[i],data.Head[i].id);
 			}
-			Data = data;
+			Data = data;//存储值
+			if($('tbody').find('tr').length>=1){
+				$('#mobile-link').show();
+			}else{
+				$('#mobile-link').hide();
+			}
 		}
 
 	})
@@ -342,7 +352,7 @@ plan.insert = function(obj){//插入操作
 		url:basic.topAddress+basic.subAddress+'circle_activity_questionWs.asmx/Insert?jsoncallback=?',
 		type: 'GET',
 		dataType: 'jsonp',
-		data: {'activity_id':common.aid,'type':obj.type,'question':obj.title,'options':obj.options,'USER':'','TOKEN':''},
+		data: {'activity_id':common.aid,'type':obj.type,'question':obj.title,'options':obj.options,'USER':'','TOKEN':strdecode(getCookie('token'))},
 	})
 	.done(function(data) {
 		if(data.error)
@@ -356,11 +366,18 @@ plan.insert = function(obj){//插入操作
 			Data.Head.push(obj)
 			//console.log(Data);
 			plan.fill(obj,strencode(data.id));
+
+			if($('tbody').find('tr').length>=1){
+				$('#mobile-link').show();
+			}else{
+				$('#mobile-link').hide();
+			}
+
 		}
 
 	})
-	.fail(function() {
-
+	.fail(function(data) {
+		alert(data.data);
 	})
 }
 
@@ -370,7 +387,7 @@ plan.qFormat = function(qType,qOptions){//格式化答案
 		return '';
 	}else{//否则格式化
 		for(var i=0;i<qOptions.length;++i){
-			console.log(qOptions[i]);
+			//console.log(qOptions[i]);
 			if(i==qOptions.length-1){
 				if(qOptions[i]==''){
 					str = str.substring(0,str.length-1)
@@ -393,9 +410,9 @@ plan.qFormat = function(qType,qOptions){//格式化答案
 }
 
 plan.checkLength = function(obj){//检查选项长度；
+	//console.log(obj);
 	for(var i=0;i<obj.length;++i){
 		if(obj[i].length>10){
-
 			return false;
 		}
 	}
@@ -432,7 +449,7 @@ plan.fill = function(obj,id){
 			oP+="<li>"+arr[i].replace(common.reg.lReg,'&lt').replace(common.reg.gReg,'&gt')+"</li>"
 		}
 		n2.html("<div class='cell'><div class='drop'><div class='wrap fill-wrap'>\
-			<span class='select-show' onselectstart='return false'>填空</span><a href='javaScript:;'></a></div>\
+			<span class='select-show' onselectstart='return false'>单选</span><a href='javaScript:;'></a></div>\
 			<ul class='drop-list'>"+oP+"</ul></div></div>");
 
 	}else if(obj.type=='多选'){
@@ -475,7 +492,7 @@ plan.delete = function(id,obj){
 		type: 'GET',
 		dataType: 'jsonp',
 		//common.aid
-		data: {'id':id,'activity_id':common.aid,'USER':'','TOKEN':''},
+		data: {'id':id,'activity_id':common.aid,'USER':'','TOKEN':strdecode(getCookie('token'))},
 	})
 	.done(function(data) {
 		if(data.error)
@@ -483,7 +500,7 @@ plan.delete = function(id,obj){
 			alert(data.error)
 			window.location.href = 'index.html'
 		}else{	
-			console.log(data);
+			//console.log(data);
 			var index = obj.parents('tr').attr('data-odr');
 			Data.Head.splice(index-1,1)
 
@@ -493,12 +510,16 @@ plan.delete = function(id,obj){
 				/*console.log(Data.Head[i].odr);*/
 				Data.Head[i].odr = i+1;
 			}
-
+				if($('tbody').find('tr').length>=1){
+					$('#mobile-link').show();
+				}else{
+					$('#mobile-link').hide();
+				}
 		}
 
 	})
-	.fail(function() {
-
+	.fail(function(data) {
+		alert(data)
 	})
 }
 plan.update = function(obj,This){
@@ -507,7 +528,7 @@ plan.update = function(obj,This){
 		url:basic.topAddress+basic.subAddress+'circle_activity_questionWs.asmx/Update?jsoncallback=?',
 		type: 'GET',
 		dataType: 'jsonp',
-		data: {'id':obj.id,'activity_id':common.aid,'type':obj.type,'question':obj.title,'options':obj.options,'USER':'','TOKEN':''},
+		data: {'id':obj.id,'activity_id':common.aid,'type':obj.type,'question':obj.title,'options':obj.options,'USER':'','TOKEN':strdecode(getCookie('token'))},
 	})
 	.done(function(data) {
 		if(data.error)
@@ -520,12 +541,12 @@ plan.update = function(obj,This){
 		}
 
 	})
-	.fail(function() {
-
+	.fail(function(data) {
+		alert(data)
 	})
 }
 plan.finish = function(obj,type,data){//三个参数分别是父级对象，问题类型，数据
-	console.log(data);
+	//console.log(data);
 	obj.find('.text').html(data.title)
 	var oP = '';
 	if(type=='单选'){
@@ -561,7 +582,7 @@ plan.up = function(odr,obj){//上移
 		type: 'GET',
 		dataType: 'jsonp',
 		//common.aid
-		data: {'action':'up','activity_id':common.aid,'odr':odr,'USER':'','TOKEN':''},
+		data: {'action':'up','activity_id':common.aid,'odr':odr,'USER':'','TOKEN':strdecode(getCookie('token'))},
 	})
 	.done(function(data) {
 		if(data.error)
@@ -582,7 +603,7 @@ plan.up = function(odr,obj){//上移
 			
 
 			//内部的odr也要进行互换
-			console.log(Data);
+			//console.log(Data);
 			Data.Head[odr-1].ord = odr;
 			Data.Head[odr-2].ord = obj.attr('data-odr')
 			//
@@ -593,13 +614,13 @@ plan.up = function(odr,obj){//上移
 			// for (var i = 0; i < Data.Head.length; i++) {
 			// 	console.log(Data.Head[i].odr);
 			// }
-			console.log(Data);
+			//console.log(Data);
 			obj.insertBefore(obj.prev());
 		}
 
 	})
-	.fail(function() {
-
+	.fail(function(data) {
+		alert(data)
 	})
 }
 plan.down = function(odr,obj){//下移
@@ -608,7 +629,7 @@ plan.down = function(odr,obj){//下移
 		url:basic.topAddress+basic.subAddress+'circle_activity_questionWs.asmx/RowMove?jsoncallback=?',
 		type: 'GET',
 		dataType: 'jsonp',
-		data: {'action':'down','activity_id':common.aid,'odr':odr,'USER':'','TOKEN':''},
+		data: {'action':'down','activity_id':common.aid,'odr':odr,'USER':'','TOKEN':strdecode(getCookie('token'))},
 	})
 	.done(function(data) {
 		if(data.error)
@@ -616,7 +637,7 @@ plan.down = function(odr,obj){//下移
 			alert(data.error)
 			window.location.href = 'index.html'
 		}else{	
-			console.log(data);
+			//console.log(data);
 			var odr = obj.attr('data-odr');
 			obj.attr('data-odr',obj.next().attr('data-odr'))
 			obj.next().attr('data-odr',odr)
@@ -632,7 +653,7 @@ plan.down = function(odr,obj){//下移
 		}
 
 	})
-	.fail(function() {
-
+	.fail(function(data) {
+		alert(data)
 	})
 }

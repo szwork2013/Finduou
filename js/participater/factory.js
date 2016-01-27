@@ -30,21 +30,3 @@ getModule.factory('getList', ['$http','$q', function($http,$q){
 	}
 }])
 
-// var excelModule = angular.module('excel',[])
-// excelModule.factory('outport', ['$http','$q', function($http,$q){
-// 	return {
-// 		getExcel:function(a){
-// 			var defer=$q.defer();
-// 		          $http({url:basic.topAddress+basic.subAddress+'circle_activity_joinsWs.asmx/GenerateExcel?jsoncallback=JSON_CALLBACK',
-// 		              method:'JSONP',
-// 		              params: {'activity_id':getaId()}
-// 		              //params: {'activity_id':''}
-// 		          }).success(function(data,header,config,status){
-// 		            defer.resolve(data)
-// 		          }).error(function(data,header,config,status){
-// 		            defer.reject(); 
-// 		          });
-// 		          return defer.promise;
-// 		}
-// 	}
-// }])

@@ -72,7 +72,7 @@ plan.fresh = function(){//更新微信墙墙
 		url:basic.topAddress+basic.subAddress+'circle_activity_replyWs.asmx/GetAll?jsoncallback=?',
 		type: 'GET',
 		dataType: 'jsonp',
-		data: {'activity_id':'','user_id':'','on_wall':'1','type':'互动','pageSize':'','pageIndex':''},
+		data: {'activity_id':public.aid,'user_id':'','on_wall':'1','type':'互动','pageSize':'','pageIndex':''},
 	})
 	.done(function(obj) {
 		//console.log(obj);

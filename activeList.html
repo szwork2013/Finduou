@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh" ng-app='FinduouApp'>
 <head>
 	<meta charset="UTF-8">
 	<title>Finduou</title>
@@ -11,30 +11,29 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta content=“telephone=no” name=“format-detection” />
 	<link rel="stylesheet" type="text/css" href="css/activeList.css">
-	<script type="text/javascript" src="js/global.js"></script>
-	<script type="text/javascript" src="framework/jQuery/jquery-2.1.4.min.js"></script>
+	<!-- <script type="text/javascript" src="js/global.js"></script> -->
+	<script type="text/javascript" src="framework/angular/angular-1.4.6.js"></script>
+	<script src="http://cdn.bootcss.com/angular.js/1.4.6/angular-sanitize.min.js"></script>
 	<script type="text/javascript" src="js/base64code.js"></script>
 	<script type="text/javascript" src="js/list/WdatePicker.js"></script>
-	<script type="text/javascript" src="js/list/jqPaginator.js"></script>
+	<script type="text/javascript" src="js/list/tm.pagination.js"></script>
+	<script type="text/javascript" src="js/list/services.js"></script>
+	<script type="text/javascript" src="js/list/directive.js"></script>
 	<script type="text/javascript" src="js/list/activityList.js"></script>
-	<!-- <script type="text/javascript" src="js/dest/activityList.min.js"></script> -->
    	<!--[if lt IE 9]>
-    	<script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	<script src=" http://html5shiv.googlecode.com/svn/trunk/html5.js "></script >
 	<script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]--> 
-	<style type="text/css">
-
-	</style>
 </head>
-<body>
+<body ng-controller='main' ng-click="disappear()">
 	<header>
 		<div id="header-box" class="clear">
 			<div id="header-left" class="fl">
 				<img src="img/list/logo.png">
 				<strong>活动管理</strong>
 			</div>
-			<nav id="header-right" class="fr">
+			<!-- <nav id="header-right" class="fr">
 				<a href="activeList.html"><span></span></a>
 				<a href="#"><span></span></a>
 				<a href="#"><span></span></a>
@@ -42,7 +41,8 @@
 					<a href="mPassword.html" class="not-float"><li>修改密码</li></a>
 					<a href="#" class="not-float"><li>登出</li></a>
 				</ul>
-			</nav>
+			</nav> -->
+			<top-nav i-cookie='removeCookie(param)'></top-nav>
 		</div>
 	</header>
 	<article id="main">
@@ -61,50 +61,50 @@
 					<div id="search-top" class="clear">
 						<div class="fl">
 							<label>活动标题：</label>
-							<input id="title-input" type="text" />
+							<input id="title-input" type="text" ng-model='term2.title' />
 						</div>
 						<div class="fl">
 							<label class="fl">活动类型：</label>
-							<div class="wrap" id="type-wrap">
-								<span class="select-result s1" onselectstart="return false">全部</span>
+							<div class="wrap" id="type-wrap" ng-click="appear('type',$event)">
+								<span class="select-result s1" onselectstart="return false" ng-bind="type"></span>
 								<a href="javaScript:;"></a>
 							</div>
-							<ul id="active-type" class="drop-list">
-								<li>全部</li>		
-								<li>生活娱乐</li>
-								<li>职业发展</li>
+							<ul id="active-type" class="drop-list" ng-show='menu1Show'>
+								<li ng-click="assignment(true,'')">全部</li>		
+								<li ng-click="assignment(true,'生活娱乐')">生活娱乐</li>
+								<li ng-click="assignment(true,'职业发展')">职业发展</li>
 							</ul>
 						</div>
 						<div class="fl">
 							<label>创建日期：</label>
-							<input id="d4311" class="start Wdate" type="text"  onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')||\'2020-10-01\'}'})" />
+							<input id="d4311" class="start Wdate" type="text"  onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')||\'2020-10-01\'}'})"/>
 							<label>到</label>
-							<input id="d4312" class="to Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}',maxDate:'2020-10-01'})" />
+							<input id="d4312" class="to Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}',maxDate:'2020-10-01'})"/>
 						</div>
 					</div>
 					<div id="search-bottom" class="clear">
 						<div class="fl">
 							<label>活动地点：</label>
-							<input id="address-input" type="text" />
+							<input id="address-input" type="text" ng-model='term2.place'/>
 						</div>
 						<div class="fl">
 							<label class="fl">活动状态：</label>
-							<div class="wrap" id="status-wrap">
-								<span class="select-result" onselectstart="return false">全部</span>
+							<div class="wrap" id="status-wrap" ng-click="appear('state',$event)">
+								<span class="select-result" onselectstart="return false" ng-bind="state"></span>
 								<a href="javaScript:;"></a>
 							</div>
-							<ul id="active-status" class="drop-list">
-								<li>全部</li>
-								<li>已启用</li>
-								<li>未启用</li>
+							<ul id="active-status" class="drop-list" ng-show='menu2Show'>
+								<li ng-click="assignment(false,'')">全部</li>
+								<li ng-click="assignment(false,'已启用')">已启用</li>
+								<li ng-click="assignment(false,'未启用')">未启用</li>
 							</ul>
 						</div>
 						<div class="fl">
 							<label>创建者：</label>
-							<input id="founder"type="text" />
+							<input id="founder"type="text" ng-model='term2.founder' />
 						</div>
 						<div class="fr">
-							<button id="check" type="button">查询</button>
+							<button id="check" type="button" ng-click='inquery()'>查询</button>
 						</div>
 
 					</div>
@@ -113,36 +113,55 @@
 					<div class="result-box">
 						<div class="fill"></div>
 						<div class="unit-wrap">
-							<div class="s-unit clear">
-								
+							<div class="s-unit clear" ng-repeat='val in result.Head'>
+								<div class="fl">
+									<figure>
+										<a href="mActivity.html?aid={{val.id}}"><img ng-src="{{term1.topAddress}}{{term1.webAddress}}{{val.poster|base64}}"></a>
+									</figure>
+								</div>
+								<div class="activity-details fl">
+									<a href="mActivity.html?aid={{val.id}}"><h3 class="activity-title" ng-bind='val.title|base64'></h3></a>
+									<p class="create-time"><span>创建时间：</span><span ng-bind="val.create_time|split:'0'"></span>&nbsp<span ng-bind="val.create_time|split:'1'"></span></p>
+									<p class="address"><span>活动地点：</span><span ng-bind='val.place|base64'></span></p>
+									<p class="actor-number"><span>报名人数：</span><a href="participater.html?aid={{val.id}}"><span ng-bind='val.join_number|base64'></span></a></p>
+									<p class="activity-time"><span>活动时间：</span><span ng-bind="val.set_date|split:'0'"></span>&nbsp<span>{{val.set_time_s|base64}}-{{val.set_time_e|base64}}</span></p>
+									<p class="activity-type"><span>活动类型：</span><span ng-bind='val.type|base64'></span></p>
+									<p class="founder"><span>创建者：</span><span ng-bind='val.creater_name|base64'></span></p>
+								</div>
+								<ul class="activity-operate fr">
+									<li>状态：<span class="{{val.state|class}}" ng-bind='val.state|base64'></span></li>
+									<li class="modify"><a href="mActivity.html?aid={{val.id}}">修改活动</a></li>
+									<li class="member"><a href="participater.html?aid={{val.id}}">查看人员</a></li>
+									<li class="comment"><a href="comment.html?aid={{val.id}}">评论管理</a></li>
+									<li class="bg-wall" style="{{val.aduit_flag|wall:'wall'}}"><a href="wall.html?aid={{val.id}}" target="_blank">背景墙</a></li>
+									<li class="apply" style="{{val.aduit_flag|wall:'apply'}}"><a href="apply.html?aid={{val.id}}">申请背景墙</a></li>
+									<li class="management"><a href="prizeMag.html?aid={{val.id}}">奖品管理</a></li>
+									<li class="preview"><a href="javaScript:;" ng-click="preview($index)">预览</a></li>
+								</ul>
 							</div>
-							<div class="s-unit clear">
-								
-							</div>
-							
 						</div>
 					</div>
 				</section>
-				<section id="paging-box">
-
+				<section id="paging-box" class="pagination clear" onselectstart="return false">
+					<tm-pagination conf="paginationConf"></tm-pagination>
 				</section>
 			</div>
 		</div>
 	</article>
-	<div id="preview-page">
+	<div id="preview-page" ng-show='previewOnoff'>
 		<div class="page-container">
-			<div class="page-wrap">
-				<div id="pre-page">
-					<div id="onoff">X</div>
+			<div class="page-wrap" id="page-wrap">
+				<div id="pre-page" mouse-wheel>
+					<div id="onoff" ng-click="close()">X</div>
 					<div class="f1">
-						<img src="img/list/demo-img.jpg">
+						<img ng-src="{{preObj.prePoster}}">
 					</div>
 					<div class="f2">
 						<div class="f2-sub">
-							<h4 id="pre-title"></h4>
-							<p id="pre-founder">由<a href="javaScript:;"></a></p>
-							<p id="pre-time"><span></span><span></span></p>
-							<p id="pre-address"><a href="javaScript:;"></a></p>
+							<h4 id="pre-title" ></h4>
+							<p id="pre-founder" ng-bind='preObj.creater_org_name|base64'>由<a href="javaScript:;"></a></p>
+							<p id="pre-time"><span ng-bind="preObj.set_date|split:'0'"></span><span ng-bind-template="{{preObj.set_time_s|base64}}-{{preObj.set_time_e|base64}}"></span></p>
+							<p id="pre-address" ng-bind='preObj.place|base64'><a href="javaScript:;"></a></p>
 							<div class="small">
 								<a href="javaScript:;">感兴趣</a>
 								<span>0人感兴趣</span>
@@ -159,7 +178,7 @@
 					</div>
 					<div class="f4">
 						<div class="f4-sub">
-							<p id="text"></p>
+							<p id="text" ng-bind-html="preObj.content|preview"></p>
 						</div>
 					</div>
 				</div>

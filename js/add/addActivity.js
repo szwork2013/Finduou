@@ -2,13 +2,13 @@ var plan = {};//挂载函数
 var public = {};//挂载变量
 public.img ='';//图片
 public.content = '';//简介内容
-public.ifConfig = false;
+public.ifConfig = false;//判断是否配置问题
 var cropper = null;
 $(function(){
 	//http://www.htmleaf.com/jQuery/Image-Effects/201504211716.html
 	if(strdecode(getCookie('token'))==''||strdecode(getCookie('token'))==undefined||strdecode(getCookie('token'))==-1)
 	{
-		//window.location.href = 'index.html'
+		window.location.href = 'index.html'
 	}
 	plan.init();
 	//top可复用

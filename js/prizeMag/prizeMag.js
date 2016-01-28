@@ -268,6 +268,10 @@ plan.getAll = function(){//获得列表信息//获得活动的主要信息
 				public.addD = strdecode(data.Head[i].sponsor);
 				public.addE = strdecode(data.Head[i].winners);
 				plan.addFill(data.Head[i].id);
+				// console.log(data.Head[i].id);
+				// for(var attr in data.Head[i]){
+				// 	console.log(attr+':'+strdecode(data.Head[i][attr]));
+				// }
 			}
 			
 		}
@@ -297,7 +301,6 @@ plan.append = function(){
 			plan.addFill(strencode(data.id));
 			var obj = {'activity_id':public.aid,'id':data.id,'name':public.addA,'prize':public.addB,'number':public.addC,'sponsor':public.addD,'winner':''}
 			public.data.Head.push(obj);
-			//console.log(data)
 		}
 
 	})
@@ -357,13 +360,10 @@ plan.delete = function(rid,This){//row id
 			public.data.Head.splice(public.data.Head.length-1-This.parents('tr').index(),1)
 			This.parents('tr').remove();
 			//console.log('---')
-			for(var i=public.data.Head.length-1;i>=0;--i)
-			{
-				console.log(strdecode(public.data.Head[i].name))
-			}
-			
+
+			alert('删除成功')
 		}
-		alert('删除成功')
+		
 	})
 	.fail(function() {
 
@@ -384,5 +384,5 @@ plan.addFill = function(id){//id是未解码的
 	oTr.appendTo('tbody');
 	$('#addLayer').find('input').val('').end().find('span').hide();
 	$('#addLayer').css('zIndex',-100);
-
+	//console.log(id);
 }

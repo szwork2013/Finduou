@@ -43,7 +43,7 @@ requestModule.factory('getData',['$http','$q',function($http,$q){
 			var defer = $q.defer();
 			$http({url:obj.topAddress+obj.subAddress+'circle_activity_replyWs.asmx/OnWallFlag?jsoncallback=JSON_CALLBACK',
 				method:'JSONP',
-				params: {'id':id,'on_wall':'0','USER':'','TOKEN':''},
+				params: {'id':id,'on_wall':'1','USER':'','TOKEN':''},
 			}).success(function(data,header,config,status){
 		            defer.resolve(data)
 		        }).error(function(data,header,config,status){

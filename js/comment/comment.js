@@ -162,7 +162,7 @@ m1.controller('main',['$scope','$filter','$q','getData',function($scope,$filter,
 	$scope.upWall = function(index){
 		//console.log($scope.List[index].id)
 		var id = $filter('base64')($scope.List[index].id);
-		console.log(id)
+		
 		var list = getData.upWall($scope.basic,id);
 		list.then(function(data){
 			//$scope.List = data.Head;

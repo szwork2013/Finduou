@@ -29,7 +29,7 @@ section{ width: 1178px; height: 608px; padding: 10px; margin: 0 auto; border: 1p
 /*left-side*/
 #left-side{ width: 75%; height: 606px;border: 1px solid #fff; }
 
-.layer1{ margin-top: 30px; background: url(../img/draw/title_bg.png) no-repeat; background-size: cover; }
+.layer1{ height: 142px; margin-top: 30px; background: url(../img/draw/title_bg.png) no-repeat; background-size: cover; }
 #prize{margin-bottom: 10px; text-align: center; font-size: 45px; font-family:"微软雅黑",sans-serif; color: #fff600; font-weight: normal; }
 #prize-name{ margin-bottom: 14px; }
 #prize-name,#sponsor{line-height: 24px;  text-align: center; font-size: 24px; font-family:"微软雅黑",sans-serif; color: #fff; font-weight: normal; }
@@ -48,4 +48,4 @@ section{ width: 1178px; height: 608px; padding: 10px; margin: 0 auto; border: 1p
 #sub-dl{ width: 100%; height: 500px; overflow: auto; }
 dt{ width: 100%; line-height: 65px; text-align: center; color: #dcdcdc; font-size:24px;  font-family:"微软雅黑",sans-serif; border-bottom: 1px solid rgba(255,255,255,0.26); }
 dd{ height: 56px; }
-dd p{ width: 190px; margin: 0 auto; line-height: 56px; text-align: center; color: #dcdcdc; font-size:24px;  font-family:"微软雅黑",sans-serif;   border-bottom: 1px solid rgba(255,255,255,0.26); }
+dd p{ width: 190px; margin: 0 auto; line-height: 56px; height: 56px; text-align: center; color: #dcdcdc; font-size:24px;  font-family:"微软雅黑",sans-serif;   border-bottom: 1px solid rgba(255,255,255,0.26); }

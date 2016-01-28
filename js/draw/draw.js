@@ -14,7 +14,6 @@ public.all = 0;//记录全部的抽奖机会
 public.chance = 0;//记录余下抽奖机会
 ///http://120.26.212.237/FindUouWs1/circle_activity_prize_winnerWs.asmx
 $(function(){
-
 	////init初始化
 	plan.info(public);//奖项信息
 	plan.init(public);//参与人员
@@ -41,7 +40,7 @@ plan.ready = function(){
 	$('#save').click(function(event) {//保存
 
 		if(public.flag===true&&public.chance>0&&public.open){//双层保险，一层是禁用按钮，一层是判断当前是否在抽奖的状态；
-			plan.insert();
+			plan.insert(num);
 		}
 		
 	});
@@ -77,15 +76,16 @@ plan.start = function(){
 plan.stop = function(){
 	clearInterval(public.timer);
 	$('#operate-btn').html('抽奖');
-	//$(this).html('抽奖');
 	$('#save').removeAttr('disabled')
 }
 plan.insert = function(){
-/*	$.ajax({
+	lucker = copy.splice(num,1)[0];//得到获奖的人员信息；同时把中奖人员从奖池中抽离；
+	result.splice(num,1);
+	$.ajax({
 		url:basic.topAddress+basic.subAddress+'circle_activity_prize_winnerWs.asmx/Insert?jsoncallback=?',
 		type: 'GET',
 		dataType: 'jsonp',
-		data: {'prize_id':public.wid,'user_id':strdecode(lucker.Head.user_id),'USER':'','TOKEN':''},
+		data: {'prize_id':public.wid,'user_id':strdecode(lucker.user_id),'USER':'','TOKEN':''},
 	})
 	.done(function(data) {
 
@@ -94,35 +94,36 @@ plan.insert = function(){
 			alert(data.error)
 			window.location.href = 'index.html'
 		}else{	
-			var oDd = $('<dd></dd>').html('<p>'+result[num]+'</p>')
-			lucker = copy.splice(num,1);//得到获奖的人员信息；同时把中奖人员从奖池中抽离；
-			result.splice(num,1);
+			var oDd = $('<dd></dd>').html('<p>'+strdecode(lucker.signin_nickname)+'</p>')
+
 			oDd.appendTo($('#sub-dl'))
 			num = 0;
-			if(copy.length!=0){
-				$('#name').html(copy[0])
+			if(result.length!=0){
+				$('#name').html(result[0])
 			}else{
 				$('#name').html('')
 			}
 			public.chance--;//抽奖次数减一次
+			alert('保存成功')
 		}
 
 	})
 	.fail(function(data) {
 		alert(data)
 		window.location.href = 'index.html'
-	})*/
-	var oDd = $('<dd></dd>').html('<p>'+result[num]+'</p>')
-	lucker = copy.splice(num,1);//得到获奖的人员信息；同时把中奖人员从奖池中抽离；
-	result.splice(num,1);
-	oDd.appendTo($('#sub-dl'))
-	num = 0;
-	if(copy.length!=0){
-		$('#name').html(copy[0])
-	}else{
-		$('#name').html('')
-	}
-	public.chance--;//抽奖次数减一次
+	})
+	//var oDd = $('<dd></dd>').html('<p>'+result[num]+'</p>')
+	//lucker = copy.splice(num,1)[0];//得到获奖的人员信息；同时把中奖人员从奖池中抽离；
+	//result.splice(num,1);
+	//oDd.appendTo($('#sub-dl'))
+	//num = 0;
+	// console.log(strdecode(lucker.signin_nickname));
+	// if(copy.length!=0){
+	// 	$('#name').html(result[0])
+	// }else{
+	// 	$('#name').html('')
+	// }
+	// public.chance--;//抽奖次数减一次
 }
 
 
@@ -171,15 +172,15 @@ plan.init = function(public){//添加能参与抽奖的人员
 			window.location.href = 'index.html'
 		}else{	
 			//console.log(data);
-			//if(data.Head.length==0){ return false;}此句要保留
-			//$('#name').html(strdecode(data.Head[0].signin_nickname))
-			$('#name').html(0)
-			for(var i=0;i<10;++i){
-				//copy.push(data.Head[i]);
-				var obj = {'name':i,'id':i}
-				copy.push(i);
-				result.push(i);
-				//result.push(strdecode(data.Head[i].signin_nickname));
+			if(data.Head.length==0){ return false;}//此句要保留
+			$('#name').html(strdecode(data.Head[0].signin_nickname))
+
+			for(var i=0;i<data.Head.length;++i){
+				if(data.Head[i].prize_id==''){
+					//console.log(1);
+					copy.push(data.Head[i]);
+					result.push(strdecode(data.Head[i].signin_nickname));
+				}
 			}
 		}
 
@@ -190,26 +191,30 @@ plan.init = function(public){//添加能参与抽奖的人员
 }
 plan.getWinner = function(public){
 	$.ajax({
-		url:basic.topAddress+basic.subAddress+'circle_activity_prize_winnerWs.asmx/GetOne?jsoncallback=?',
+		url:basic.topAddress+basic.subAddress+'circle_activity_prize_winnerWs.asmx/GetAllToJson?jsoncallback=?',
 		type: 'GET',
 		dataType: 'jsonp',
-		data: {'id':public.wid},
+		data: {'activity_id':public.aid},
 	}).done(function(data) {
 		if(data.error)
 		{	
 			alert(data.error)
 			window.location.href = 'index.html'
 		}else{	
-			//if(data.Head.length==0){ return false;}
+			var getWinner = null;
+			for(var n=0;n<data.Head.length;++n){
+				if(public.wid==strdecode(data.Head[n].id)){
+					getWinner = data.Head[n].winners;
+				}
+			}
+			for(var i=0;i<getWinner.length;++i){
 
-			for(var i=0;i<data.length;++i){
-
-				var oDd = $('<dd></dd>').html('<p>'+strdecode(data.Head[i].winner)+'</p>')
+				var oDd = $('<dd></dd>').html('<p>'+strdecode(getWinner[i].winner_name)+'</p>')
 				oDd.appendTo($('#sub-dl'))
 			}
-			//public.chance = public.all - data.length;//计算得出能抽奖的次数；
-			public.chance = public.all - 1;//计算得出能抽奖的次数；
-			console.log(public.chance);
+			public.chance = public.all - getWinner.length;//计算得出能抽奖的次数；
+
+			//console.log('机会'+public.chance);
 			plan.ready();
 		}
 

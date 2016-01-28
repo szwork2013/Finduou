@@ -229,7 +229,7 @@ plan.getCodePic = function(){//获得二维码
 		url:basic.topAddress+basic.subAddress+'QRCodeWs.asmx/SetQRCode?jsoncallback=?',
 			type: 'GET',
 			dataType: 'jsonp',
-			data:{'content':public.aid}
+			data:{'content': 'finduou://finduou.com/activity/id=' + public.aid + '?'}
 	})
 	.done(function(data) {
 		//console.log(data);

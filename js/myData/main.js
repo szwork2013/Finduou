@@ -1,4 +1,4 @@
-var Main = React.createClass({
+var Main = React.createClass({displayName: "Main",
 	mixins: [React.addons.LinkedStateMixin],
 	getInitialState:function(){
 		return {'name':'','sex':'','email':'','school':'','contact':''}
@@ -31,81 +31,80 @@ var Main = React.createClass({
 	},
 	render:function(){
 		return (
-			<div id='container'>
-				<M1 name = {this.state.name}/>
-				<M2 sex = {this.state.sex}/>
-				<M3 email = {this.state.email}/>
-				<M4 school = {this.state.school}/>
-				<M5 valueLink={this.linkState('contact')}/>
-				<M6 userData={this.state}/>
-			</div>
+			React.createElement("div", {id: "container"}, 
+				React.createElement(M1, {name: this.state.name}), 
+				React.createElement(M2, {sex: this.state.sex}), 
+				React.createElement(M3, {email: this.state.email}), 
+				React.createElement(M4, {school: this.state.school}), 
+				React.createElement(M5, {valueLink: this.linkState('contact')}), 
+				React.createElement(M6, {userData: this.state})
+			)
 			
 		)
 	}
 })
 //
-var M1 = React.createClass({
+var M1 = React.createClass({displayName: "M1",
 	render:function(){
 		return (
-			<div className="m1">
-					<span>姓名</span>
-					<span id="name">{this.props.name}</span>
-			</div>
+			React.createElement("div", {className: "m1"}, 
+					React.createElement("span", null, "姓名"), 
+					React.createElement("span", {id: "name"}, this.props.name)
+			)
 		)
 	}
 })
 //
-var M2 = React.createClass({
+var M2 = React.createClass({displayName: "M2",
 	render:function(){
 		return (
-			<div className="m1">
-					<span>性别</span>
-					<span id="sex">{this.props.sex}</span>
-			</div>
+			React.createElement("div", {className: "m1"}, 
+					React.createElement("span", null, "性别"), 
+					React.createElement("span", {id: "sex"}, this.props.sex)
+			)
 		)
 	}
 })
 //
-var M3 = React.createClass({
+var M3 = React.createClass({displayName: "M3",
 	render:function(){
 		return (
-			<div className="m1">
-					<span>邮箱</span>
-					<span id="email">{this.props.email}</span>
-			</div>
+			React.createElement("div", {className: "m1"}, 
+					React.createElement("span", null, "邮箱"), 
+					React.createElement("span", {id: "email"}, this.props.email)
+			)
 		)
 	}
 })
 
-var M4 = React.createClass({
+var M4 = React.createClass({displayName: "M4",
 	render:function(){
 		return (
-			<div className="m1">
-					<span>学校</span>
-					<span id="school">{this.props.school}</span>
-			</div>
+			React.createElement("div", {className: "m1"}, 
+					React.createElement("span", null, "学校"), 
+					React.createElement("span", {id: "school"}, this.props.school)
+			)
 		)
 	}
 })
 
-var M5 = React.createClass({
+var M5 = React.createClass({displayName: "M5",
 	render:function(){
 		return (
-			<div className="m2">
-					<span>联系方式</span>
-					<input type="text" valueLink={this.props.valueLink} id="contact"/>
-			</div>
+			React.createElement("div", {className: "m2"}, 
+					React.createElement("span", null, "联系方式"), 
+					React.createElement("input", {type: "text", valueLink: this.props.valueLink, id: "contact"})
+			)
 		)
 	}
 })
 //
-var M6 = React.createClass({
+var M6 = React.createClass({displayName: "M6",
 	getInitialState:function(){
 		return {'onoff':false}
 	},
 	handleClick:function(){
 		var telReg = /^\d{10,20}$/;
-		console.log(this.props.userData);
 		this.setState({
 			'onoff':true
 		});
@@ -144,14 +143,14 @@ var M6 = React.createClass({
 	},
 	render:function(){
 		return (
-			<div className="m3">
-					<button id="submit" onClick={this.handleClick} disabled={this.state.onoff}>提交</button>
-			</div>
+			React.createElement("div", {className: "m3"}, 
+					React.createElement("button", {id: "submit", onClick: this.handleClick, disabled: this.state.onoff}, "提交")
+			)
 		)
 	}
 })
 
 React.render(
-  	<Main />,
+  	React.createElement(Main, null),
 	document.getElementById('main')
 );

@@ -104,6 +104,7 @@ plan.fill = function(){//填充信息
 		var c2 = $("<div class='content fl'></div>");
 		var triangle = "<span class='triangle'></span>";
 		c2.html(triangle);
+		//console.log(data.Head[public.index]);
 		if(data.Head[public.index].img!=''){
 			var oImg = $('<img>').attr('src',basic.topAddress+basic.webAddress+strdecode(data.Head[public.index].img));
 			oImg.addClass('content-pic');
@@ -138,16 +139,16 @@ plan.append = function(){//不足3个执行插入操作；多于三个执行克�
 		//console.log(strdecode(data.Head[public.index].id));
 		//c1.html("<img src='"+basic.topAddress+basic.webAddress+strdecode(data.Head[public.index].img)+"'>");
 		if(data.Head[public.index].reply_photo==''){
-			//alert(1)
 			c1.html("<img src='img/wall/head_img.jpg'>");
 		}else{
+			//console.log(strdecode(data.Head[public.index].reply_photo));
 			c1.html("<img src='"+basic.topAddress+basic.webAddress+strdecode(data.Head[public.index].reply_photo)+"'>");
 		}
 		var c2 = $("<div class='content fl'></div>");
 		var triangle = "<span class='triangle'></span>";
 		c2.html(triangle);
 		if(data.Head[public.index].content==''){
-			var oImg = $('<img>').attr('src',basic.topAddress+basic.webAddress+strdecode(data.Head[public.index].reply_photo));
+			var oImg = $('<img>').attr('src',basic.topAddress+basic.webAddress+strdecode(data.Head[public.index].img));
 			oImg.addClass('content-pic');
 			oImg.appendTo(c2);
 		}else{

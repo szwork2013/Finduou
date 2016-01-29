@@ -66,7 +66,12 @@ function getPage()
 	
 }
 
-
+function getNotaId(){
+	var re = /aid=[\w][^\&]+/g;
+	var str = window.location.search.match(re)[0];
+	str = str.substring(4)
+	return  str
+}
 //get uid
 function getaId(){
 	var re = /aid=[\w][^\&]+/g;

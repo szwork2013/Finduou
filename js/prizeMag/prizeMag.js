@@ -335,7 +335,8 @@ plan.update = function(rid){//row id
 
 ////////////删除数据
 plan.delete = function(rid,This){//row id
-	var str = public.data.Head[public.data.Head.length-1-This.parents('tr').index()].winners;
+	
+	var str = public.data.Head[This.parents('tr').index()].winners;
 	console.log(str);
 	if(str!=''&&str!=undefined)
 	{

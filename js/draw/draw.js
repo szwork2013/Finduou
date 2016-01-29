@@ -112,18 +112,6 @@ plan.insert = function(){
 		alert(data)
 		window.location.href = 'index.html'
 	})
-	//var oDd = $('<dd></dd>').html('<p>'+result[num]+'</p>')
-	//lucker = copy.splice(num,1)[0];//得到获奖的人员信息；同时把中奖人员从奖池中抽离；
-	//result.splice(num,1);
-	//oDd.appendTo($('#sub-dl'))
-	//num = 0;
-	// console.log(strdecode(lucker.signin_nickname));
-	// if(copy.length!=0){
-	// 	$('#name').html(result[0])
-	// }else{
-	// 	$('#name').html('')
-	// }
-	// public.chance--;//抽奖次数减一次
 }
 
 

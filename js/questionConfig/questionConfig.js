@@ -13,7 +13,7 @@ $(function(){
 	{
 		window.location.href = 'index.html'
 	}
-	$('#mobile-link').html('移动端报名地址:http://www.finduou.com/manage/mobileRegister.html?aid='+common.aid);
+	$('#mobile-link').html('移动端报名地址:http://www.finduou.com/manage/mobileRegister.html?aid='+getNotaId());
 
 	//top可复用
 	$('#header-right').find('span').eq(2).click(function(event) {

@@ -1,57 +1,57 @@
-var Main = React.createClass({
+var Main = React.createClass({displayName: "Main",
 	mixins: [React.addons.LinkedStateMixin],
 	getInitialState:function(){
 		return {'old':'','newA':'','newB':''}
 	},
 	render:function(){
 		return(
-				<div className="operate-box">
-					<M1 valueLink={this.linkState('old')}/>
-					<M2 valueLink={this.linkState('newA')}/>
-					<M3 valueLink={this.linkState('newB')}/>
-					<M4 data={this.state}/>
-				</div>
+				React.createElement("div", {className: "operate-box"}, 
+					React.createElement(M1, {valueLink: this.linkState('old')}), 
+					React.createElement(M2, {valueLink: this.linkState('newA')}), 
+					React.createElement(M3, {valueLink: this.linkState('newB')}), 
+					React.createElement(M4, {data: this.state})
+				)
 			)
 	}
 })
 //
-var M1 = React.createClass({
+var M1 = React.createClass({displayName: "M1",
 	render:function(){
 		return(
-				<div className="fill-wrap">
-					<label>原密码：</label>
-					<input id="ipast" type="password" valueLink={this.props.valueLink} />
-					<span>请输入原密码</span>
-				</div>
+				React.createElement("div", {className: "fill-wrap"}, 
+					React.createElement("label", null, "原密码："), 
+					React.createElement("input", {id: "ipast", type: "password", valueLink: this.props.valueLink}), 
+					React.createElement("span", null, "请输入原密码")
+				)
 			)
 	}
 })
 //
-var M2 = React.createClass({
+var M2 = React.createClass({displayName: "M2",
 	render:function(){
 		return(
-				<div className="fill-wrap">
-					<label>新密码：</label>
-					<input id="inow" type="password" valueLink={this.props.valueLink} />
-					<span>两次密码输入不一致</span>
-				</div>
+				React.createElement("div", {className: "fill-wrap"}, 
+					React.createElement("label", null, "新密码："), 
+					React.createElement("input", {id: "inow", type: "password", valueLink: this.props.valueLink}), 
+					React.createElement("span", null, "两次密码输入不一致")
+				)
 			)
 	}
 })
 //
-var M3 = React.createClass({
+var M3 = React.createClass({displayName: "M3",
 	render:function(){
 		return(
-				<div className="fill-wrap">
-					<label className="not">确认密码：</label>
-					<input id="resure" type="password" valueLink={this.props.valueLink} />
-					<span>两次密码输入不一致</span>
-				</div>
+				React.createElement("div", {className: "fill-wrap"}, 
+					React.createElement("label", {className: "not"}, "确认密码："), 
+					React.createElement("input", {id: "resure", type: "password", valueLink: this.props.valueLink}), 
+					React.createElement("span", null, "两次密码输入不一致")
+				)
 			)
 	}
 })
 //
-var M4 = React.createClass({
+var M4 = React.createClass({displayName: "M4",
 	getInitialState:function(){
 		return {'onoff':false}
 	},
@@ -130,15 +130,15 @@ var M4 = React.createClass({
 	},
 	render:function(){
 		return(
-				<div className="btn-wrap">
-					<button id="submit-btn" onClick={this.handleClick} disabled={this.state.onoff}>重置</button>
-				</div>
+				React.createElement("div", {className: "btn-wrap"}, 
+					React.createElement("button", {id: "submit-btn", onClick: this.handleClick, disabled: this.state.onoff}, "重置")
+				)
 			)
 	}
 })
 //
 
 React.render(
-	<Main/>,
+	React.createElement(Main, null),
 	document.getElementById('operate-group')
 )
